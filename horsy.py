@@ -9,7 +9,8 @@ from uploader import upload
 parser = argparse.ArgumentParser(description='horsy - the best package manager')
 parser.add_argument('option', help='options for horsy (install/i | uninstall/un | source/s | update/u | list/l | '
                                    'upload)',
-                    choices=['install', 'i', 'uninstall', 'un', 'source', 's', 'update', 'u', 'list', 'l', 'upload'],
+                    choices=['install', 'i', 'uninstall', 'un', 'source', 's', 'update', 'u', 'list', 'l', 'upload',
+                             'search'],
                     nargs='?')
 parser.add_argument('app', help='app to install/uninstall/download source', nargs='?')
 parser.add_argument('--vt', help='your virustotal api key (account -> api key in VT)', dest='vt_key')
@@ -24,7 +25,6 @@ if args.vt_key:
         add_to_cfg(args.vt_key)
     else:
         add_to_cfg(None)
-
 
 # Checking directories and files
 if not os.path.exists('apps'):
@@ -51,10 +51,9 @@ isNoArgs = False
 
 # Checking if arguments are empty to use in-app CLI
 if not args.option:
-    option = ['install', 'uninstall', 'source', 'update', 'list', 'upload'][tui.menu(['install app', 'uninstall app',
-                                                                                      'get source', 'update app',
-                                                                                      'list of installed apps',
-                                                                                      'upload your app'])]
+    option = ['install', 'uninstall', 'source', 'update', 'list', 'upload', 'search'][
+        tui.menu(['install app', 'uninstall app', 'get source', 'update app', 'list of installed apps',
+                  'upload your app', 'search for app'])]
     isNoArgs = True
 
 if not args.app:
