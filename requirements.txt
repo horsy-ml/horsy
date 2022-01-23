@@ -3,4 +3,3 @@ requests
 Cryptography
 Pyinstaller
 tqdm
-vt-py
