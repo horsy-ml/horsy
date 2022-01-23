@@ -120,17 +120,16 @@ def upload():
                 print('[red]Internal server error, request is broken[/red]')
                 break
 
-            elif r['message'] == 'Invalid body':
-                print('[red]Invalid request body, try again[/red]')
-                break
-
             elif r['message'] == 'Success':
                 print('[green]Success, your project is created. You can install it by running[/] '
                       '[i]horsy install {0}[/]'.format(request['name']))
                 break
 
+            elif 'already exists' in r['message']:
+                print(f"[red]{r['message']}[/red]")
+
             else:
-                print('[red]Unknown error[/red]')
+                print('[red]Unknown error, please try again[/red]')
                 print('Server response:')
                 print(r)
                 break
