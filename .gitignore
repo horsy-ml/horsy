@@ -1,8 +1,10 @@
 # Client
 **/__pycache__/
-/Source/Client/apps/
-/Source/Client/build/
-/Source/Client/sources/
-/Source/Client/*.spec
-/Source/Client/*.bak
-/Source/Client/config.cfg
+/apps/
+/build/
+/sources/
+*.spec
+*.bak
+config.cfg
+/.idea/
+/dist/
