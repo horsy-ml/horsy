@@ -2,16 +2,16 @@ import json
 import threading
 from rich import print
 import requests
-import vars
+import modules.vars as horsy_vars
 from tqdm import tqdm
 import os
 import zipfile
-from virustotal import get_key, scan_file, get_report
+from modules.virustotal import get_key, scan_file, get_report
 
 
 def install(package, is_gui=False):
     horsypath = os.popen('echo %HORSYPATH%').read().replace('\n', '') + '/'
-    r = requests.get(f"{vars.protocol}{vars.server_url}/packages/json/{package}").text
+    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
     try:
         r = json.loads(r)
     except:

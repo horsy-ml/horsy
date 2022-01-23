@@ -1,9 +1,10 @@
 import argparse
-import tui as tui
-from console import cls
-from manager import *
-from virustotal import add_to_cfg
-from uploader import upload
+import os
+import modules.tui as tui
+from modules.console import cls
+from modules.manager import install, uninstall
+from modules.virustotal import add_to_cfg
+from modules.uploader import upload
 
 # Getting the arguments
 parser = argparse.ArgumentParser(description='horsy - the best package manager')

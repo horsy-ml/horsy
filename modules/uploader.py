@@ -2,9 +2,9 @@ import json
 import time
 import requests
 from rich import print
-from auth import get_auth, del_auth
+from modules.auth import get_auth, del_auth
 import re
-import vars
+import modules.vars as horsy_vars
 import os
 
 
@@ -105,7 +105,7 @@ def upload():
     r = None
     while r is None:
         try:
-            r = requests.post(vars.protocol + vars.server_url + '/packages/new', json=request).text
+            r = requests.post(horsy_vars.protocol + horsy_vars.server_url + '/packages/new', json=request).text
             r = json.loads(r)
 
             if r['message'] == 'Unauthorized':
