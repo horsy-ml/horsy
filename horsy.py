@@ -1,10 +1,13 @@
 import argparse
 import os
+import sys
+
 import modules.tui as tui
 from modules.console import cls
 from modules.manager import install, uninstall
 from modules.virustotal import add_to_cfg
 from modules.uploader import upload
+from modules.source import get_source
 
 # Getting the arguments
 parser = argparse.ArgumentParser(description='horsy - the best package manager')
@@ -20,18 +23,9 @@ args = parser.parse_args()
 option = args.option
 app = args.app
 
-# Checking if the user has a new VT key
-if args.vt_key:
-    if args.vt_key != 'disable':
-        add_to_cfg(args.vt_key)
-    else:
-        add_to_cfg(None)
-
 # Checking directories and files
 if not os.path.exists('apps'):
     os.makedirs('apps')
-if not os.path.exists('sources'):
-    os.makedirs('sources')
 if not os.path.isfile('config.cfg'):
     with open('config.cfg', 'w') as f:
         f.write('{}')
@@ -50,6 +44,14 @@ print('''
         Search powered by Algolia
 ''')
 isNoArgs = False
+
+# Checking if the user has a new VT key
+if args.vt_key:
+    if args.vt_key != 'disable':
+        add_to_cfg(args.vt_key)
+    else:
+        add_to_cfg(None)
+    sys.exit()
 
 # Checking if arguments are empty to use in-app CLI
 if not args.option:
@@ -71,6 +73,9 @@ if option in ['install', 'i']:
 
 if option in ['uninstall', 'un']:
     uninstall(app)
+
+if option in ['source', 's']:
+    get_source(app)
 
 if isNoArgs:
     input('[EXIT] Press enter to exit horsy...')
