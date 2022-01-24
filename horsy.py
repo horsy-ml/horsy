@@ -8,14 +8,15 @@ from modules.manager import install, uninstall
 from modules.virustotal import add_to_cfg
 from modules.uploader import upload
 from modules.source import get_source
+from modules.search import search, info
 import modules.vars as horsy_vars
 
 # Getting the arguments
 parser = argparse.ArgumentParser(description='horsy - the best package manager')
 parser.add_argument('option', help='options for horsy (install/i | uninstall/un | source/s | update/u | list/l | '
-                                   'upload)',
+                                   'upload | search | info)',
                     choices=['install', 'i', 'uninstall', 'un', 'source', 's', 'update', 'u', 'list', 'l', 'upload',
-                             'search'],
+                             'search', 'info'],
                     nargs='?')
 parser.add_argument('app', help='app to install/uninstall/download source', nargs='?')
 parser.add_argument('--vt', help='your virustotal api key (account -> api key in VT)', dest='vt_key')
@@ -58,13 +59,13 @@ if args.vt_key:
 
 # Checking if arguments are empty to use in-app CLI
 if not args.option:
-    option = ['install', 'uninstall', 'source', 'update', 'list', 'upload', 'search'][
+    option = ['install', 'uninstall', 'source', 'update', 'list', 'upload', 'search', 'info'][
         tui.menu(['install app', 'uninstall app', 'get source', 'update app', 'list of installed apps',
-                  'upload your app', 'search for app'])]
+                  'upload your app', 'search for app', 'get information about app'])]
     isNoArgs = True
 
 if not args.app:
-    if option not in ['list', 'upload']:
+    if option not in ['list', 'upload', 'update']:
         print('\n')
         app = tui.get(f'Select app to {option}')
 
@@ -79,6 +80,12 @@ if option in ['uninstall', 'un']:
 
 if option in ['source', 's']:
     get_source(app)
+
+if option in ['search']:
+    search(app)
+
+if option in ['info']:
+    info(app)
 
 if isNoArgs:
     input('[EXIT] Press enter to exit horsy...')

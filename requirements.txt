@@ -3,3 +3,4 @@ requests
 Cryptography
 Pyinstaller
 tqdm
+algoliasearch

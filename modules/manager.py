@@ -11,15 +11,15 @@ from modules.virustotal import get_key, scan_file, get_report
 
 def install(package, is_gui=False):
     r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
+    if r == "":
+        print(f"[red]Package {package} not found[/]")
+        return
     try:
         r = json.loads(r)
     except:
         print("[red]Error with unsupported message[/]")
         return
     try:
-        if r["message"] == "not found":
-            print("[red]Package not found[/]")
-            return
         if r["message"] == "Internal server error":
             print("[red]Internal server error[/]")
             return
@@ -55,7 +55,8 @@ def install(package, is_gui=False):
                       f"[italic white] in terminal[/]")
                 scan_file('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
                 print(f"[green]Virustotal scan finished[/]")
-                analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
+                analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1],
+                                                               horsy_vars.horsypath))
                 print(f"[green]You can see report by opening: [white]{analysis['link']}[/]")
                 print(f"{analysis['detect']['malicious']} antivirus flagged this file as malicious")
 
@@ -78,8 +79,8 @@ def install(package, is_gui=False):
 
                 chunk_size = 1024
                 file_r = requests.get(r['download'], stream=True)
-                with open('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsy_vars.horsypath), "wb") \
-                        as f:
+                with open('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsy_vars.horsypath),
+                          "wb") as f:
                     pbar = tqdm(unit="B", unit_scale=True, total=int(file_r.headers['Content-Length']))
                     for chunk in file_r.iter_content(chunk_size=chunk_size):
                         if chunk:
@@ -120,7 +121,7 @@ def install(package, is_gui=False):
 
     except:
         print("[red]Unexpected error[/]")
-        raise
+        # raise
         return
 
 
