@@ -137,3 +137,11 @@ def uninstall(package, is_gui=False):
             print(f"[green][OK] Launch script deleted[/]")
         else:
             print(f"[red]App {package} is not installed or doesn't have launch script[/]")
+
+
+def apps_list():
+    if os.path.exists('{0}apps'.format(horsy_vars.horsypath)):
+        print(f"[green]Installed apps:[/]")
+        for file in os.listdir('{0}apps'.format(horsy_vars.horsypath)):
+            if file.endswith(".bat"):
+                print(f"{file.split('.')[0]}")

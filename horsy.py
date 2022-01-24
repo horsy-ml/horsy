@@ -4,7 +4,7 @@ import sys
 
 import modules.tui as tui
 from modules.console import cls
-from modules.manager import install, uninstall
+from modules.manager import install, uninstall, apps_list
 from modules.virustotal import add_to_cfg
 from modules.uploader import upload
 from modules.source import get_source
@@ -18,7 +18,7 @@ parser.add_argument('option', help='options for horsy (install/i | uninstall/un 
                     choices=['install', 'i', 'uninstall', 'un', 'source', 's', 'update', 'u', 'list', 'l', 'upload',
                              'search', 'info'],
                     nargs='?')
-parser.add_argument('app', help='app to install/uninstall/download source', nargs='?')
+parser.add_argument('app', help='app to do function with', nargs='?')
 parser.add_argument('--vt', help='your virustotal api key (account -> api key in VT)', dest='vt_key')
 
 args = parser.parse_args()
@@ -86,6 +86,9 @@ if option in ['search']:
 
 if option in ['info']:
     info(app)
+
+if option in ['list', 'l']:
+    apps_list()
 
 if isNoArgs:
     input('[EXIT] Press enter to exit horsy...')
