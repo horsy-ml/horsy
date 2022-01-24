@@ -10,7 +10,6 @@ from modules.virustotal import get_key, scan_file, get_report
 
 
 def install(package, is_gui=False):
-    horsypath = os.popen('echo %HORSYPATH%').read().replace('\n', '') + '/'
     r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
     try:
         r = json.loads(r)
@@ -30,15 +29,15 @@ def install(package, is_gui=False):
     try:
         print(f"[green]App {r['name']} found, information loaded[/]")
 
-        if not os.path.exists('{1}apps/{0}'.format(r['name'], horsypath)):
-            os.makedirs('{1}apps/{0}'.format(r['name'], horsypath))
+        if not os.path.exists('{1}apps/{0}'.format(r['name'], horsy_vars.horsypath)):
+            os.makedirs('{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
 
         if not is_gui:
             print(f"Downloading {r['url'].split('/')[-1]}")
 
             chunk_size = 1024
             file_r = requests.get(r['url'], stream=True)
-            with open('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsypath), "wb") as f:
+            with open('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath), "wb") as f:
                 pbar = tqdm(unit="B", unit_scale=True, total=int(file_r.headers['Content-Length']))
                 for chunk in file_r.iter_content(chunk_size=chunk_size):
                     if chunk:
@@ -54,9 +53,9 @@ def install(package, is_gui=False):
                 print(f"[green]Virustotal api key found[/]")
                 print(f"[italic white]If you want to disable scan, type [/][bold]horsy --vt disable[/]"
                       f"[italic white] in terminal[/]")
-                scan_file('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsypath))
+                scan_file('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
                 print(f"[green]Virustotal scan finished[/]")
-                analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsypath))
+                analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
                 print(f"[green]You can see report by opening: [white]{analysis['link']}[/]")
                 print(f"{analysis['detect']['malicious']} antivirus flagged this file as malicious")
 
@@ -69,8 +68,8 @@ def install(package, is_gui=False):
 
         if r['url'].split('.')[-1] == 'zip':
             print(f"Extracting {r['url'].split('/')[-1]}")
-            unzip('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsypath),
-                  '{1}apps/{0}'.format(r['name'], horsypath))
+            unzip('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath),
+                  '{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
 
         if r['download']:
             print(f"Found dependency")
@@ -79,7 +78,8 @@ def install(package, is_gui=False):
 
                 chunk_size = 1024
                 file_r = requests.get(r['download'], stream=True)
-                with open('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsypath), "wb") as f:
+                with open('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsy_vars.horsypath), "wb") \
+                        as f:
                     pbar = tqdm(unit="B", unit_scale=True, total=int(file_r.headers['Content-Length']))
                     for chunk in file_r.iter_content(chunk_size=chunk_size):
                         if chunk:
@@ -93,9 +93,10 @@ def install(package, is_gui=False):
                     print(f"You can add it by entering [italic white]horsy --vt \[your key][/] in terminal")
                 else:
                     print(f"[green]Virustotal api key found[/]")
-                    scan_file('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsypath))
+                    scan_file('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsy_vars.horsypath))
                     print(f"[green]Virustotal scan finished[/]")
-                    analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsypath))
+                    analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1],
+                                                                   horsy_vars.horsypath))
                     print(f"[green]You can see report by opening: [white]{analysis['link']}[/]")
                     print(f"{analysis['detect']['malicious']} antivirus flagged this file as malicious")
                     if analysis['detect']['malicious'] > 0:
@@ -105,14 +106,14 @@ def install(package, is_gui=False):
 
         if r['install']:
             print(f"Found install option")
-            threading.Thread(target=os.system, args=('{2}apps/{0}/{1}'.format(r['name'], r['install'], horsypath),)) \
-                .start()
+            threading.Thread(target=os.system, args=('{2}apps/{0}/{1}'.format(r['name'], r['install'],
+                                                                              horsy_vars.horsypath),)).start()
 
         print(f"Generating launch script")
 
-        with open('{1}apps/{0}.bat'.format(r['name'], horsypath), 'w') as f:
+        with open('{1}apps/{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
             f.write(f"@ECHO off\n")
-            f.write(f"{horsypath}apps/{r['name']}/{r['run']} %*\n")
+            f.write(f"{horsy_vars.horsypath}apps/{r['name']}/{r['run']} %*\n")
 
         print(f"[green][OK] All done![/]")
         print(f"[green]You can run your app by entering [italic white]{r['name']}[/] in terminal[/]")
@@ -124,15 +125,14 @@ def install(package, is_gui=False):
 
 
 def uninstall(package, is_gui=False):
-    horsypath = os.popen('echo %HORSYPATH%').read().replace('\n', '') + '/'
     if not is_gui:
-        if os.path.exists('{1}apps/{0}'.format(package, horsypath)):
-            os.system('rmdir /s /q "{1}apps/{0}"'.format(package, horsypath))
+        if os.path.exists('{1}apps/{0}'.format(package, horsy_vars.horsypath)):
+            os.system('rmdir /s /q "{1}apps/{0}"'.format(package, horsy_vars.horsypath))
             print(f"[green][OK] Files deleted[/]")
         else:
             print(f"[red]App {package} is not installed or doesn't have files[/]")
-        if os.path.isfile('{1}apps/{0}.bat'.format(package, horsypath)):
-            os.remove("{1}apps/{0}.bat".format(package, horsypath))
+        if os.path.isfile('{1}apps/{0}.bat'.format(package, horsy_vars.horsypath)):
+            os.remove("{1}apps/{0}.bat".format(package, horsy_vars.horsypath))
             print(f"[green][OK] Launch script deleted[/]")
         else:
             print(f"[red]App {package} is not installed or doesn't have launch script[/]")

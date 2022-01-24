@@ -8,6 +8,7 @@ from modules.manager import install, uninstall
 from modules.virustotal import add_to_cfg
 from modules.uploader import upload
 from modules.source import get_source
+import modules.vars as horsy_vars
 
 # Getting the arguments
 parser = argparse.ArgumentParser(description='horsy - the best package manager')
@@ -24,10 +25,10 @@ option = args.option
 app = args.app
 
 # Checking directories and files
-if not os.path.exists('apps'):
-    os.makedirs('apps')
-if not os.path.isfile('config.cfg'):
-    with open('config.cfg', 'w') as f:
+if not os.path.exists(horsy_vars.horsypath + 'apps'):
+    os.makedirs(horsy_vars.horsypath + 'apps')
+if not os.path.isfile(horsy_vars.horsypath + 'config.cfg'):
+    with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
         f.write('{}')
 
 # Displaying the logo
@@ -49,7 +50,9 @@ isNoArgs = False
 if args.vt_key:
     if args.vt_key != 'disable':
         add_to_cfg(args.vt_key)
+        print('VT key updated')
     else:
+        print('VT disabled')
         add_to_cfg(None)
     sys.exit()
 

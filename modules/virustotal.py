@@ -2,20 +2,21 @@ import json
 import requests
 import os
 import hashlib
+import modules.vars as horsy_vars
 
 
 def add_to_cfg(key):
-    with open('config.cfg') as f:
+    with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)
 
     config['vt-key'] = key
 
-    with open('config.cfg', 'w') as f:
+    with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
         json.dump(config, f)
 
 
 def get_key():
-    with open('config.cfg') as f:
+    with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)
 
     try:
