@@ -72,72 +72,11 @@ class Ui_MainWindow(object):
         self.tabWidget.setObjectName("tabWidget")
         self.account_tab = QtWidgets.QWidget()
         self.account_tab.setObjectName("account_tab")
-        self.tabWidget.addTab(self.account_tab, "")
-        self.upload_tab = QtWidgets.QWidget()
-        self.upload_tab.setObjectName("upload_tab")
-        self.lineEdit = QtWidgets.QLineEdit(self.upload_tab)
-        self.lineEdit.setGeometry(QtCore.QRect(10, 55, 101, 31))
-        self.lineEdit.setStyleSheet("background-color: rgb(74, 76, 83);\n"
-"border-radius: 5px;    \n"
-"color: rgb(242, 242, 242);")
-        self.lineEdit.setObjectName("lineEdit")
-        self.textBrowser = QtWidgets.QTextBrowser(self.upload_tab)
-        self.textBrowser.setGeometry(QtCore.QRect(10, 10, 321, 41))
-        self.textBrowser.setStyleSheet("color: white;\n"
-"border: none;")
-        self.textBrowser.setAcceptRichText(False)
-        self.textBrowser.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
-        self.textBrowser.setObjectName("textBrowser")
-        self.textBrowser_2 = QtWidgets.QTextBrowser(self.upload_tab)
-        self.textBrowser_2.setGeometry(QtCore.QRect(120, 60, 321, 21))
-        self.textBrowser_2.setStyleSheet("color: white;\n"
-"border: none;")
-        self.textBrowser_2.setAcceptRichText(False)
-        self.textBrowser_2.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
-        self.textBrowser_2.setObjectName("textBrowser_2")
-        self.textBrowser_3 = QtWidgets.QTextBrowser(self.upload_tab)
-        self.textBrowser_3.setGeometry(QtCore.QRect(10, 90, 256, 101))
-        self.textBrowser_3.setStyleSheet("background-color: rgb(74, 76, 83);\n"
-"border-radius: 5px;    \n"
-"color: rgb(242, 242, 242);")
-        self.textBrowser_3.setAcceptRichText(False)
-        self.textBrowser_3.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByKeyboard|QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextBrowserInteraction|QtCore.Qt.TextEditable|QtCore.Qt.TextEditorInteraction|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
-        self.textBrowser_3.setObjectName("textBrowser_3")
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.upload_tab)
-        self.lineEdit_2.setGeometry(QtCore.QRect(10, 195, 291, 31))
-        self.lineEdit_2.setStyleSheet("background-color: rgb(74, 76, 83);\n"
-"border-radius: 5px;    \n"
-"color: rgb(242, 242, 242);")
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.lineEdit_3 = QtWidgets.QLineEdit(self.upload_tab)
-        self.lineEdit_3.setGeometry(QtCore.QRect(10, 230, 291, 31))
-        self.lineEdit_3.setStyleSheet("background-color: rgb(74, 76, 83);\n"
-"border-radius: 5px;    \n"
-"color: rgb(242, 242, 242);")
-        self.lineEdit_3.setObjectName("lineEdit_3")
-        self.lineEdit_4 = QtWidgets.QLineEdit(self.upload_tab)
-        self.lineEdit_4.setGeometry(QtCore.QRect(10, 265, 291, 31))
-        self.lineEdit_4.setStyleSheet("background-color: rgb(74, 76, 83);\n"
-"border-radius: 5px;    \n"
-"color: rgb(242, 242, 242);")
-        self.lineEdit_4.setObjectName("lineEdit_4")
-        self.lineEdit_5 = QtWidgets.QLineEdit(self.upload_tab)
-        self.lineEdit_5.setGeometry(QtCore.QRect(10, 300, 291, 31))
-        self.lineEdit_5.setStyleSheet("background-color: rgb(74, 76, 83);\n"
-"border-radius: 5px;    \n"
-"color: rgb(242, 242, 242);")
-        self.lineEdit_5.setObjectName("lineEdit_5")
-        self.lineEdit_6 = QtWidgets.QLineEdit(self.upload_tab)
-        self.lineEdit_6.setGeometry(QtCore.QRect(10, 335, 291, 31))
-        self.lineEdit_6.setStyleSheet("background-color: rgb(74, 76, 83);\n"
-"border-radius: 5px;    \n"
-"color: rgb(242, 242, 242);")
-        self.lineEdit_6.setObjectName("lineEdit_6")
-        self.info_button_2 = QtWidgets.QPushButton(self.upload_tab)
-        self.info_button_2.setEnabled(True)
-        self.info_button_2.setGeometry(QtCore.QRect(10, 380, 291, 50))
-        self.info_button_2.setMinimumSize(QtCore.QSize(0, 50))
-        self.info_button_2.setStyleSheet("QPushButton {\n"
+        self.loginlogout_button = QtWidgets.QPushButton(self.account_tab)
+        self.loginlogout_button.setEnabled(True)
+        self.loginlogout_button.setGeometry(QtCore.QRect(720, 10, 151, 50))
+        self.loginlogout_button.setMinimumSize(QtCore.QSize(0, 50))
+        self.loginlogout_button.setStyleSheet("QPushButton {\n"
 "    color: rgb(204, 204, 204);\n"
 "    border-width: 1px;\n"
 "    border-radius:6px;\n"
@@ -155,20 +94,239 @@ class Ui_MainWindow(object):
 "    border-width: 0px;\n"
 "    background-color: rgb(92, 99, 109);\n"
 "}")
-        self.info_button_2.setObjectName("info_button_2")
-        self.textBrowser_4 = QtWidgets.QTextBrowser(self.upload_tab)
-        self.textBrowser_4.setGeometry(QtCore.QRect(10, 450, 281, 161))
-        self.textBrowser_4.setStyleSheet("color: white;\n"
+        self.loginlogout_button.setObjectName("loginlogout_button")
+        self.username_box = QtWidgets.QLineEdit(self.account_tab)
+        self.username_box.setGeometry(QtCore.QRect(720, 70, 151, 31))
+        self.username_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+"border-radius: 5px;    \n"
+"color: rgb(242, 242, 242);")
+        self.username_box.setText("")
+        self.username_box.setReadOnly(True)
+        self.username_box.setObjectName("username_box")
+        self.changeemail_button = QtWidgets.QPushButton(self.account_tab)
+        self.changeemail_button.setEnabled(True)
+        self.changeemail_button.setGeometry(QtCore.QRect(360, 20, 151, 50))
+        self.changeemail_button.setMinimumSize(QtCore.QSize(0, 50))
+        self.changeemail_button.setStyleSheet("QPushButton {\n"
+"    color: rgb(204, 204, 204);\n"
+"    border-width: 1px;\n"
+"    border-radius:6px;\n"
+"    border-style: solid;\n"
+"    background-color: rgb(28, 30, 33);\n"
+"    border-color: rgb(66, 143, 225);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    border-width: 2px;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    background-color: rgb(50, 60, 63);\n"
+"}\n"
+"QPushButton:disabled{\n"
+"    border-width: 0px;\n"
+"    background-color: rgb(92, 99, 109);\n"
+"}")
+        self.changeemail_button.setObjectName("changeemail_button")
+        self.email_box = QtWidgets.QTextEdit(self.account_tab)
+        self.email_box.setEnabled(True)
+        self.email_box.setGeometry(QtCore.QRect(10, 20, 341, 51))
+        self.email_box.setStyleSheet("QTextEdit {\n"
+"    background-color: rgb(74, 76, 83);\n"
+"    border-radius: 5px;    \n"
+"    color: rgb(242, 242, 242);\n"
+"    padding: 15px, 15px;\n"
+"    border: 15px white;\n"
+"}")
+        self.email_box.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.email_box.setAcceptRichText(False)
+        self.email_box.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.email_box.setObjectName("email_box")
+        self.oldpass_box = QtWidgets.QTextEdit(self.account_tab)
+        self.oldpass_box.setEnabled(True)
+        self.oldpass_box.setGeometry(QtCore.QRect(10, 80, 341, 51))
+        self.oldpass_box.setStyleSheet("QTextEdit {\n"
+"    background-color: rgb(74, 76, 83);\n"
+"    border-radius: 5px;    \n"
+"    color: rgb(242, 242, 242);\n"
+"    padding: 15px, 15px;\n"
+"    border: 15px white;\n"
+"}")
+        self.oldpass_box.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.oldpass_box.setAcceptRichText(False)
+        self.oldpass_box.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.oldpass_box.setObjectName("oldpass_box")
+        self.newpass_box = QtWidgets.QTextEdit(self.account_tab)
+        self.newpass_box.setEnabled(True)
+        self.newpass_box.setGeometry(QtCore.QRect(10, 140, 341, 51))
+        self.newpass_box.setStyleSheet("QTextEdit {\n"
+"    background-color: rgb(74, 76, 83);\n"
+"    border-radius: 5px;    \n"
+"    color: rgb(242, 242, 242);\n"
+"    padding: 15px, 15px;\n"
+"    border: 15px white;\n"
+"}")
+        self.newpass_box.setLineWrapMode(QtWidgets.QTextEdit.NoWrap)
+        self.newpass_box.setAcceptRichText(False)
+        self.newpass_box.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
+        self.newpass_box.setObjectName("newpass_box")
+        self.changepass_button = QtWidgets.QPushButton(self.account_tab)
+        self.changepass_button.setEnabled(True)
+        self.changepass_button.setGeometry(QtCore.QRect(360, 140, 151, 50))
+        self.changepass_button.setMinimumSize(QtCore.QSize(0, 50))
+        self.changepass_button.setStyleSheet("QPushButton {\n"
+"    color: rgb(204, 204, 204);\n"
+"    border-width: 1px;\n"
+"    border-radius:6px;\n"
+"    border-style: solid;\n"
+"    background-color: rgb(28, 30, 33);\n"
+"    border-color: rgb(66, 143, 225);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    border-width: 2px;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    background-color: rgb(50, 60, 63);\n"
+"}\n"
+"QPushButton:disabled{\n"
+"    border-width: 0px;\n"
+"    background-color: rgb(92, 99, 109);\n"
+"}")
+        self.changepass_button.setObjectName("changepass_button")
+        self.manage_packages_table = QtWidgets.QTableWidget(self.account_tab)
+        self.manage_packages_table.setGeometry(QtCore.QRect(10, 240, 871, 411))
+        self.manage_packages_table.setStyleSheet("QTableWidget\n"
+"{\n"
+"color: white;\n"
+"font: 15pt \"MS Shell Dlg 2\";\n"
+"margin: 20px;\n"
+"border-radius: 45px;\n"
+"}\n"
+"")
+        self.manage_packages_table.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
+        self.manage_packages_table.setAutoScroll(False)
+        self.manage_packages_table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.manage_packages_table.setTabKeyNavigation(False)
+        self.manage_packages_table.setProperty("showDropIndicator", False)
+        self.manage_packages_table.setDragDropOverwriteMode(False)
+        self.manage_packages_table.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
+        self.manage_packages_table.setShowGrid(False)
+        self.manage_packages_table.setRowCount(1)
+        self.manage_packages_table.setColumnCount(4)
+        self.manage_packages_table.setObjectName("manage_packages_table")
+        item = QtWidgets.QTableWidgetItem()
+        self.manage_packages_table.setItem(0, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.manage_packages_table.setItem(0, 1, item)
+        self.manage_packages_table.horizontalHeader().setVisible(False)
+        self.manage_packages_table.horizontalHeader().setDefaultSectionSize(203)
+        self.manage_packages_table.horizontalHeader().setHighlightSections(False)
+        self.manage_packages_table.horizontalHeader().setMinimumSectionSize(150)
+        self.manage_packages_table.verticalHeader().setVisible(False)
+        self.manage_packages_table.verticalHeader().setDefaultSectionSize(120)
+        self.manage_packages_table.verticalHeader().setHighlightSections(False)
+        self.manage_packages_message = QtWidgets.QTextBrowser(self.account_tab)
+        self.manage_packages_message.setGeometry(QtCore.QRect(380, 230, 121, 21))
+        self.manage_packages_message.setStyleSheet("color: white;\n"
 "border: none;")
-        self.textBrowser_4.setAcceptRichText(False)
-        self.textBrowser_4.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
-        self.textBrowser_4.setObjectName("textBrowser_4")
-        self.label = QtWidgets.QLabel(self.upload_tab)
-        self.label.setGeometry(QtCore.QRect(390, 40, 471, 551))
-        self.label.setStyleSheet("background: none")
-        self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("D:\\RAZNOE\\prgrming\\horsy\\Source\\client\\uis\\../img/horsy_white.png"))
-        self.label.setObjectName("label")
+        self.manage_packages_message.setAcceptRichText(False)
+        self.manage_packages_message.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
+        self.manage_packages_message.setObjectName("manage_packages_message")
+        self.tabWidget.addTab(self.account_tab, "")
+        self.upload_tab = QtWidgets.QWidget()
+        self.upload_tab.setObjectName("upload_tab")
+        self.packagename_box = QtWidgets.QLineEdit(self.upload_tab)
+        self.packagename_box.setGeometry(QtCore.QRect(10, 55, 101, 31))
+        self.packagename_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+"border-radius: 5px;    \n"
+"color: rgb(242, 242, 242);")
+        self.packagename_box.setObjectName("packagename_box")
+        self.before_uploading_message = QtWidgets.QTextBrowser(self.upload_tab)
+        self.before_uploading_message.setGeometry(QtCore.QRect(10, 10, 321, 41))
+        self.before_uploading_message.setStyleSheet("color: white;\n"
+"border: none;")
+        self.before_uploading_message.setAcceptRichText(False)
+        self.before_uploading_message.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
+        self.before_uploading_message.setObjectName("before_uploading_message")
+        self.packagename_message = QtWidgets.QTextBrowser(self.upload_tab)
+        self.packagename_message.setGeometry(QtCore.QRect(120, 60, 321, 21))
+        self.packagename_message.setStyleSheet("color: white;\n"
+"border: none;")
+        self.packagename_message.setAcceptRichText(False)
+        self.packagename_message.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
+        self.packagename_message.setObjectName("packagename_message")
+        self.package_desc_box = QtWidgets.QTextBrowser(self.upload_tab)
+        self.package_desc_box.setGeometry(QtCore.QRect(10, 90, 256, 101))
+        self.package_desc_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+"border-radius: 5px;    \n"
+"color: rgb(242, 242, 242);")
+        self.package_desc_box.setAcceptRichText(False)
+        self.package_desc_box.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByKeyboard|QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextBrowserInteraction|QtCore.Qt.TextEditable|QtCore.Qt.TextEditorInteraction|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
+        self.package_desc_box.setObjectName("package_desc_box")
+        self.url_of_exe_box = QtWidgets.QLineEdit(self.upload_tab)
+        self.url_of_exe_box.setGeometry(QtCore.QRect(10, 195, 291, 31))
+        self.url_of_exe_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+"border-radius: 5px;    \n"
+"color: rgb(242, 242, 242);")
+        self.url_of_exe_box.setObjectName("url_of_exe_box")
+        self.source_url_box = QtWidgets.QLineEdit(self.upload_tab)
+        self.source_url_box.setGeometry(QtCore.QRect(10, 230, 291, 31))
+        self.source_url_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+"border-radius: 5px;    \n"
+"color: rgb(242, 242, 242);")
+        self.source_url_box.setObjectName("source_url_box")
+        self.dependency_url_box = QtWidgets.QLineEdit(self.upload_tab)
+        self.dependency_url_box.setGeometry(QtCore.QRect(10, 265, 291, 31))
+        self.dependency_url_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+"border-radius: 5px;    \n"
+"color: rgb(242, 242, 242);")
+        self.dependency_url_box.setObjectName("dependency_url_box")
+        self.dependency_run_box = QtWidgets.QLineEdit(self.upload_tab)
+        self.dependency_run_box.setGeometry(QtCore.QRect(10, 300, 291, 31))
+        self.dependency_run_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+"border-radius: 5px;    \n"
+"color: rgb(242, 242, 242);")
+        self.dependency_run_box.setObjectName("dependency_run_box")
+        self.main_exe_box = QtWidgets.QLineEdit(self.upload_tab)
+        self.main_exe_box.setGeometry(QtCore.QRect(10, 335, 291, 31))
+        self.main_exe_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+"border-radius: 5px;    \n"
+"color: rgb(242, 242, 242);")
+        self.main_exe_box.setObjectName("main_exe_box")
+        self.upload_button = QtWidgets.QPushButton(self.upload_tab)
+        self.upload_button.setEnabled(True)
+        self.upload_button.setGeometry(QtCore.QRect(10, 380, 291, 50))
+        self.upload_button.setMinimumSize(QtCore.QSize(0, 50))
+        self.upload_button.setStyleSheet("QPushButton {\n"
+"    color: rgb(204, 204, 204);\n"
+"    border-width: 1px;\n"
+"    border-radius:6px;\n"
+"    border-style: solid;\n"
+"    background-color: rgb(28, 30, 33);\n"
+"    border-color: rgb(66, 143, 225);\n"
+"}\n"
+"QPushButton:hover{\n"
+"    border-width: 2px;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    background-color: rgb(50, 60, 63);\n"
+"}\n"
+"QPushButton:disabled{\n"
+"    border-width: 0px;\n"
+"    background-color: rgb(92, 99, 109);\n"
+"}")
+        self.upload_button.setObjectName("upload_button")
+        self.safetywarning_message = QtWidgets.QTextBrowser(self.upload_tab)
+        self.safetywarning_message.setGeometry(QtCore.QRect(10, 450, 281, 161))
+        self.safetywarning_message.setStyleSheet("color: white;\n"
+"border: none;")
+        self.safetywarning_message.setAcceptRichText(False)
+        self.safetywarning_message.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
+        self.safetywarning_message.setObjectName("safetywarning_message")
+        self.horsy_logo_big = QtWidgets.QLabel(self.upload_tab)
+        self.horsy_logo_big.setGeometry(QtCore.QRect(390, 40, 471, 551))
+        self.horsy_logo_big.setStyleSheet("background: none")
+        self.horsy_logo_big.setText("")
+        self.horsy_logo_big.setPixmap(QtGui.QPixmap("D:\\RAZNOE\\prgrming\\horsy\\Source\\client\\uis\\../img/horsy_white.png"))
+        self.horsy_logo_big.setObjectName("horsy_logo_big")
         self.tabWidget.addTab(self.upload_tab, "")
         self.browse_tab = QtWidgets.QWidget()
         self.browse_tab.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -267,7 +425,7 @@ class Ui_MainWindow(object):
         self.install_button.setObjectName("install_button")
         self.source_button = QtWidgets.QPushButton(self.browse_tab)
         self.source_button.setEnabled(True)
-        self.source_button.setGeometry(QtCore.QRect(200, 575, 146, 50))
+        self.source_button.setGeometry(QtCore.QRect(190, 575, 146, 50))
         self.source_button.setMinimumSize(QtCore.QSize(0, 50))
         self.source_button.setStyleSheet("QPushButton {\n"
 "    color: rgb(204, 204, 204);\n"
@@ -290,7 +448,7 @@ class Ui_MainWindow(object):
         self.source_button.setObjectName("source_button")
         self.info_button = QtWidgets.QPushButton(self.browse_tab)
         self.info_button.setEnabled(True)
-        self.info_button.setGeometry(QtCore.QRect(370, 575, 146, 50))
+        self.info_button.setGeometry(QtCore.QRect(360, 575, 146, 50))
         self.info_button.setMinimumSize(QtCore.QSize(0, 50))
         self.info_button.setStyleSheet("QPushButton {\n"
 "    color: rgb(204, 204, 204);\n"
@@ -357,12 +515,12 @@ class Ui_MainWindow(object):
 "    background-color: rgb(92, 99, 109);\n"
 "}")
         self.dislike_button.setObjectName("dislike_button")
-        self.label_2 = QtWidgets.QLabel(self.browse_tab)
-        self.label_2.setGeometry(QtCore.QRect(820, 530, 31, 31))
-        self.label_2.setStyleSheet("background: none;")
-        self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap("D:\\RAZNOE\\prgrming\\horsy\\Source\\client\\uis\\../img/algolia120x32.png"))
-        self.label_2.setObjectName("label_2")
+        self.algolia_logo = QtWidgets.QLabel(self.browse_tab)
+        self.algolia_logo.setGeometry(QtCore.QRect(820, 530, 31, 31))
+        self.algolia_logo.setStyleSheet("background: none;")
+        self.algolia_logo.setText("")
+        self.algolia_logo.setPixmap(QtGui.QPixmap("D:\\RAZNOE\\prgrming\\horsy\\Source\\client\\uis\\../img/algolia120x32.png"))
+        self.algolia_logo.setObjectName("algolia_logo")
         self.tabWidget.addTab(self.browse_tab, "")
         self.installed_tab = QtWidgets.QWidget()
         self.installed_tab.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -447,7 +605,7 @@ class Ui_MainWindow(object):
         self.installed_table.verticalHeader().setHighlightSections(False)
         self.tabWidget.addTab(self.installed_tab, "")
         self.horsy_text_lefttop = QtWidgets.QLabel(self.centralwidget)
-        self.horsy_text_lefttop.setGeometry(QtCore.QRect(60, 10, 71, 31))
+        self.horsy_text_lefttop.setGeometry(QtCore.QRect(70, 10, 65, 30))
         self.horsy_text_lefttop.setStyleSheet("color: white;\n"
 "font: 20pt \"MS Shell Dlg 2\";\n"
 "background: none;")
@@ -458,37 +616,53 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "horsy"))
+        self.loginlogout_button.setText(_translate("MainWindow", "Log in/Log out"))
+        self.username_box.setPlaceholderText(_translate("MainWindow", "Log in first"))
+        self.changeemail_button.setText(_translate("MainWindow", "Change e-mail"))
+        self.email_box.setPlaceholderText(_translate("MainWindow", "email"))
+        self.oldpass_box.setPlaceholderText(_translate("MainWindow", "Old password"))
+        self.newpass_box.setPlaceholderText(_translate("MainWindow", "New password"))
+        self.changepass_button.setText(_translate("MainWindow", "Change password"))
+        self.manage_packages_table.setSortingEnabled(True)
+        __sortingEnabled = self.manage_packages_table.isSortingEnabled()
+        self.manage_packages_table.setSortingEnabled(False)
+        self.manage_packages_table.setSortingEnabled(__sortingEnabled)
+        self.manage_packages_message.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Manage your packages</p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.account_tab), _translate("MainWindow", "Account"))
-        self.lineEdit.setPlaceholderText(_translate("MainWindow", "Package name"))
-        self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.packagename_box.setPlaceholderText(_translate("MainWindow", "Package name"))
+        self.before_uploading_message.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Before starting, please make sure you have done your project and <span style=\" font-weight:600;\">uploaded</span> it to any hosting service or file sharing service</p></body></html>"))
-        self.textBrowser_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.packagename_message.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">It should contain only lowercase letters, underscores and dashes</p></body></html>"))
-        self.textBrowser_3.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.package_desc_box.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.textBrowser_3.setPlaceholderText(_translate("MainWindow", "Package description. It should be a short text under 256 characters"))
-        self.lineEdit_2.setPlaceholderText(_translate("MainWindow", "Url of executable (ends on .exe or .zip)"))
-        self.lineEdit_3.setPlaceholderText(_translate("MainWindow", "Url of source (project on GitHub, source archive)"))
-        self.lineEdit_4.setPlaceholderText(_translate("MainWindow", "Dependency URL (installer in .exe)"))
-        self.lineEdit_5.setPlaceholderText(_translate("MainWindow", "Dependency run (run this during installation)"))
-        self.lineEdit_6.setPlaceholderText(_translate("MainWindow", "Main executable command (file.exe, python main.py, etc)"))
-        self.info_button_2.setText(_translate("MainWindow", "Upload"))
-        self.textBrowser_4.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.package_desc_box.setPlaceholderText(_translate("MainWindow", "Package description. It should be a short text under 256 characters"))
+        self.url_of_exe_box.setPlaceholderText(_translate("MainWindow", "Url of executable (ends on .exe or .zip)"))
+        self.source_url_box.setPlaceholderText(_translate("MainWindow", "Url of source (project on GitHub, source archive)"))
+        self.dependency_url_box.setPlaceholderText(_translate("MainWindow", "Dependency URL (installer in .exe)"))
+        self.dependency_run_box.setPlaceholderText(_translate("MainWindow", "Dependency run (run this during installation)"))
+        self.main_exe_box.setPlaceholderText(_translate("MainWindow", "Main executable command (file.exe, python main.py, etc)"))
+        self.upload_button.setText(_translate("MainWindow", "Upload"))
+        self.safetywarning_message.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
@@ -512,7 +686,7 @@ class Ui_MainWindow(object):
         __sortingEnabled = self.installed_table.isSortingEnabled()
         self.installed_table.setSortingEnabled(False)
         self.installed_table.setSortingEnabled(__sortingEnabled)
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.installed_tab), _translate("MainWindow", "Installed apps"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.installed_tab), _translate("MainWindow", "Installed"))
         self.horsy_text_lefttop.setText(_translate("MainWindow", "horsy"))
 
 

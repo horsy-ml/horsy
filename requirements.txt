@@ -4,3 +4,4 @@ Cryptography
 Pyinstaller
 tqdm
 algoliasearch
+PyQt5
