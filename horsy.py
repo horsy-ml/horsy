@@ -14,9 +14,9 @@ import modules.vars as horsy_vars
 # Getting the arguments
 parser = argparse.ArgumentParser(description='horsy - the best package manager')
 parser.add_argument('option', help='options for horsy (install/i | uninstall/un | source/s | update/u | list/l | '
-                                   'upload | search | info)',
+                                   'upload | search | info | like | dislike)',
                     choices=['install', 'i', 'uninstall', 'un', 'source', 's', 'update', 'u', 'list', 'l', 'upload',
-                             'search', 'info'],
+                             'search', 'info', 'like', 'dislike'],
                     nargs='?')
 parser.add_argument('app', help='app to do function with', nargs='?')
 parser.add_argument('--vt', help='your virustotal api key (account -> api key in VT)', dest='vt_key')

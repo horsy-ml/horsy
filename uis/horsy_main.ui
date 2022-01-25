@@ -6,25 +6,1059 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>899</width>
+    <height>700</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>MainWindow</string>
+  <property name="minimumSize">
+   <size>
+    <width>899</width>
+    <height>700</height>
+   </size>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>21</height>
-    </rect>
+  <property name="maximumSize">
+   <size>
+    <width>899</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>horsy</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../img/horsy_white32x32.png</normaloff>../img/horsy_white32x32.png</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>0.990000000000000</double>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">QWidget{
+	background-color: rgb(30, 30, 30);
+}
+</string>
    </property>
+   <widget class="QLabel" name="horsy_logo_lefttop">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>32</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: none;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../img/horsy_white32x32.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>4</y>
+      <width>881</width>
+      <height>691</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string/>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTabBar::tab
+{
+    background: rgb(22, 22, 22);
+    color: white;  
+	font: 12pt &quot;MS Shell Dlg 2&quot;;
+	width: 150px;
+	height: 21px;
+	padding: 13px;
+}
+
+QTabBar::tab:selected
+{
+    color: rgb(166, 184, 200);
+	background: rgb(45, 45, 45);
+}
+
+QTabBar::tab:hover 
+{
+	color: rgb(166, 184, 200);
+	background: rgb(29, 29, 29);
+}
+
+QTabBar
+{
+margin-top: 5px;
+}
+</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="documentMode">
+     <bool>true</bool>
+    </property>
+    <property name="tabsClosable">
+     <bool>false</bool>
+    </property>
+    <property name="movable">
+     <bool>true</bool>
+    </property>
+    <property name="tabBarAutoHide">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="account_tab">
+     <attribute name="title">
+      <string>Account</string>
+     </attribute>
+     <widget class="QPushButton" name="loginlogout_button">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>10</y>
+        <width>151</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color: rgb(204, 204, 204);
+	border-width: 1px;
+	border-radius:6px;
+	border-style: solid;
+	background-color: rgb(28, 30, 33);
+	border-color: rgb(66, 143, 225);
+}
+QPushButton:hover{
+	border-width: 2px;
+}
+QPushButton:pressed{
+	background-color: rgb(50, 60, 63);
+}
+QPushButton:disabled{
+	border-width: 0px;
+	background-color: rgb(92, 99, 109);
+}</string>
+      </property>
+      <property name="text">
+       <string>Log in/Log out</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="upload_tab">
+     <attribute name="title">
+      <string>Upload</string>
+     </attribute>
+     <widget class="QLineEdit" name="packagename_box">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>55</y>
+        <width>101</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(74, 76, 83);
+border-radius: 5px;	
+color: rgb(242, 242, 242);</string>
+      </property>
+      <property name="placeholderText">
+       <string>Package name</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="before_uploading_message">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>321</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;
+border: none;</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Before starting, please make sure you have done your project and &lt;span style=&quot; font-weight:600;&quot;&gt;uploaded&lt;/span&gt; it to any hosting service or file sharing service&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="acceptRichText">
+       <bool>false</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::NoTextInteraction</set>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="packagename_message">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>60</y>
+        <width>321</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;
+border: none;</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;It should contain only lowercase letters, underscores and dashes&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="acceptRichText">
+       <bool>false</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::NoTextInteraction</set>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="package_desc_box">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>256</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(74, 76, 83);
+border-radius: 5px;	
+color: rgb(242, 242, 242);</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="acceptRichText">
+       <bool>false</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+      </property>
+      <property name="placeholderText">
+       <string>Package description. It should be a short text under 256 characters</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="url_of_exe_box">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>195</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(74, 76, 83);
+border-radius: 5px;	
+color: rgb(242, 242, 242);</string>
+      </property>
+      <property name="placeholderText">
+       <string>Url of executable (ends on .exe or .zip)</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="source_url_box">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>230</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(74, 76, 83);
+border-radius: 5px;	
+color: rgb(242, 242, 242);</string>
+      </property>
+      <property name="placeholderText">
+       <string>Url of source (project on GitHub, source archive)</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="dependency_url_box">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>265</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(74, 76, 83);
+border-radius: 5px;	
+color: rgb(242, 242, 242);</string>
+      </property>
+      <property name="placeholderText">
+       <string>Dependency URL (installer in .exe)</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="dependency_run_box">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>300</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(74, 76, 83);
+border-radius: 5px;	
+color: rgb(242, 242, 242);</string>
+      </property>
+      <property name="placeholderText">
+       <string>Dependency run (run this during installation)</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="main_exe_box">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>335</y>
+        <width>291</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(74, 76, 83);
+border-radius: 5px;	
+color: rgb(242, 242, 242);</string>
+      </property>
+      <property name="placeholderText">
+       <string>Main executable command (file.exe, python main.py, etc)</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="upload_button">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>380</y>
+        <width>291</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color: rgb(204, 204, 204);
+	border-width: 1px;
+	border-radius:6px;
+	border-style: solid;
+	background-color: rgb(28, 30, 33);
+	border-color: rgb(66, 143, 225);
+}
+QPushButton:hover{
+	border-width: 2px;
+}
+QPushButton:pressed{
+	background-color: rgb(50, 60, 63);
+}
+QPushButton:disabled{
+	border-width: 0px;
+	background-color: rgb(92, 99, 109);
+}</string>
+      </property>
+      <property name="text">
+       <string>Upload</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="safetywarning_message">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>450</y>
+        <width>281</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;
+border: none;</string>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;We don't moderate any apps and we &lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;won't&lt;/span&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; delete your app, if it is not doesn't match some rules. But, if your app uses server vulnerabilities or hinders server work, we will delete your app. Keep in mind, that we don't responsible for your apps, but we advise you to share only working and safe apps on horsy&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="acceptRichText">
+       <bool>false</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::NoTextInteraction</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="horsy_logo_big">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>40</y>
+        <width>471</width>
+        <height>551</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: none</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/horsy_white.png</pixmap>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="browse_tab">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <attribute name="title">
+      <string>Browse</string>
+     </attribute>
+     <widget class="QTableWidget" name="search_table">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>90</y>
+        <width>871</width>
+        <height>481</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTableWidget
+{
+color: white;
+font: 15pt &quot;MS Shell Dlg 2&quot;;
+margin: 20px;
+border-radius: 45px;
+}
+</string>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="autoScroll">
+       <bool>false</bool>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="dragDropOverwriteMode">
+       <bool>false</bool>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="showGrid">
+       <bool>false</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="rowCount">
+       <number>1</number>
+      </property>
+      <property name="columnCount">
+       <number>4</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>203</number>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>150</number>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderDefaultSectionSize">
+       <number>120</number>
+      </attribute>
+      <attribute name="verticalHeaderHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <item row="0" column="0">
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+     </widget>
+     <widget class="QTextEdit" name="search_box">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>30</y>
+        <width>711</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTextEdit {
+	background-color: rgb(74, 76, 83);
+	border-radius: 15px;	
+	color: rgb(242, 242, 242);
+	padding: 15px, 15px;
+	border: 15px white;
+}</string>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
+      </property>
+      <property name="acceptRichText">
+       <bool>false</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::TextEditorInteraction</set>
+      </property>
+      <property name="placeholderText">
+       <string>Search packages...</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="search_button">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>30</y>
+        <width>91</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color: rgb(204, 204, 204);
+	border-width: 1px;
+	border-radius:6px;
+	border-style: solid;
+	background-color: rgb(28, 30, 33);
+	border-color: rgb(66, 143, 225);
+}
+QPushButton:hover{
+	border-width: 2px;
+}
+QPushButton:pressed{
+	background-color: rgb(50, 60, 63);
+}
+QPushButton:disabled{
+	border-width: 0px;
+	background-color: rgb(92, 99, 109);
+}</string>
+      </property>
+      <property name="text">
+       <string>Search</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="install_button">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>575</y>
+        <width>146</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color: rgb(204, 204, 204);
+	border-width: 1px;
+	border-radius:6px;
+	border-style: solid;
+	background-color: rgb(28, 30, 33);
+	border-color: rgb(66, 143, 225);
+}
+QPushButton:hover{
+	border-width: 2px;
+}
+QPushButton:pressed{
+	background-color: rgb(50, 60, 63);
+}
+QPushButton:disabled{
+	border-width: 0px;
+	background-color: rgb(92, 99, 109);
+}</string>
+      </property>
+      <property name="text">
+       <string>Install</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="source_button">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>575</y>
+        <width>146</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color: rgb(204, 204, 204);
+	border-width: 1px;
+	border-radius:6px;
+	border-style: solid;
+	background-color: rgb(28, 30, 33);
+	border-color: rgb(66, 143, 225);
+}
+QPushButton:hover{
+	border-width: 2px;
+}
+QPushButton:pressed{
+	background-color: rgb(50, 60, 63);
+}
+QPushButton:disabled{
+	border-width: 0px;
+	background-color: rgb(92, 99, 109);
+}</string>
+      </property>
+      <property name="text">
+       <string>Get source</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="info_button">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>575</y>
+        <width>146</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color: rgb(204, 204, 204);
+	border-width: 1px;
+	border-radius:6px;
+	border-style: solid;
+	background-color: rgb(28, 30, 33);
+	border-color: rgb(66, 143, 225);
+}
+QPushButton:hover{
+	border-width: 2px;
+}
+QPushButton:pressed{
+	background-color: rgb(50, 60, 63);
+}
+QPushButton:disabled{
+	border-width: 0px;
+	background-color: rgb(92, 99, 109);
+}</string>
+      </property>
+      <property name="text">
+       <string>Info</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="like_button">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>575</y>
+        <width>146</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color: rgb(204, 204, 204);
+	border-width: 1px;
+	border-radius:6px;
+	border-style: solid;
+	background-color: rgb(28, 30, 33);
+	border-color: rgb(66, 143, 225);
+}
+QPushButton:hover{
+	border-width: 2px;
+}
+QPushButton:pressed{
+	background-color: rgb(50, 60, 63);
+}
+QPushButton:disabled{
+	border-width: 0px;
+	background-color: rgb(92, 99, 109);
+}</string>
+      </property>
+      <property name="text">
+       <string>👍</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="dislike_button">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>575</y>
+        <width>146</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color: rgb(204, 204, 204);
+	border-width: 1px;
+	border-radius:6px;
+	border-style: solid;
+	background-color: rgb(28, 30, 33);
+	border-color: rgb(66, 143, 225);
+}
+QPushButton:hover{
+	border-width: 2px;
+}
+QPushButton:pressed{
+	background-color: rgb(50, 60, 63);
+}
+QPushButton:disabled{
+	border-width: 0px;
+	background-color: rgb(92, 99, 109);
+}</string>
+      </property>
+      <property name="text">
+       <string>👎</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="algolia_logo">
+      <property name="geometry">
+       <rect>
+        <x>820</x>
+        <y>530</y>
+        <width>31</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: none;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/algolia120x32.png</pixmap>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="installed_tab">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <attribute name="title">
+      <string>Installed apps</string>
+     </attribute>
+     <widget class="QPushButton" name="delete_button">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>575</y>
+        <width>421</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color: rgb(204, 204, 204);
+	border-width: 1px;
+	border-radius:6px;
+	border-style: solid;
+	background-color: rgb(28, 30, 33);
+	border-color: rgb(66, 143, 225);
+}
+QPushButton:hover{
+	border-width: 2px;
+}
+QPushButton:pressed{
+	background-color: rgb(50, 60, 63);
+}
+QPushButton:disabled{
+	border-width: 0px;
+	background-color: rgb(92, 99, 109);
+}</string>
+      </property>
+      <property name="text">
+       <string>Uninstall</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="update_button">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>575</y>
+        <width>401</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	color: rgb(204, 204, 204);
+	border-width: 1px;
+	border-radius:6px;
+	border-style: solid;
+	background-color: rgb(28, 30, 33);
+	border-color: rgb(66, 143, 225);
+}
+QPushButton:hover{
+	border-width: 2px;
+}
+QPushButton:pressed{
+	background-color: rgb(50, 60, 63);
+}
+QPushButton:disabled{
+	border-width: 0px;
+	background-color: rgb(92, 99, 109);
+}</string>
+      </property>
+      <property name="text">
+       <string>Update</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="installed_table">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>871</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTableWidget
+{
+color: white;
+font: 15pt &quot;MS Shell Dlg 2&quot;;
+margin: 20px;
+border-radius: 45px;
+}
+</string>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustIgnored</enum>
+      </property>
+      <property name="autoScroll">
+       <bool>false</bool>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="dragDropOverwriteMode">
+       <bool>false</bool>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="showGrid">
+       <bool>false</bool>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="rowCount">
+       <number>1</number>
+      </property>
+      <property name="columnCount">
+       <number>4</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>203</number>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderMinimumSectionSize">
+       <number>150</number>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderDefaultSectionSize">
+       <number>120</number>
+      </attribute>
+      <attribute name="verticalHeaderHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <column/>
+      <column/>
+      <column/>
+      <column/>
+      <item row="0" column="0">
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item row="0" column="1">
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="horsy_text_lefttop">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>10</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: white;
+font: 20pt &quot;MS Shell Dlg 2&quot;;
+background: none;</string>
+    </property>
+    <property name="text">
+     <string>horsy</string>
+    </property>
+   </widget>
+   <zorder>tabWidget</zorder>
+   <zorder>horsy_logo_lefttop</zorder>
+   <zorder>horsy_text_lefttop</zorder>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

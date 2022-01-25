@@ -1,0 +1,14 @@
+C:\Users\BarsTigerMeowcat\source\repos\drawhorse\drawhorse\bin\Debug\drawhorse.exe.config
+C:\Users\BarsTigerMeowcat\source\repos\drawhorse\drawhorse\bin\Debug\drawhorse.exe
+C:\Users\BarsTigerMeowcat\source\repos\drawhorse\drawhorse\bin\Debug\drawhorse.pdb
+C:\Users\BarsTigerMeowcat\source\repos\drawhorse\drawhorse\obj\Debug\drawhorse.csproj.AssemblyReference.cache
+C:\Users\BarsTigerMeowcat\source\repos\drawhorse\drawhorse\obj\Debug\drawhorse.csproj.CoreCompileInputs.cache
+C:\Users\BarsTigerMeowcat\source\repos\drawhorse\drawhorse\obj\Debug\drawhorse.exe
+C:\Users\BarsTigerMeowcat\source\repos\drawhorse\drawhorse\obj\Debug\drawhorse.pdb
+D:\RAZNOE\!программирование\VisualStudioProjects\drawhorse\drawhorse\bin\Debug\drawhorse.exe.config
+D:\RAZNOE\!программирование\VisualStudioProjects\drawhorse\drawhorse\bin\Debug\drawhorse.exe
+D:\RAZNOE\!программирование\VisualStudioProjects\drawhorse\drawhorse\bin\Debug\drawhorse.pdb
+D:\RAZNOE\!программирование\VisualStudioProjects\drawhorse\drawhorse\obj\Debug\drawhorse.csproj.AssemblyReference.cache
+D:\RAZNOE\!программирование\VisualStudioProjects\drawhorse\drawhorse\obj\Debug\drawhorse.csproj.CoreCompileInputs.cache
+D:\RAZNOE\!программирование\VisualStudioProjects\drawhorse\drawhorse\obj\Debug\drawhorse.exe
+D:\RAZNOE\!программирование\VisualStudioProjects\drawhorse\drawhorse\obj\Debug\drawhorse.pdb
