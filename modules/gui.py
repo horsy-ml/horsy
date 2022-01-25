@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import requests
 
 
 class Ui_MainWindow(object):
@@ -8,8 +9,10 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(899, 700))
         MainWindow.setMaximumSize(QtCore.QSize(899, 700))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("D:\\RAZNOE\\prgrming\\horsy\\Source\\client\\uis\\../img/horsy_white32x32.png"),
-                       QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        image = QtGui.QImage()
+        image.loadFromData(
+            requests.get('https://github.com/BarsTiger/horsy/raw/master/img/horsy_white32x32.png').content)
+        icon.addPixmap(QtGui.QPixmap(image), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setWindowOpacity(0.99)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -22,8 +25,10 @@ class Ui_MainWindow(object):
         self.horsy_logo_lefttop.setGeometry(QtCore.QRect(10, 10, 32, 32))
         self.horsy_logo_lefttop.setStyleSheet("background: none;")
         self.horsy_logo_lefttop.setText("")
-        self.horsy_logo_lefttop.setPixmap(
-            QtGui.QPixmap("D:\\RAZNOE\\prgrming\\horsy\\Source\\client\\uis\\../img/horsy_white32x32.png"))
+        image = QtGui.QImage()
+        image.loadFromData(
+            requests.get('https://github.com/BarsTiger/horsy/raw/master/img/horsy_white32x32.png').content)
+        self.horsy_logo_lefttop.setPixmap(QtGui.QPixmap(image))
         self.horsy_logo_lefttop.setObjectName("horsy_logo_lefttop")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setGeometry(QtCore.QRect(10, 4, 881, 691))
@@ -318,8 +323,10 @@ class Ui_MainWindow(object):
         self.horsy_logo_big.setGeometry(QtCore.QRect(390, 40, 471, 551))
         self.horsy_logo_big.setStyleSheet("background: none")
         self.horsy_logo_big.setText("")
-        self.horsy_logo_big.setPixmap(
-            QtGui.QPixmap("D:\\RAZNOE\\prgrming\\horsy\\Source\\client\\uis\\../img/horsy_white.png"))
+        image = QtGui.QImage()
+        image.loadFromData(
+            requests.get('https://github.com/BarsTiger/horsy/raw/master/img/horsy_white.png').content)
+        self.horsy_logo_big.setPixmap(QtGui.QPixmap(image))
         self.horsy_logo_big.setObjectName("horsy_logo_big")
         self.tabWidget.addTab(self.upload_tab, "")
         self.browse_tab = QtWidgets.QWidget()
@@ -513,8 +520,10 @@ class Ui_MainWindow(object):
         self.algolia_logo.setGeometry(QtCore.QRect(820, 530, 31, 31))
         self.algolia_logo.setStyleSheet("background: none;")
         self.algolia_logo.setText("")
-        self.algolia_logo.setPixmap(
-            QtGui.QPixmap("D:\\RAZNOE\\prgrming\\horsy\\Source\\client\\uis\\../img/algolia120x32.png"))
+        image = QtGui.QImage()
+        image.loadFromData(
+            requests.get('https://github.com/BarsTiger/horsy/raw/master/img/algolia120x32.png').content)
+        self.algolia_logo.setPixmap(QtGui.QPixmap(image))
         self.algolia_logo.setObjectName("algolia_logo")
         self.tabWidget.addTab(self.browse_tab, "")
         self.installed_tab = QtWidgets.QWidget()
