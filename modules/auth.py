@@ -1,8 +1,9 @@
 import json
+import modules.vars as horsy_vars
 
 
 def get_auth():
-    with open('config.cfg') as f:
+    with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)
 
     try:
@@ -17,17 +18,17 @@ def get_auth():
         print('password')
         password = input('> ')
         config['auth'] = {'email': email, 'password': password}
-        with open('config.cfg', 'w') as f:
+        with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
             json.dump(config, f)
         print('[OK] Auth created')
         return config['auth']
 
 
 def del_auth():
-    with open('config.cfg') as f:
+    with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)
     if config['auth']:
         config['auth'] = None
-        with open('config.cfg', 'w') as f:
+        with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
             json.dump(config, f)
         print('[OK] Auth deleted')

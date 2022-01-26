@@ -12,11 +12,17 @@ client = SearchClient.create(
 index = client.init_index('packages')
 
 
-def search(query):
+def search(query, is_gui=False):
     res = index.search(query)['hits']
+    ret_res = list()
     for i in res:
-        print(textwrap.shorten(f"{i['name']} by {i['authorName']} - {i['description']}",
-                               width=os.get_terminal_size().columns))
+        if not is_gui:
+            print(textwrap.shorten(f"{i['name']} by {i['authorName']} - {i['description']}",
+                                   width=os.get_terminal_size().columns))
+        else:
+            ret_res.append(i['name'])
+
+    return ret_res
 
 
 def info(package):

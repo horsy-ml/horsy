@@ -9,7 +9,6 @@ from modules.console import cls
 from modules.virustotal import add_to_cfg
 from modules.uploader import upload
 from modules.source import get_source
-from modules.search import search, info
 import modules.vars as horsy_vars
 
 # Initialize GUI
@@ -47,12 +46,26 @@ def uninstall_app():
         uninstall(app_name)
         installed_apps()
 
+def search_gui():
+    from modules.search import search
+    search_query = ui.search_box.toPlainText()
+    if search_query == "":
+        return
+    else:
+        found = search(search_query, True)
+        ui.search_table.clear()
+        ui.search_table.setColumnCount(4)
+        ui.search_table.setRowCount(math.ceil(len(found) / 4))
+        for i in range(len(found)):
+            ui.search_table.setItem(i // 4, i % 4, QtWidgets.QTableWidgetItem(str(found[i])))
+
 # Run functions on startup
 installed_apps()
 
 # Binds
 ui.update_button.clicked.connect(update_app)
 ui.delete_button.clicked.connect(uninstall_app)
+ui.search_button.clicked.connect(search_gui)
 
 
 # Handle GUI exiting to exit whole program
