@@ -14,6 +14,7 @@ import modules.vars as horsy_vars
 
 
 # Functions
+def installed_apps():
 
 
 # Initialize GUI
