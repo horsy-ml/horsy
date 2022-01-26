@@ -126,17 +126,16 @@ def install(package, is_gui=False):
 
 
 def uninstall(package, is_gui=False):
-    if not is_gui:
-        if os.path.exists('{1}apps/{0}'.format(package, horsy_vars.horsypath)):
-            os.system('rmdir /s /q "{1}apps/{0}"'.format(package, horsy_vars.horsypath))
-            print(f"[green][OK] Files deleted[/]")
-        else:
-            print(f"[red]App {package} is not installed or doesn't have files[/]")
-        if os.path.isfile('{1}apps/{0}.bat'.format(package, horsy_vars.horsypath)):
-            os.remove("{1}apps/{0}.bat".format(package, horsy_vars.horsypath))
-            print(f"[green][OK] Launch script deleted[/]")
-        else:
-            print(f"[red]App {package} is not installed or doesn't have launch script[/]")
+    if os.path.exists('{1}apps/{0}'.format(package, horsy_vars.horsypath)):
+        os.system('rmdir /s /q "{1}apps/{0}"'.format(package, horsy_vars.horsypath))
+        print(f"[green][OK] Files deleted[/]")
+    else:
+        print(f"[red]App {package} is not installed or doesn't have files[/]")
+    if os.path.isfile('{1}apps/{0}.bat'.format(package, horsy_vars.horsypath)):
+        os.remove("{1}apps/{0}.bat".format(package, horsy_vars.horsypath))
+        print(f"[green][OK] Launch script deleted[/]")
+    else:
+        print(f"[red]App {package} is not installed or doesn't have launch script[/]")
 
 
 def apps_list(is_gui=False):
