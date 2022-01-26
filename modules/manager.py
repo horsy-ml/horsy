@@ -142,11 +142,12 @@ def uninstall(package, is_gui=False):
 def apps_list(is_gui=False):
     apps = list()
     if os.path.exists('{0}apps'.format(horsy_vars.horsypath)):
-        print(f"[green]Installed apps:[/]")
+        if not is_gui:
+            print(f"[green]Installed apps:[/]")
         for file in os.listdir('{0}apps'.format(horsy_vars.horsypath)):
             if file.endswith(".bat") and not is_gui:
                 print(f"{file.split('.')[0]}")
-            else:
+            elif file.endswith(".bat"):
                 apps.append(file.split('.')[0])
     if is_gui:
         return apps

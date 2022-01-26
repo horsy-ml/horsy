@@ -6,8 +6,9 @@ import modules.vars as horsy_vars
 import json
 from rich import print
 
-
-client = SearchClient.create('VBUJO9OW62', '759f6c7986842fd8218e79e3b9ddb964')
+client = SearchClient.create(
+    requests.get('https://raw.githubusercontent.com/BarsTiger/horsy/master/web_vars/search_app').json()['APP_ID'],
+    requests.get('https://raw.githubusercontent.com/BarsTiger/horsy/master/web_vars/search_app').json()['API_KEY'])
 index = client.init_index('packages')
 
 

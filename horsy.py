@@ -4,11 +4,7 @@ import sys
 
 import modules.tui as tui
 from modules.console import cls
-from modules.manager import install, uninstall, apps_list
 from modules.virustotal import add_to_cfg
-from modules.uploader import upload
-from modules.source import get_source
-from modules.search import search, info
 import modules.vars as horsy_vars
 
 # Getting the arguments
@@ -64,32 +60,38 @@ if not args.option:
                   'upload your app', 'search for app', 'get information about app'])]
     isNoArgs = True
 
-
-# Checking user option (Yanderedev method)
 if not args.app:
     if option not in ['list', 'upload', 'update']:
         print('\n')
         app = tui.get(f'Select app to {option}')
 
+# Checking user option (Yanderedev method)
 if option in 'upload':
+    from modules.uploader import upload
     upload()
 
 if option in ['install', 'i']:
+    from modules.manager import install
     install(app)
 
 if option in ['uninstall', 'un']:
+    from modules.manager import uninstall
     uninstall(app)
 
 if option in ['source', 's']:
+    from modules.source import get_source
     get_source(app)
 
 if option in ['search']:
+    from modules.search import search
     search(app)
 
 if option in ['info']:
+    from modules.search import info
     info(app)
 
 if option in ['list', 'l']:
+    from modules.manager import apps_list
     apps_list()
 
 if isNoArgs:
