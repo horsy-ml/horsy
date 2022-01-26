@@ -6,9 +6,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 import modules.gui as gui
 from modules.console import cls
-from modules.virustotal import add_to_cfg
-from modules.uploader import upload
-from modules.source import get_source
 import modules.vars as horsy_vars
 
 # Initialize GUI
@@ -90,6 +87,11 @@ def get_source_gui():
     except:
         return
 
+
+def upload_gui():
+    from modules.uploader import upload
+    upload(True, ui)
+
 # Run functions on startup
 installed_apps()
 
@@ -100,6 +102,7 @@ ui.delete_button.clicked.connect(uninstall_app)
 ui.search_button.clicked.connect(search_gui)
 ui.install_button.clicked.connect(install_app)
 ui.source_button.clicked.connect(get_source_gui)
+ui.upload_button.clicked.connect(upload_gui)
 
 
 # Handle GUI exiting to exit whole program

@@ -16,91 +16,128 @@ def urlmatch(s):
     return re.match("^https?://.*.(?:zip|exe)$", s) is not None
 
 
-def upload():
-    print('Welcome to the uploader')
-    print('Before starting, please make sure you have done your project and [blink]uploaded[/] it to any hosting '
-          'service or file sharing service')
-    input('[OK] Press enter to continue...')
-    auth = get_auth()
-    print('Please enter the name of your project. It should contain only lowercase letters, '
-          'underscores and dashes')
-    project_name = None
-    while project_name is None:
-        project_name = input('> ')
+def upload(is_gui=False, ui=None):
+    if not is_gui:
+        print('Welcome to the uploader')
+        print('Before starting, please make sure you have done your project and [blink]uploaded[/] it to any hosting '
+              'service or file sharing service')
+        input('[OK] Press enter to continue...')
+        auth = get_auth()
+        print('Please enter the name of your project. It should contain only lowercase letters, '
+              'underscores and dashes')
+        project_name = None
+        while project_name is None:
+            project_name = input('> ')
+            if not matches(project_name) or len(project_name) > 64 or len(project_name) < 3:
+                print('[red]Invalid project name[/red]')
+                project_name = None
+
+        print('Please paste there project description. It should be a short text under 256 characters')
+        description = None
+        while description is None:
+            description = input('> ')
+            if len(description) > 256:
+                print('[red]Description is too long[/red]')
+                description = None
+
+        print('Please paste there url of executable file. It should be a link to exe or zip file hosted somewhere. '
+              'If app needs dependencies or specific launch options (python, node, etc), you can add them later')
+        url = None
+        while url is None:
+            url = input('> ')
+            if not urlmatch(url):
+                print('[red]Invalid file url, also it should end on .exe or .zip[/red]')
+                url = None
+
+        print('Please paste there url of your project on GitHub or somewhere else. It should be a link to source code '
+              'of your app. It can be archive, repository, site, whatever you want, optional but highly recommended.'
+              'If you don\'t want to add it, just press Enter')
+        source_url = input('> ')
+        source_url = None if source_url == '' else source_url
+
+        print('If your app needs any dependencies, please paste its link here. It can be exe of installer from official '
+              'site. If you don\'t want to add it, just press Enter')
+        download = None
+        while download is None:
+            download = input('> ')
+            if download == '':
+                download = None
+                break
+            if not urlmatch(download):
+                print('[red]Invalid download url[/red]')
+                download = None
+
+        print('Please add which files should be run during installation. It should be an executable file name.'
+              'If you don\'t want to add it, just press Enter')
+        install = input('> ')
+        install = None if install == '' else install
+
+        print('Please specify main executable command. It can be executable file name (some-file.exe) or command, that '
+              'launches your script (python some-file.py, etc)')
+        run = None
+        while run is None:
+            run = input('> ')
+            if run == '':
+                print('[red]Please, specify runtime[/red]')
+                run = None
+
+        request = {
+            'auth': auth,
+            'name': project_name,
+            'description': description,
+            'url': url,
+            'sourceUrl': source_url,
+            'download': download,
+            'install': install,
+            'run': run
+        }
+
+    else:
+        auth = get_auth()
+
+        project_name = ui.packagename_box.text()
         if not matches(project_name) or len(project_name) > 64 or len(project_name) < 3:
             print('[red]Invalid project name[/red]')
-            project_name = None
+            return
 
-    print('Please paste there project description. It should be a short text under 256 characters')
-    description = None
-    while description is None:
-        description = input('> ')
+        description = ui.package_desc_box.toPlainText()
         if len(description) > 256:
             print('[red]Description is too long[/red]')
-            description = None
+            return
 
-    print('Please paste there url of executable file. It should be a link to exe or zip file hosted somewhere. '
-          'If app needs dependencies or specific launch options (python, node, etc), you can add them later')
-    url = None
-    while url is None:
-        url = input('> ')
+        url = ui.url_of_exe_box.text()
         if not urlmatch(url):
             print('[red]Invalid file url, also it should end on .exe or .zip[/red]')
-            url = None
+            return
 
-    print('Please paste there url of your project on GitHub or somewhere else. It should be a link to source code '
-          'of your app. It can be archive, repository, site, whatever you want, optional but highly recommended.'
-          'If you don\'t want to add it, just press Enter')
-    source_url = input('> ')
-    source_url = None if source_url == '' else source_url
+        source_url = ui.source_url_box.text()
+        source_url = None if source_url == '' else source_url
 
-    print('If your app needs any dependencies, please paste its link here. It can be exe of installer from official '
-          'site. If you don\'t want to add it, just press Enter')
-    download = None
-    while download is None:
-        download = input('> ')
+        download = ui.dependency_url_box.text()
         if download == '':
             download = None
-            break
-        if not urlmatch(download):
+        elif not urlmatch(download):
             print('[red]Invalid download url[/red]')
-            download = None
+            return
 
-    print('Please add which files should be run during installation. It should be an executable file name.'
-          'If you don\'t want to add it, just press Enter')
-    install = input('> ')
-    install = None if install == '' else install
+        install = ui.dependency_run_box.text()
+        install = None if install == '' else install
 
-    print('Please specify main executable command. It can be executable file name (some-file.exe) or command, that '
-          'launches your script (python some-file.py, etc)')
-    run = None
-    while run is None:
-        run = input('> ')
+        run = ui.main_exe_box.text()
         if run == '':
             print('[red]Please, specify runtime[/red]')
-            run = None
+            return
 
-    request = {
-        'auth': auth,
-        'name': project_name,
-        'description': description,
-        'url': url,
-        'sourceUrl': source_url,
-        'download': download,
-        'install': install,
-        'run': run
-    }
-
-    # request = {
-    # "auth": {"email": "meshko_a@dlit.dp.ua", "password": "VeryGoodPassword"},
-    # "name": "testapp",
-    # "description": "Very good description",
-    # # "url": "https://github.com/Cactus-0/cabanchik/raw/main/dist/cabanchik.exe",
-    # "sourceUrl": "https://github.com/Cactus-0/cabanchik",
-    # "download": "https://www.python.org/ftp/python/3.10.2/python-3.10.2-amd64.exe",
-    # "install": "python-3.10.2-amd64.exe",
-    # "run": "cabanchik.exe"
-    # }
+        request = {
+            'auth': auth,
+            'name': project_name,
+            'description': description,
+            'url': url,
+            'sourceUrl': source_url,
+            'download': download,
+            'install': install,
+            'run': run
+        }
 
     r = None
     while r is None:
