@@ -64,6 +64,8 @@ if not args.option:
                   'upload your app', 'search for app', 'get information about app'])]
     isNoArgs = True
 
+
+# Checking user option (Yanderedev method)
 if not args.app:
     if option not in ['list', 'upload', 'update']:
         print('\n')

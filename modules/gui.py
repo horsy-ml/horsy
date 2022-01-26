@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import modules.images
 import requests
 
 
@@ -9,10 +10,7 @@ class Ui_MainWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(899, 700))
         MainWindow.setMaximumSize(QtCore.QSize(899, 700))
         icon = QtGui.QIcon()
-        image = QtGui.QImage()
-        image.loadFromData(
-            requests.get('https://github.com/BarsTiger/horsy/raw/master/img/horsy_white32x32.png').content)
-        icon.addPixmap(QtGui.QPixmap(image), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/images/horsy_white32x32.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setWindowOpacity(0.99)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -25,10 +23,7 @@ class Ui_MainWindow(object):
         self.horsy_logo_lefttop.setGeometry(QtCore.QRect(10, 10, 32, 32))
         self.horsy_logo_lefttop.setStyleSheet("background: none;")
         self.horsy_logo_lefttop.setText("")
-        image = QtGui.QImage()
-        image.loadFromData(
-            requests.get('https://github.com/BarsTiger/horsy/raw/master/img/horsy_white32x32.png').content)
-        self.horsy_logo_lefttop.setPixmap(QtGui.QPixmap(image))
+        self.horsy_logo_lefttop.setPixmap(QtGui.QPixmap(":/images/horsy_white32x32.png"))
         self.horsy_logo_lefttop.setObjectName("horsy_logo_lefttop")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setGeometry(QtCore.QRect(10, 4, 881, 691))
@@ -257,7 +252,9 @@ class Ui_MainWindow(object):
                                             "color: rgb(242, 242, 242);")
         self.package_desc_box.setAcceptRichText(False)
         self.package_desc_box.setTextInteractionFlags(
-            QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
+            QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction
+            | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard |
+            QtCore.Qt.TextSelectableByMouse)
         self.package_desc_box.setObjectName("package_desc_box")
         self.url_of_exe_box = QtWidgets.QLineEdit(self.upload_tab)
         self.url_of_exe_box.setGeometry(QtCore.QRect(10, 195, 291, 31))
@@ -323,10 +320,7 @@ class Ui_MainWindow(object):
         self.horsy_logo_big.setGeometry(QtCore.QRect(390, 40, 471, 551))
         self.horsy_logo_big.setStyleSheet("background: none")
         self.horsy_logo_big.setText("")
-        image = QtGui.QImage()
-        image.loadFromData(
-            requests.get('https://github.com/BarsTiger/horsy/raw/master/img/horsy_white.png').content)
-        self.horsy_logo_big.setPixmap(QtGui.QPixmap(image))
+        self.horsy_logo_big.setPixmap(QtGui.QPixmap(":/images/horsy_white.png"))
         self.horsy_logo_big.setObjectName("horsy_logo_big")
         self.tabWidget.addTab(self.upload_tab, "")
         self.browse_tab = QtWidgets.QWidget()
@@ -520,10 +514,7 @@ class Ui_MainWindow(object):
         self.algolia_logo.setGeometry(QtCore.QRect(820, 530, 31, 31))
         self.algolia_logo.setStyleSheet("background: none;")
         self.algolia_logo.setText("")
-        image = QtGui.QImage()
-        image.loadFromData(
-            requests.get('https://github.com/BarsTiger/horsy/raw/master/img/algolia120x32.png').content)
-        self.algolia_logo.setPixmap(QtGui.QPixmap(image))
+        self.algolia_logo.setPixmap(QtGui.QPixmap(":/images/algolia120x32.png"))
         self.algolia_logo.setObjectName("algolia_logo")
         self.tabWidget.addTab(self.browse_tab, "")
         self.installed_tab = QtWidgets.QWidget()
