@@ -20,6 +20,9 @@ MainWindow.show()
 
 
 # Functions
+def refresh_gui():
+    installed_apps()
+
 def installed_apps():
     from modules.manager import apps_list
     ui.installed_table.clear()
@@ -30,21 +33,27 @@ def installed_apps():
         ui.installed_table.setItem(i // 4, i % 4, QtWidgets.QTableWidgetItem(str(apps[i])))
 
 def update_app():
-    app_name = ui.installed_table.currentItem().text()
-    if app_name == "":
+    try:
+        app_name = ui.installed_table.currentItem().text()
+        if app_name == "":
+            return
+        else:
+            from modules.manager import install
+            install(app_name, True)
+    except:
         return
-    else:
-        from modules.manager import install
-        install(app_name)
 
 def uninstall_app():
-    app_name = ui.installed_table.currentItem().text()
-    if app_name == "":
+    try:
+        app_name = ui.installed_table.currentItem().text()
+        if app_name == "":
+            return
+        else:
+            from modules.manager import uninstall
+            uninstall(app_name)
+            installed_apps()
+    except:
         return
-    else:
-        from modules.manager import uninstall
-        uninstall(app_name)
-        installed_apps()
 
 def search_gui():
     from modules.search import search
@@ -59,13 +68,38 @@ def search_gui():
         for i in range(len(found)):
             ui.search_table.setItem(i // 4, i % 4, QtWidgets.QTableWidgetItem(str(found[i])))
 
+def install_app():
+    from modules.manager import install
+    try:
+        app_name = ui.search_table.currentItem().text()
+        if app_name == "":
+            return
+        else:
+            install(app_name, True)
+    except:
+        return
+
+def get_source_gui():
+    from modules.source import get_source
+    try:
+        app_name = ui.search_table.currentItem().text()
+        if app_name == "":
+            return
+        else:
+            get_source(app_name)
+    except:
+        return
+
 # Run functions on startup
 installed_apps()
 
 # Binds
+ui.tabWidget.currentChanged.connect(refresh_gui)
 ui.update_button.clicked.connect(update_app)
 ui.delete_button.clicked.connect(uninstall_app)
 ui.search_button.clicked.connect(search_gui)
+ui.install_button.clicked.connect(install_app)
+ui.source_button.clicked.connect(get_source_gui)
 
 
 # Handle GUI exiting to exit whole program
