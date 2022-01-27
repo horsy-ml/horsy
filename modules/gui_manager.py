@@ -5,43 +5,49 @@ import modules.vars as horsy_vars
 import os
 import zipfile
 from modules.virustotal import get_key, scan_file, get_report
+from horsygui import UiDownloadWindow, download_ui
 
 
-def install(package, UiDownloadWindow=None, ui_download=None):
+def install(package):
     r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
     if r == "":
-        print(f"[red]Package {package} not found[/]")
-        return
+        return f"Package {package} not found"
     try:
         r = json.loads(r)
     except:
         print("[red]Error with unsupported message[/]")
-        return
+        return "Error with unsupported message"
     try:
         if r["message"] == "Internal server error":
             print("[red]Internal server error[/]")
-            return
+            return "Internal server error"
     except:
         pass
 
     try:
         print(f"[green]App {r['name']} found, information loaded[/]")
+        UiDownloadWindow.show()
 
         if not os.path.exists('{1}apps/{0}'.format(r['name'], horsy_vars.horsypath)):
             os.makedirs('{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
 
-        # if not is_gui:
-        print(f"Downloading {r['url'].split('/')[-1]}")
+        download_ui.logs_box.clear()
+        download_ui.logs_box.append(f"Downloading {r['url'].split('/')[-1]}")
+        success = 0
 
-        chunk_size = 1024
-        file_r = requests.get(r['url'], stream=True)
-        with open('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath), "wb") as f:
-            pbar = tqdm(unit="B", unit_scale=True, total=int(file_r.headers['Content-Length']))
-            for chunk in file_r.iter_content(chunk_size=chunk_size):
-                if chunk:
-                    pbar.update(len(chunk))
-                    f.write(chunk)
-            pbar.close()
+        def dl_main_file(success):
+            UiDownloadWindow.show()
+            file_r = requests.get(r['url'], stream=True)
+            chunk_size = int(int(file_r.headers['Content-Length']) / 100)
+            with open('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath), "wb") as f:
+                for chunk in file_r.iter_content(chunk_size=chunk_size):
+                    if chunk:
+                        download_ui.progressBar_1.setValue(download_ui.progressBar_1.value() + 1)
+                        f.write(chunk)
+                download_ui.progressBar_1.setValue(0)
+                success += 1
+
+        threading.Thread(target=dl_main_file, args=(success,)).start()
 
         print(f"Starting virustotal scan")
         if not get_key():
@@ -75,16 +81,20 @@ def install(package, UiDownloadWindow=None, ui_download=None):
             # if not is_gui:
             print(f"Downloading {r['download'].split('/')[-1]}")
 
-            chunk_size = 1024
-            file_r = requests.get(r['download'], stream=True)
-            with open('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsy_vars.horsypath),
-                      "wb") as f:
-                pbar = tqdm(unit="B", unit_scale=True, total=int(file_r.headers['Content-Length']))
-                for chunk in file_r.iter_content(chunk_size=chunk_size):
-                    if chunk:
-                        pbar.update(len(chunk))
-                        f.write(chunk)
-                pbar.close()
+            def dl_dep_file(success):
+                download_ui.logs_box.append(f"Downloading {r['download'].split('/')[-1]}")
+                file_r = requests.get(r['download'], stream=True)
+                chunk_size = int(int(file_r.headers['Content-Length']) / 100)
+                with open('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsy_vars.horsypath),
+                          "wb") as f:
+                    for chunk in file_r.iter_content(chunk_size=chunk_size):
+                        if chunk:
+                            download_ui.progressBar_2.setValue(download_ui.progressBar_2.value() + 1)
+                            f.write(chunk)
+                    download_ui.progressBar_2.setValue(0)
+                    success += 1
+
+            threading.Thread(target=dl_dep_file, args=(success,)).start()
 
             print(f"Starting virustotal scan")
             if not get_key():
@@ -114,13 +124,11 @@ def install(package, UiDownloadWindow=None, ui_download=None):
             f.write(f"@ECHO off\n")
             f.write(f"{horsy_vars.horsypath}apps/{r['name']}/{r['run']} %*\n")
 
-        print(f"[green][OK] All done![/]")
-        print(f"[green]You can run your app by entering [italic white]{r['name']}[/] in terminal[/]")
+        return f"All done!\n You can run your app by entering {r['name']} in terminal"
 
     except:
-        print("[red]Unexpected error[/]")
-        # raise
-        return
+        raise
+        return "Unexpected error"
 
 
 def uninstall(package, is_gui=False):

@@ -9,11 +9,13 @@ from modules.console import cls
 import modules.vars as horsy_vars
 
 # Initialize GUI
-app = QtWidgets.QApplication(sys.argv)
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+
+
 MainWindow = QtWidgets.QMainWindow()
 ui = gui.Ui_MainWindow()
 ui.setupUi(MainWindow)
-MainWindow.show()
 
 UiMainWindow = QtWidgets.QMainWindow()
 login_ui = gui.Ui_LoginWindow()
@@ -23,6 +25,8 @@ UiDownloadWindow = QtWidgets.QMainWindow()
 download_ui = gui.Ui_DownloadWindow()
 download_ui.setupUi(UiDownloadWindow)
 
+if __name__ == "__main__":
+    MainWindow.show()
 
 # Functions
 def refresh_gui():
@@ -80,7 +84,7 @@ def install_app():
         if app_name == "":
             return
         else:
-            install(app_name, UiDownloadWindow, download_ui)
+            gui.popup("Installation", str(install(app_name)))
     except:
         return
 
@@ -100,21 +104,22 @@ def get_source_gui():
 
 def upload_gui():
     from modules.uploader import upload
-    gui.popup('Upload', upload(True, ui, login_ui, UiMainWindow))
+    gui.popup('Upload', str(upload(True, ui, login_ui, UiMainWindow)))
 
 
 # Run functions on startup
-installed_apps()
+if __name__ == "__main__":
+    installed_apps()
 
-# Binds
-ui.tabWidget.currentChanged.connect(refresh_gui)
-ui.update_button.clicked.connect(update_app)
-ui.delete_button.clicked.connect(uninstall_app)
-ui.search_button.clicked.connect(search_gui)
-ui.install_button.clicked.connect(install_app)
-ui.source_button.clicked.connect(get_source_gui)
-ui.upload_button.clicked.connect(upload_gui)
+    # Binds
+    ui.tabWidget.currentChanged.connect(refresh_gui)
+    ui.update_button.clicked.connect(update_app)
+    ui.delete_button.clicked.connect(uninstall_app)
+    ui.search_button.clicked.connect(search_gui)
+    ui.install_button.clicked.connect(install_app)
+    ui.source_button.clicked.connect(get_source_gui)
+    ui.upload_button.clicked.connect(upload_gui)
 
 
-# Handle GUI exiting to exit whole program
-sys.exit(app.exec_())
+    # Handle GUI exiting to exit whole program
+    sys.exit(app.exec_())
