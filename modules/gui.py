@@ -750,68 +750,25 @@ class Ui_LoginWindow(object):
 class Ui_DownloadWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(682, 184)
-        MainWindow.setMinimumSize(QtCore.QSize(682, 184))
-        MainWindow.setMaximumSize(QtCore.QSize(682, 184))
+        MainWindow.resize(682, 252)
+        MainWindow.setMinimumSize(QtCore.QSize(682, 252))
+        MainWindow.setMaximumSize(QtCore.QSize(682, 252))
         MainWindow.setStyleSheet("QWidget{\n"
                                  "    background-color: rgb(30, 30, 30);\n"
                                  "}\n"
                                  "")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.progressBar_1 = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar_1.setGeometry(QtCore.QRect(30, 80, 621, 23))
-        self.progressBar_1.setStyleSheet("QProgressBar { \n"
-                                         "font: 14pt;\n"
-                                         "color: rgb(200, 200, 200);\n"
-                                         "border: 2px solid grey;\n"
-                                         "text-align: center;\n"
-                                         "background-color: rgb(74, 76, 83);\n"
-                                         "}\n"
-                                         "QProgressBar::chunk {\n"
-                                         "    background-color: rgb(54, 99, 197);\n"
-                                         "    margin: 0.5px;\n"
-                                         "}")
-        self.progressBar_1.setProperty("value", 0)
-        self.progressBar_1.setObjectName("progressBar_1")
         self.logs_box = QtWidgets.QTextBrowser(self.centralwidget)
-        self.logs_box.setGeometry(QtCore.QRect(30, 20, 621, 41))
+        self.logs_box.setGeometry(QtCore.QRect(20, 20, 641, 211))
+        self.logs_box.setMinimumSize(QtCore.QSize(0, 0))
+        self.logs_box.setMaximumSize(QtCore.QSize(1000, 1000))
         self.logs_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
                                     "border-radius: 5px;    \n"
                                     "color: rgb(242, 242, 242);")
         self.logs_box.setAcceptRichText(False)
-        self.logs_box.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
+        self.logs_box.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         self.logs_box.setObjectName("logs_box")
-        self.progressBar_2 = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar_2.setGeometry(QtCore.QRect(30, 110, 621, 23))
-        self.progressBar_2.setStyleSheet("QProgressBar { \n"
-                                         "font: 14pt;\n"
-                                         "color: rgb(200, 200, 200);\n"
-                                         "border: 2px solid grey;\n"
-                                         "text-align: center;\n"
-                                         "background-color: rgb(74, 76, 83);\n"
-                                         "}\n"
-                                         "QProgressBar::chunk {\n"
-                                         "    background-color: rgb(54, 99, 197);\n"
-                                         "    margin: 0.5px;\n"
-                                         "}")
-        self.progressBar_2.setProperty("value", 0)
-        self.progressBar_2.setObjectName("progressBar_2")
-        self.progressBar_3 = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar_3.setGeometry(QtCore.QRect(30, 140, 621, 23))
-        self.progressBar_3.setStyleSheet("QProgressBar { \n"
-                                         "    font: 14pt;\n"
-                                         "    color: rgb(200, 200, 200);\n"
-                                         "    border: 2px solid grey;\n"
-                                         "    text-align: center;\n"
-                                         "    background-color: rgb(74, 76, 83);\n"
-                                         "}\n"
-                                         "QProgressBar::chunk {\n"
-                                         "    background-color: rgb(54, 99, 197);\n"
-                                         "    margin: 0.5px;\n"
-                                         "}")
-        self.progressBar_3.setProperty("value", 0)
-        self.progressBar_3.setObjectName("progressBar_3")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -828,9 +785,9 @@ class Ui_DownloadWindow(object):
                                          "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.logs_box.setPlaceholderText(_translate("MainWindow", "Logs"))
 
-
 def popup(title, text):
-    QtWidgets.QMessageBox.information(QtWidgets.QMainWindow(), title, text)
+
+    QtWidgets.QMessageBox.information(None, title, text)
 
 if __name__ == "__main__":
     import sys

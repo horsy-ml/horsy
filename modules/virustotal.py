@@ -49,6 +49,13 @@ def get_report(filename):
     headers = {'x-apikey': get_key()}
     response = requests.get(api_url, headers=headers)
     analysis = dict()
-    analysis['detect'] = response.json()['data']['attributes']['last_analysis_stats']
-    analysis['link'] = 'https://www.virustotal.com/gui/file/' + response.json()['data']['id']
+    try:
+        analysis['detect'] = response.json()['data']['attributes']['last_analysis_stats']
+    except:
+        analysis['detect'] = 'No data'
+    try:
+        analysis['link'] = 'https://www.virustotal.com/gui/file/' + response.json()['data']['id']
+    except:
+        analysis['link'] = 'No data'
+
     return analysis

@@ -47,8 +47,8 @@ def update_app():
         if app_name == "":
             return
         else:
-            from modules.manager import install
-            install(app_name, True)
+            from modules.gui_manager import install
+            install(app_name)
     except:
         return
 
@@ -84,7 +84,7 @@ def install_app():
         if app_name == "":
             return
         else:
-            gui.popup("Installation", str(install(app_name)))
+            install(app_name)
     except:
         return
 
