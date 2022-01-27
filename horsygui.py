@@ -6,7 +6,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 import modules.gui as gui
 from modules.console import cls
-import modules.vars as horsy_vars
 
 # Initialize GUI
 if __name__ == "__main__":

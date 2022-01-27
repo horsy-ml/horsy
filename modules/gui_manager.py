@@ -1,7 +1,7 @@
 import json
 import threading
 import time
-from modules.unerrored import run_threaded, run
+from modules.unerrored import run_threaded
 import requests
 import modules.vars as horsy_vars
 import os
@@ -26,7 +26,7 @@ def install(package):
         return "Error with unsupported message"
     try:
         if r["message"] == "Internal server error":
-            print("[red]Internal server error[/]")
+            print("Internal server error")
             run_threaded(popup("Error", "Internal server error"))
             return "Internal server error"
     except:
@@ -52,13 +52,13 @@ def install(package):
                     if chunk:
                         percent += 1
                         f.write(chunk)
-                        # download_ui.progress_box_1.setText(f"{percent}% {'|' * percent}")
 
             if not get_key():
                 download_ui.logs_box.append("Virustotal api key not found \n"
-                                            "You can add it by entering horsy --vt in terminal")
+                                            "You can add it by entering horsy --vt [key] in terminal")
             else:
                 download_ui.logs_box.append("If you want to disable scan, type horsy --vt disable in terminal")
+                download_ui.logs_box.append("Starting virustotal scan for program")
                 scan_file('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
                 analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1],
                                                                horsy_vars.horsypath))
@@ -95,7 +95,7 @@ def install(package):
                 download_ui.logs_box.append(f"Starting virustotal scan for dependency")
                 if not get_key():
                     download_ui.logs_box.append(f"Virustotal api key not found")
-                    download_ui.logs_box.append(f"You can add it by entering horsy --vt in terminal")
+                    download_ui.logs_box.append(f"You can add it by entering horsy --vt [key] in terminal")
                 else:
                     scan_file('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsy_vars.horsypath))
                     download_ui.logs_box.append(f"Virustotal scan finished for dependency")
@@ -105,6 +105,7 @@ def install(package):
                     download_ui.logs_box.append(f"{analysis['detect']['malicious']} "
                                                 f"antivirus flagged this file as malicious")
                     if analysis['detect']['malicious'] > 0:
+                        download_ui.logs_box.append(f"SECURITY WARNING, APP INSTALLATION STOPPED")
                         download_ui.logs_box.append(f"Dependency can be malicious. "
                                                     f"It may run now, if this added to installation config")
                         download_ui.logs_box.append(f"You can disable VT check with horsy --vt disable \n"
