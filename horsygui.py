@@ -15,6 +15,10 @@ ui = gui.Ui_MainWindow()
 ui.setupUi(MainWindow)
 MainWindow.show()
 
+UiMainWindow = QtWidgets.QMainWindow()
+login_ui = gui.Ui_LoginWindow()
+login_ui.setupUi(UiMainWindow)
+
 
 # Functions
 def refresh_gui():
@@ -90,7 +94,8 @@ def get_source_gui():
 
 def upload_gui():
     from modules.uploader import upload
-    upload(True, ui)
+    upload(True, ui, login_ui)
+
 
 # Run functions on startup
 installed_apps()

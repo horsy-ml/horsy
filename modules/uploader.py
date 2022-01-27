@@ -16,7 +16,7 @@ def urlmatch(s):
     return re.match("^https?://.*.(?:zip|exe)$", s) is not None
 
 
-def upload(is_gui=False, ui=None):
+def upload(is_gui=False, ui=None, login_ui=None):
     if not is_gui:
         print('Welcome to the uploader')
         print('Before starting, please make sure you have done your project and [blink]uploaded[/] it to any hosting '
@@ -93,7 +93,7 @@ def upload(is_gui=False, ui=None):
         }
 
     else:
-        auth = get_auth()
+        auth = get_auth(is_gui)
 
         project_name = ui.packagename_box.text()
         if not matches(project_name) or len(project_name) > 64 or len(project_name) < 3:
