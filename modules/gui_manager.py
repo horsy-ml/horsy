@@ -140,7 +140,7 @@ def install(package):
         pass
 
 
-def uninstall(package, is_gui=False):
+def uninstall(package, login_ui=None, Ui_LoginWindow=None):
     if os.path.exists('{1}apps/{0}'.format(package, horsy_vars.horsypath)):
         os.system('rmdir /s /q "{1}apps/{0}"'.format(package, horsy_vars.horsypath))
         print(f"[green][OK] Files deleted[/]")

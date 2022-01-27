@@ -1,11 +1,8 @@
-import argparse
-import os
 import sys
 import math
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 import modules.gui as gui
-from modules.console import cls
 
 # Initialize GUI
 if __name__ == "__main__":
@@ -100,6 +97,19 @@ def get_source_gui():
     except:
         return
 
+def info_gui():
+    from modules.search import info
+    try:
+        app_name = ui.search_table.currentItem().text()
+        if app_name == "":
+            return
+        else:
+            info = info(app_name, download_ui, UiDownloadWindow)
+            if info is not None:
+                gui.popup("Error", info)
+    except:
+        return
+
 
 def upload_gui():
     from modules.uploader import upload
@@ -117,6 +127,8 @@ if __name__ == "__main__":
     ui.search_button.clicked.connect(search_gui)
     ui.install_button.clicked.connect(install_app)
     ui.source_button.clicked.connect(get_source_gui)
+    ui.info_button.clicked.connect(info_gui)
+    ui.search_table.itemDoubleClicked.connect(info_gui)
     ui.upload_button.clicked.connect(upload_gui)
 
 
