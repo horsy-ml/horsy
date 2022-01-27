@@ -97,10 +97,12 @@ def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
 
         project_name = ui.packagename_box.text()
         if not matches(project_name) or len(project_name) > 64 or len(project_name) < 3:
+            print('[red]Invalid project name[/red]')
             return 'Invalid project name'
 
         description = ui.package_desc_box.toPlainText()
         if len(description) > 256:
+            print('[red]Description is too long[/red]')
             return 'Description is too long'
 
         url = ui.url_of_exe_box.text()
@@ -159,7 +161,7 @@ def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
                     request['name'])
 
             elif 'already exists' in r['message']:
-                print(r['message'])
+                print(f"[red]{r['message']}[/red]")
                 return {r['message']}
 
             else:
