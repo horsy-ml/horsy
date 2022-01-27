@@ -765,7 +765,8 @@ class Ui_DownloadWindow(object):
         self.logs_box.setMaximumSize(QtCore.QSize(1000, 1000))
         self.logs_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
                                     "border-radius: 5px;    \n"
-                                    "color: rgb(242, 242, 242);")
+                                    "color: rgb(242, 242, 242);\n"
+                                    'font: 50 12pt "Arial Black";')
         self.logs_box.setAcceptRichText(False)
         self.logs_box.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         self.logs_box.setObjectName("logs_box")

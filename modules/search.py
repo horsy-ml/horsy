@@ -60,6 +60,7 @@ def info(package, download_ui=None, UiDownloadWindow=None):
         download_ui.logs_box.append(f"{r['name']}{'✅' if r['verified'] else ''} by {r['authorName']}")
         download_ui.logs_box.append(f"{r['description']}")
         download_ui.logs_box.append(f"👍{r['likes']} | 👎{r['dislikes']}")
+        download_ui.logs_box.append("")
         if not r['verified']:
             download_ui.logs_box.append("This package is not verified by the horsy team. This means that it \n"
                                         "can be unstable or it can be malware. Most packages have unverified\n"
