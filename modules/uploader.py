@@ -156,8 +156,8 @@ def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
 
             elif r['message'] == 'Success':
                 print('[green]Success, your project is created. You can install it by running[/] '
-                      '[i]horsy install {0}[/]'.format(request['name']))
-                return 'Success, your project is created. You can install it by running horsy install {0}'.format(
+                      '[i]horsy i {0}[/]'.format(request['name']))
+                return 'Success, your project is created. You can install it by running horsy i {0}'.format(
                     request['name'])
 
             elif 'already exists' in r['message']:
