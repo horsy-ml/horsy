@@ -97,18 +97,15 @@ def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
 
         project_name = ui.packagename_box.text()
         if not matches(project_name) or len(project_name) > 64 or len(project_name) < 3:
-            print('[red]Invalid project name[/red]')
-            return
+            return 'Invalid project name'
 
         description = ui.package_desc_box.toPlainText()
         if len(description) > 256:
-            print('[red]Description is too long[/red]')
-            return
+            return 'Description is too long'
 
         url = ui.url_of_exe_box.text()
         if not urlmatch(url):
-            print('[red]Invalid file url, also it should end on .exe or .zip[/red]')
-            return
+            return 'Invalid file url, also it should end on .exe or .zip'
 
         source_url = ui.source_url_box.text()
         source_url = None if source_url == '' else source_url
@@ -117,16 +114,14 @@ def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
         if download == '':
             download = None
         elif not urlmatch(download):
-            print('[red]Invalid download url[/red]')
-            return
+            return 'Invalid download url'
 
         install = ui.dependency_run_box.text()
         install = None if install == '' else install
 
         run = ui.main_exe_box.text()
         if run == '':
-            print('[red]Please, specify runtime[/red]')
-            return
+            return 'Please, specify runtime'
 
         request = {
             'auth': auth,
@@ -154,22 +149,24 @@ def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
                 r = None
 
             elif r['message'] == 'Internal server error':
-                print('[red]Internal server error, request is broken[/red]')
-                break
+                print('[red]Internal server error[/red]')
+                return 'Internal server error'
 
             elif r['message'] == 'Success':
                 print('[green]Success, your project is created. You can install it by running[/] '
                       '[i]horsy install {0}[/]'.format(request['name']))
-                break
+                return 'Success, your project is created. You can install it by running horsy install {0}'.format(
+                    request['name'])
 
             elif 'already exists' in r['message']:
-                print(f"[red]{r['message']}[/red]")
+                print(r['message'])
+                return {r['message']}
 
             else:
                 print('[red]Unknown error, please try again[/red]')
                 print('Server response:')
                 print(r)
-                break
+                return 'Unknown error, please try again, \n Server response: \n' + str(r)
         except:
             with open(f'error_{time.time()}.txt', 'w') as f:
                 f.write(str(r))

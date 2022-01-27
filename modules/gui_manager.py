@@ -1,15 +1,13 @@
 import json
 import threading
-from rich import print
 import requests
 import modules.vars as horsy_vars
-from tqdm import tqdm
 import os
 import zipfile
 from modules.virustotal import get_key, scan_file, get_report
 
 
-def install(package, is_gui=False, UiDownloadWindow=None, ui_download=None):
+def install(package, UiDownloadWindow=None, ui_download=None):
     r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
     if r == "":
         print(f"[red]Package {package} not found[/]")
@@ -136,17 +134,3 @@ def uninstall(package, is_gui=False):
         print(f"[green][OK] Launch script deleted[/]")
     else:
         print(f"[red]App {package} is not installed or doesn't have launch script[/]")
-
-
-def apps_list(is_gui=False):
-    apps = list()
-    if os.path.exists('{0}apps'.format(horsy_vars.horsypath)):
-        if not is_gui:
-            print(f"[green]Installed apps:[/]")
-        for file in os.listdir('{0}apps'.format(horsy_vars.horsypath)):
-            if file.endswith(".bat") and not is_gui:
-                print(f"{file.split('.')[0]}")
-            elif file.endswith(".bat"):
-                apps.append(file.split('.')[0])
-    if is_gui:
-        return apps

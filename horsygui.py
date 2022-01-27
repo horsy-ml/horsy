@@ -74,13 +74,13 @@ def search_gui():
             ui.search_table.setItem(i // 4, i % 4, QtWidgets.QTableWidgetItem(str(found[i])))
 
 def install_app():
-    from modules.manager import install
+    from modules.gui_manager import install
     try:
         app_name = ui.search_table.currentItem().text()
         if app_name == "":
             return
         else:
-            install(app_name, True)
+            install(app_name, UiDownloadWindow, download_ui)
     except:
         return
 
@@ -91,7 +91,9 @@ def get_source_gui():
         if app_name == "":
             return
         else:
-            get_source(app_name)
+            source = get_source(app_name)
+            if source is not None:
+                gui.popup("Error", source)
     except:
         return
 

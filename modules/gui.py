@@ -829,6 +829,9 @@ class Ui_DownloadWindow(object):
         self.logs_box.setPlaceholderText(_translate("MainWindow", "Logs"))
 
 
+def popup(title, text):
+    QtWidgets.QMessageBox.information(QtWidgets.QMainWindow(), title, text)
+
 if __name__ == "__main__":
     import sys
 
