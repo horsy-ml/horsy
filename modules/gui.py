@@ -747,6 +747,88 @@ class Ui_LoginWindow(object):
         self.password_box.setPlaceholderText(_translate("MainWindow", "Password"))
 
 
+class Ui_DownloadWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(682, 184)
+        MainWindow.setMinimumSize(QtCore.QSize(682, 184))
+        MainWindow.setMaximumSize(QtCore.QSize(682, 184))
+        MainWindow.setStyleSheet("QWidget{\n"
+                                 "    background-color: rgb(30, 30, 30);\n"
+                                 "}\n"
+                                 "")
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.progressBar_1 = QtWidgets.QProgressBar(self.centralwidget)
+        self.progressBar_1.setGeometry(QtCore.QRect(30, 80, 621, 23))
+        self.progressBar_1.setStyleSheet("QProgressBar { \n"
+                                         "font: 14pt;\n"
+                                         "color: rgb(200, 200, 200);\n"
+                                         "border: 2px solid grey;\n"
+                                         "text-align: center;\n"
+                                         "background-color: rgb(74, 76, 83);\n"
+                                         "}\n"
+                                         "QProgressBar::chunk {\n"
+                                         "    background-color: rgb(54, 99, 197);\n"
+                                         "    margin: 0.5px;\n"
+                                         "}")
+        self.progressBar_1.setProperty("value", 0)
+        self.progressBar_1.setObjectName("progressBar_1")
+        self.logs_box = QtWidgets.QTextBrowser(self.centralwidget)
+        self.logs_box.setGeometry(QtCore.QRect(30, 20, 621, 41))
+        self.logs_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+                                    "border-radius: 5px;    \n"
+                                    "color: rgb(242, 242, 242);")
+        self.logs_box.setAcceptRichText(False)
+        self.logs_box.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
+        self.logs_box.setObjectName("logs_box")
+        self.progressBar_2 = QtWidgets.QProgressBar(self.centralwidget)
+        self.progressBar_2.setGeometry(QtCore.QRect(30, 110, 621, 23))
+        self.progressBar_2.setStyleSheet("QProgressBar { \n"
+                                         "font: 14pt;\n"
+                                         "color: rgb(200, 200, 200);\n"
+                                         "border: 2px solid grey;\n"
+                                         "text-align: center;\n"
+                                         "background-color: rgb(74, 76, 83);\n"
+                                         "}\n"
+                                         "QProgressBar::chunk {\n"
+                                         "    background-color: rgb(54, 99, 197);\n"
+                                         "    margin: 0.5px;\n"
+                                         "}")
+        self.progressBar_2.setProperty("value", 0)
+        self.progressBar_2.setObjectName("progressBar_2")
+        self.progressBar_3 = QtWidgets.QProgressBar(self.centralwidget)
+        self.progressBar_3.setGeometry(QtCore.QRect(30, 140, 621, 23))
+        self.progressBar_3.setStyleSheet("QProgressBar { \n"
+                                         "    font: 14pt;\n"
+                                         "    color: rgb(200, 200, 200);\n"
+                                         "    border: 2px solid grey;\n"
+                                         "    text-align: center;\n"
+                                         "    background-color: rgb(74, 76, 83);\n"
+                                         "}\n"
+                                         "QProgressBar::chunk {\n"
+                                         "    background-color: rgb(54, 99, 197);\n"
+                                         "    margin: 0.5px;\n"
+                                         "}")
+        self.progressBar_3.setProperty("value", 0)
+        self.progressBar_3.setObjectName("progressBar_3")
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Downloading"))
+        self.logs_box.setHtml(_translate("MainWindow",
+                                         "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                         "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                         "p, li { white-space: pre-wrap; }\n"
+                                         "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+                                         "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.logs_box.setPlaceholderText(_translate("MainWindow", "Logs"))
+
+
 if __name__ == "__main__":
     import sys
 

@@ -19,6 +19,10 @@ UiMainWindow = QtWidgets.QMainWindow()
 login_ui = gui.Ui_LoginWindow()
 login_ui.setupUi(UiMainWindow)
 
+UiDownloadWindow = QtWidgets.QMainWindow()
+download_ui = gui.Ui_DownloadWindow()
+download_ui.setupUi(UiDownloadWindow)
+
 
 # Functions
 def refresh_gui():
