@@ -94,7 +94,7 @@ def get_source_gui():
 
 def upload_gui():
     from modules.uploader import upload
-    upload(True, ui, login_ui)
+    upload(True, ui, login_ui, UiMainWindow)
 
 
 # Run functions on startup
