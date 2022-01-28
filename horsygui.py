@@ -1,5 +1,7 @@
 import sys
 import math
+import webbrowser
+import modules.vars as horsy_vars
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 import modules.gui as gui
@@ -7,7 +9,6 @@ import modules.gui as gui
 # Initialize GUI
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-
 
 UiMainWindow = QtWidgets.QMainWindow()
 ui = gui.Ui_MainWindow()
@@ -24,9 +25,11 @@ download_ui.setupUi(UiDownloadWindow)
 if __name__ == "__main__":
     UiMainWindow.show()
 
+
 # Functions
 def refresh_gui():
     installed_apps()
+
 
 def installed_apps():
     from modules.manager import apps_list
@@ -36,6 +39,7 @@ def installed_apps():
     ui.installed_table.setRowCount(math.ceil(len(apps) / 4))
     for i in range(len(apps)):
         ui.installed_table.setItem(i // 4, i % 4, QtWidgets.QTableWidgetItem(str(apps[i])))
+
 
 def update_app():
     try:
@@ -48,6 +52,7 @@ def update_app():
     except:
         return
 
+
 def uninstall_app():
     try:
         app_name = ui.installed_table.currentItem().text()
@@ -59,6 +64,7 @@ def uninstall_app():
             installed_apps()
     except:
         return
+
 
 def search_gui():
     from modules.search import search
@@ -73,6 +79,7 @@ def search_gui():
         for i in range(len(found)):
             ui.search_table.setItem(i // 4, i % 4, QtWidgets.QTableWidgetItem(str(found[i])))
 
+
 def install_app():
     from modules.gui_manager import install
     try:
@@ -83,6 +90,7 @@ def install_app():
             install(app_name)
     except:
         return
+
 
 def get_source_gui():
     from modules.source import get_source
@@ -97,6 +105,7 @@ def get_source_gui():
     except:
         return
 
+
 def info_gui():
     from modules.search import info
     try:
@@ -109,6 +118,7 @@ def info_gui():
                 gui.popup("Error", info)
     except:
         return
+
 
 def like_gui():
     from modules.liker import like
@@ -123,6 +133,7 @@ def like_gui():
     except:
         return
 
+
 def dislike_gui():
     from modules.liker import dislike
     try:
@@ -135,6 +146,7 @@ def dislike_gui():
                 gui.popup("Dislike", dislike)
     except:
         return
+
 
 def upload_gui():
     from modules.uploader import upload
@@ -157,7 +169,8 @@ if __name__ == "__main__":
     ui.like_button.clicked.connect(like_gui)
     ui.dislike_button.clicked.connect(dislike_gui)
     ui.upload_button.clicked.connect(upload_gui)
-
+    ui.regmessage_button.clicked.connect(lambda: webbrowser.open(f"{horsy_vars.protocol}{horsy_vars.server_url}"
+                                                                 f"/registration"))
 
     # Handle GUI exiting to exit whole program
     sys.exit(app.exec_())

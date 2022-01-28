@@ -21,18 +21,6 @@ args = parser.parse_args()
 option = args.option
 app = args.app
 
-# Checking directories and files
-if not os.path.exists(horsy_vars.horsypath + 'apps'):
-    os.makedirs(horsy_vars.horsypath + 'apps')
-if not os.path.isfile(horsy_vars.horsypath + 'config.cfg'):
-    with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
-        f.write('{}')
-
-# Checking version
-with open(horsy_vars.horsypath + 'apps/version', 'r') as f:
-    version = f.read()
-
-
 # Displaying the logo
 os.system('title horsy')
 cls()
@@ -46,6 +34,24 @@ print('''
 |__| |__||_______||___|  |_||_______|  |___|  
         Search powered by Algolia
 ''')
+
+# Checking directories and files
+if not os.path.exists(horsy_vars.horsypath + 'apps'):
+    os.makedirs(horsy_vars.horsypath + 'apps')
+if not os.path.isfile(horsy_vars.horsypath + 'config.cfg'):
+    with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
+        f.write('{}')
+
+# Checking version
+try:
+    with open(horsy_vars.horsypath + 'apps/version', 'r') as f:
+        version = int(f.read())
+        if int(requests.get('https://github.com/BarsTiger/horsy/raw/master/web_vars/version').text) > version:
+            print('New version available!')
+except:
+    print('Horsy may be not installed correctly. Please reinstall it.')
+
+
 isNoArgs = False
 
 # Checking if the user has a new VT key

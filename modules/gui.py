@@ -95,6 +95,21 @@ class Ui_MainWindow(object):
         self.username_box.setText("")
         self.username_box.setReadOnly(True)
         self.username_box.setObjectName("username_box")
+        self.regmessage_box = QtWidgets.QLineEdit(self.account_tab)
+        self.regmessage_box.setGeometry(QtCore.QRect(720, 110, 151, 31))
+        self.regmessage_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+                                        "border-radius: 5px;    \n"
+                                        "color: rgb(27, 166, 221);")
+        self.regmessage_box.setText(" Still not registered? Click here")
+        self.regmessage_box.setReadOnly(True)
+        self.regmessage_box.setObjectName("regmessage_box")
+        self.regmessage_button = QtWidgets.QPushButton(self.account_tab)
+        self.regmessage_button.setGeometry(QtCore.QRect(720, 110, 151, 31))
+        self.regmessage_button.setStyleSheet("background-color: rgb(0, 0, 0, 0);\n"
+                                        "border-color: rgb(0, 0, 0, 0);\n"
+                                        "color: rgb(0, 0, 0, 0);")
+        self.regmessage_button.setText("")
+        self.regmessage_button.setObjectName("regmessage_button")
         self.changeemail_button = QtWidgets.QPushButton(self.account_tab)
         self.changeemail_button.setEnabled(True)
         self.changeemail_button.setGeometry(QtCore.QRect(360, 20, 151, 50))
