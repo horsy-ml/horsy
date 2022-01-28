@@ -2,7 +2,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 from modules.path import add_to_path, add_var
 import modules.images
+import urllib.request
 import os
+import ctypes
+import threading
 
 
 class Ui_MainWindow(object):
@@ -72,12 +75,12 @@ class Ui_MainWindow(object):
         self.path_message.setAcceptRichText(False)
         self.path_message.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.path_message.setObjectName("path_message")
-        self.install_horsy_chech = QtWidgets.QCheckBox(self.centralwidget)
-        self.install_horsy_chech.setEnabled(False)
-        self.install_horsy_chech.setGeometry(QtCore.QRect(20, 130, 91, 17))
-        self.install_horsy_chech.setStyleSheet("color: white;")
-        self.install_horsy_chech.setChecked(True)
-        self.install_horsy_chech.setObjectName("install_horsy_chech")
+        self.install_horsy_check = QtWidgets.QCheckBox(self.centralwidget)
+        self.install_horsy_check.setEnabled(False)
+        self.install_horsy_check.setGeometry(QtCore.QRect(20, 130, 91, 17))
+        self.install_horsy_check.setStyleSheet("color: white;")
+        self.install_horsy_check.setChecked(True)
+        self.install_horsy_check.setObjectName("install_horsy_chech")
         self.install_gui_check = QtWidgets.QCheckBox(self.centralwidget)
         self.install_gui_check.setEnabled(True)
         self.install_gui_check.setGeometry(QtCore.QRect(30, 150, 111, 17))
@@ -139,7 +142,7 @@ class Ui_MainWindow(object):
                                              "p, li { white-space: pre-wrap; }\n"
                                              "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
                                              "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Installation folder, apps will be stored here</p></body></html>"))
-        self.install_horsy_chech.setText(_translate("MainWindow", "Install horsy"))
+        self.install_horsy_check.setText(_translate("MainWindow", "Install horsy"))
         self.install_gui_check.setText(_translate("MainWindow", "Install horsy GUI"))
         self.install_button.setText(_translate("MainWindow", "Install"))
         self.logs_box.setHtml(_translate("MainWindow",
@@ -152,8 +155,8 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "-"))
 
     def openFile(self, MainWindow):
-        self.path_box.setText(str(QtWidgets.QFileDialog.getExistingDirectory(
-            self.centralwidget, 'Installation folder')[0]))
+        self.path_box.setText(str(os.path.join(QtWidgets.QFileDialog.getExistingDirectory(
+            self.centralwidget, 'Installation folder')) + "\horsy").replace("/", "\\").replace('\\\\', '\\'))
 
 
 app = QtWidgets.QApplication(sys.argv)
@@ -165,9 +168,36 @@ MainWindow.show()
 
 
 def install():
-    pass
+    path_to_install = os.path.join(ui.path_box.text()).replace("/", "\\").replace('\\\\', '\\')
+    ui.logs_box.clear()
+    if path_to_install == "":
+        ui.logs_box.append("Please choose path to install")
+        return
+    if not os.path.exists(path_to_install):
+        os.makedirs(path_to_install)
+    try:
+        ui.logs_box.append("Downloading horsy")
+        threading.Thread(target=urllib.request.urlretrieve,
+                         args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsy.exe",
+                               os.path.join(path_to_install) + '/horsy.exe'),).start()
+    except:
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+        sys.exit()
+
+    if ui.install_gui_check.isChecked():
+        try:
+            ui.logs_box.append("Installing horsygui")
+            threading.Thread(target=urllib.request.urlretrieve,
+                             args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsygui.exe",
+                                   os.path.join(path_to_install) + '/horsy.exe'), ).start()
+        except:
+            ui.logs_box.append("Error while installing horsygui")
+    add_var(path_to_install)
+    add_to_path(os.path.join(path_to_install))
+    ui.logs_box.append("Installation complete")
 
 
 ui.choose_path_button.clicked.connect(ui.openFile)
+ui.install_button.clicked.connect(install)
 
 sys.exit(app.exec_())
