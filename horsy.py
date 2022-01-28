@@ -94,5 +94,13 @@ if option in ['list', 'l']:
     from modules.manager import apps_list
     apps_list()
 
+if option in ['like']:
+    from modules.liker import like
+    like(app)
+
+if option in ['dislike']:
+    from modules.liker import dislike
+    dislike(app)
+
 if isNoArgs:
     input('[EXIT] Press enter to exit horsy...')

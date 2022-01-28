@@ -9,20 +9,20 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
 
-MainWindow = QtWidgets.QMainWindow()
-ui = gui.Ui_MainWindow()
-ui.setupUi(MainWindow)
-
 UiMainWindow = QtWidgets.QMainWindow()
+ui = gui.Ui_MainWindow()
+ui.setupUi(UiMainWindow)
+
+UiLoginWindow = QtWidgets.QMainWindow()
 login_ui = gui.Ui_LoginWindow()
-login_ui.setupUi(UiMainWindow)
+login_ui.setupUi(UiLoginWindow)
 
 UiDownloadWindow = QtWidgets.QMainWindow()
 download_ui = gui.Ui_DownloadWindow()
 download_ui.setupUi(UiDownloadWindow)
 
 if __name__ == "__main__":
-    MainWindow.show()
+    UiMainWindow.show()
 
 # Functions
 def refresh_gui():
@@ -110,6 +110,31 @@ def info_gui():
     except:
         return
 
+def like_gui():
+    from modules.liker import like
+    try:
+        app_name = ui.search_table.currentItem().text()
+        if app_name == "":
+            return
+        else:
+            like = like(app_name, login_ui, UiLoginWindow)
+            if 'Success' not in like:
+                gui.popup("Like", like)
+    except:
+        return
+
+def dislike_gui():
+    from modules.liker import dislike
+    try:
+        app_name = ui.search_table.currentItem().text()
+        if app_name == "":
+            return
+        else:
+            dislike = dislike(app_name, login_ui, UiLoginWindow)
+            if 'Success' not in dislike:
+                gui.popup("Dislike", dislike)
+    except:
+        return
 
 def upload_gui():
     from modules.uploader import upload
@@ -129,6 +154,8 @@ if __name__ == "__main__":
     ui.source_button.clicked.connect(get_source_gui)
     ui.info_button.clicked.connect(info_gui)
     ui.search_table.itemDoubleClicked.connect(info_gui)
+    ui.like_button.clicked.connect(like_gui)
+    ui.dislike_button.clicked.connect(dislike_gui)
     ui.upload_button.clicked.connect(upload_gui)
 
 
