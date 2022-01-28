@@ -114,7 +114,9 @@ def install(package, is_gui=False, UiDownloadWindow=None, ui_download=None):
 
         with open('{1}apps/{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
             f.write(f"@ECHO off\n")
-            f.write(f"{horsy_vars.horsypath}apps/{r['name']}/{r['run']} %*\n")
+            f.write(f"{horsy_vars.horsypath[0:2:1]}\n")
+            f.write(f"cd %horsypath%/apps/{r['name']}\n")
+            f.write(f"{r['run']} %*\n")
 
         print(f"[green][OK] All done![/]")
         print(f"[green]You can run your app by entering [italic white]{r['name']}[/] in terminal[/]")

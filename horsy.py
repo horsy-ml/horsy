@@ -1,7 +1,7 @@
 import argparse
 import os
 import sys
-
+import requests
 import modules.tui as tui
 from modules.console import cls
 from modules.virustotal import add_to_cfg
@@ -27,6 +27,11 @@ if not os.path.exists(horsy_vars.horsypath + 'apps'):
 if not os.path.isfile(horsy_vars.horsypath + 'config.cfg'):
     with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
         f.write('{}')
+
+# Checking version
+with open(horsy_vars.horsypath + 'apps/version', 'r') as f:
+    version = f.read()
+
 
 # Displaying the logo
 os.system('title horsy')
