@@ -160,6 +160,11 @@ def upload_gui():
     gui.popup('Upload', str(upload(True, ui, login_ui, UiMainWindow)))
 
 
+def change_password_gui():
+    from modules.change_password import change
+    change(ui.oldpass_box.toPlainText(), ui.newpass_box.toPlainText())
+
+
 # Run functions on startup
 if __name__ == "__main__":
     # Checking version
@@ -200,6 +205,7 @@ if __name__ == "__main__":
     ui.upload_button.clicked.connect(upload_gui)
     ui.regmessage_button.clicked.connect(lambda: webbrowser.open(f"{horsy_vars.protocol}{horsy_vars.server_url}"
                                                                  f"/registration"))
+    ui.changepass_button.clicked.connect(change_password_gui)
 
     # Handle GUI exiting to exit whole program
     sys.exit(app.exec_())
