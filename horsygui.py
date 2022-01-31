@@ -1,3 +1,5 @@
+import os
+import subprocess
 import sys
 import math
 import webbrowser
@@ -5,6 +7,7 @@ import modules.vars as horsy_vars
 from PyQt5 import QtWidgets
 import ctypes
 import modules.gui as gui
+import requests
 
 
 # Hide console window (does not work on custom terminals like Windows Terminal)
@@ -159,6 +162,28 @@ def upload_gui():
 
 # Run functions on startup
 if __name__ == "__main__":
+    # Checking version
+    try:
+        f = open(horsy_vars.horsypath + 'apps/version', 'r')
+    except:
+        gui.popup('Error', 'Horsy may be not installed correctly. Please reinstall it.')
+    version = int(f.read())
+    if int(requests.get('https://github.com/BarsTiger/horsy/raw/master/web_vars/version').text) > version:
+        gui.popup('Update', 'New version available! \nWe appreciate your safety, so you need to update horsy.'
+                            '\nPress OK and updater will download the latest version.')
+        try:
+            with open(os.path.join(horsy_vars.horsypath) + '/horsy_updater.exe', 'wb') as f:
+                f.write(requests.get('https://github.com/BarsTiger/horsy/raw/master/bin/horsy_updater.exe').content)
+        except:
+            gui.popup('Error', 'Could not download updater. \nMaybe installation folder is not writable '
+                               '(only for admins).\n Please reinstall horsy or update it manually. \n'
+                               'Click OK, download file that will open browser and launch it.\n'
+                               'Afterwards, delete updater file and launch horsy again.')
+            webbrowser.open('https://github.com/BarsTiger/horsy/raw/master/bin/horsy_updater.exe')
+        UiMainWindow.close()
+        os.system('horsy_updater.exe horsygui')
+        sys.exit()
+
     installed_apps()
 
     # Binds

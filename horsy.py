@@ -48,6 +48,11 @@ try:
         version = int(f.read())
         if int(requests.get('https://github.com/BarsTiger/horsy/raw/master/web_vars/version').text) > version:
             print('New version available!')
+            input('Press enter to update...')
+            with open(os.path.join(horsy_vars.horsypath) + '/horsy_updater.exe', 'wb') as f:
+                f.write(requests.get('https://github.com/BarsTiger/horsy/raw/master/bin/horsy_updater.exe').content)
+            os.system('horsy_updater.exe horsy')
+            sys.exit(0)
 except:
     print('Horsy may be not installed correctly. Please reinstall it.')
 
