@@ -188,7 +188,7 @@ def install():
         ui.logs_box.append("Adding task to download horsygui")
         threads.append(threading.Thread(target=urllib.request.urlretrieve,
                                         args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsygui.exe",
-                                              os.path.join(path_to_install) + '/horsy.exe'), ))
+                                              os.path.join(path_to_install) + '/horsygui.exe'), ))
     try:
         ui.logs_box.append("Starting tasks")
         for thread in threads:
