@@ -4,8 +4,8 @@ from modules.path import add_to_path, add_var
 import modules.images
 import urllib.request
 import os
-import ctypes
 import threading
+import ctypes
 
 
 class Ui_MainWindow(object):
@@ -159,6 +159,8 @@ class Ui_MainWindow(object):
             self.centralwidget, 'Installation folder')) + "\horsy").replace("/", "\\").replace('\\\\', '\\'))
 
 
+ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
+
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = QtWidgets.QMainWindow()
 ui = Ui_MainWindow()
@@ -175,26 +177,41 @@ def install():
         return
     if not os.path.exists(path_to_install):
         os.makedirs(path_to_install)
+    if not os.path.exists(path_to_install + "\\apps"):
+        os.makedirs(path_to_install + "\\apps")
+    threads = list()
+    ui.logs_box.append("Adding task to download horsy")
+    threads.append(threading.Thread(target=urllib.request.urlretrieve,
+                                    args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsy.exe",
+                                          os.path.join(path_to_install) + '/horsy.exe'), ))
+    if ui.install_gui_check.isChecked():
+        ui.logs_box.append("Adding task to download horsygui")
+        threads.append(threading.Thread(target=urllib.request.urlretrieve,
+                                        args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsygui.exe",
+                                              os.path.join(path_to_install) + '/horsy.exe'), ))
     try:
-        ui.logs_box.append("Downloading horsy")
-        threading.Thread(target=urllib.request.urlretrieve,
-                         args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsy.exe",
-                               os.path.join(path_to_install) + '/horsy.exe'),).start()
+        ui.logs_box.append("Starting tasks")
+        for thread in threads:
+            thread.start()
     except:
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
         sys.exit()
 
-    if ui.install_gui_check.isChecked():
-        try:
-            ui.logs_box.append("Installing horsygui")
-            threading.Thread(target=urllib.request.urlretrieve,
-                             args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsygui.exe",
-                                   os.path.join(path_to_install) + '/horsy.exe'), ).start()
-        except:
-            ui.logs_box.append("Error while installing horsygui")
+    ui.logs_box.append("Adding to PATH")
     add_var(path_to_install)
     add_to_path(os.path.join(path_to_install))
-    ui.logs_box.append("Installation complete")
+    ui.logs_box.append("Downloading version file")
+    urllib.request.urlretrieve("https://github.com/BarsTiger/horsy/raw/master/web_vars/version",
+                               os.path.join(path_to_install) + '/apps/version')
+    ui.logs_box.append("Version specified")
+
+    def wait_for_finish():
+        for thread in threads:
+            thread.join()
+        ui.logs_box.append("Downloading finished")
+        ui.logs_box.append("Installation complete")
+
+    threading.Thread(target=wait_for_finish).start()
 
 
 ui.choose_path_button.clicked.connect(ui.openFile)

@@ -2,9 +2,13 @@ import sys
 import math
 import webbrowser
 import modules.vars as horsy_vars
-from PyQt5 import QtCore, QtGui, QtWidgets
-
+from PyQt5 import QtWidgets
+import ctypes
 import modules.gui as gui
+
+
+# Hide console window (does not work on custom terminals like Windows Terminal)
+ctypes.windll.user32.ShowWindow(ctypes.windll.kernel32.GetConsoleWindow(), 0)
 
 # Initialize GUI
 if __name__ == "__main__":

@@ -5,3 +5,4 @@ Pyinstaller
 tqdm
 algoliasearch
 PyQt5
+easygui
