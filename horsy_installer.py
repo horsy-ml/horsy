@@ -6,6 +6,9 @@ import urllib.request
 import os
 import threading
 import ctypes
+import winshell
+from win32com.client import Dispatch
+import pythoncom
 
 
 class Ui_MainWindow(object):
@@ -209,6 +212,20 @@ def install():
         for thread in threads:
             thread.join()
         ui.logs_box.append("Downloading finished")
+        if ui.install_gui_check.isChecked():
+            ui.logs_box.append("Creating shortcuts")
+            desktop = winshell.desktop()
+            path = os.path.join(desktop, "horsy GUI.lnk")
+            target = os.path.join(path_to_install) + '/horsygui.exe'
+            wDir = os.path.join(path_to_install)
+            icon = os.path.join(path_to_install) + '/horsygui.exe'
+            pythoncom.CoInitializeEx(0)
+            shell = Dispatch('WScript.Shell')
+            shortcut = shell.CreateShortCut(path)
+            shortcut.Targetpath = target
+            shortcut.WorkingDirectory = wDir
+            shortcut.IconLocation = icon
+            shortcut.save()
         ui.logs_box.append("Installation complete")
 
     threading.Thread(target=wait_for_finish).start()

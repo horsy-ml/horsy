@@ -1,7 +1,7 @@
 import requests
 import modules.gui as gui
 import threading
-from modules.auth import del_auth
+from modules.auth import del_auth, get_auth
 import modules.vars as horsy_vars
 import json
 from PyQt5 import QtWidgets
@@ -40,6 +40,9 @@ def change(oldpass, newpass):
 
             elif r == '':
                 gui.popup('Success', 'Success, your password has been changed')
+                config['auth'] = {'email': config['auth']['email'], 'password': newpass}
+                with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
+                    json.dump(config, f)
 
             else:
                 print('[red]Unknown error, please try again[/red]')

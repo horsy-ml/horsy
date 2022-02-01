@@ -6,3 +6,4 @@ tqdm
 algoliasearch
 PyQt5
 easygui
+winshell
