@@ -165,6 +165,11 @@ def change_password_gui():
     change(ui.oldpass_box.toPlainText(), ui.newpass_box.toPlainText())
 
 
+def change_email_gui():
+    from modules.change_email import change
+    change(ui.email_box.toPlainText())
+
+
 # Run functions on startup
 if __name__ == "__main__":
     # Checking version
@@ -206,6 +211,7 @@ if __name__ == "__main__":
     ui.regmessage_button.clicked.connect(lambda: webbrowser.open(f"{horsy_vars.protocol}{horsy_vars.server_url}"
                                                                  f"/registration"))
     ui.changepass_button.clicked.connect(change_password_gui)
+    ui.changeemail_button.clicked.connect(change_email_gui)
 
     # Handle GUI exiting to exit whole program
     sys.exit(app.exec_())

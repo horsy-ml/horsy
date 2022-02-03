@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import modules.images
-import requests
+import modules.images  # import images from binaries
+import ctypes
 
 
 class Ui_MainWindow(object):
@@ -801,8 +801,24 @@ class Ui_DownloadWindow(object):
                                          "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.logs_box.setPlaceholderText(_translate("MainWindow", "Logs"))
 
+
 def popup(title, text):
     QtWidgets.QMessageBox.information(None, title, text)
+
+
+def cpopup(title, text, style=0):
+    """
+    Styles:
+    0 : OK
+    1 : OK | Cancel
+    2 : Abort | Retry | Ignore
+    3 : Yes | No | Cancel
+    4 : Yes | No
+    5 : Retry | Cancel
+    6 : Cancel | Try Again | Continue
+    """
+    return ctypes.windll.user32.MessageBoxW(0, text, title, style)
+
 
 if __name__ == "__main__":
     import sys

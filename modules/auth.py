@@ -24,6 +24,7 @@ def get_auth(is_gui=False, login_ui=None, Ui_LoginWindow=None):
             print('[OK] Auth created')
             return config['auth']
         else:
+            login_ui.setupUi(Ui_LoginWindow)
             Ui_LoginWindow.show()
             login_ui.login_button.clicked.connect(lambda: get_gui_auth(login_ui=login_ui,
                                                                        Ui_LoginWindow=Ui_LoginWindow))
