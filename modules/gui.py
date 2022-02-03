@@ -91,7 +91,8 @@ class Ui_MainWindow(object):
         self.username_box.setGeometry(QtCore.QRect(720, 70, 151, 31))
         self.username_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
                                         "border-radius: 5px;    \n"
-                                        "color: rgb(242, 242, 242);")
+                                        "color: rgb(242, 242, 242);\n"
+                                        "padding: 0px 5px 0px 5px;\n")
         self.username_box.setText("")
         self.username_box.setReadOnly(True)
         self.username_box.setObjectName("username_box")

@@ -31,6 +31,8 @@ download_ui.setupUi(UiDownloadWindow)
 
 if __name__ == "__main__":
     UiMainWindow.show()
+    from modules.login import loginload
+    ui.username_box.setText(loginload())
 
 
 # Functions
@@ -170,6 +172,11 @@ def change_email_gui():
     change(ui.email_box.toPlainText())
 
 
+def login_logout_gui():
+    from modules.login import login
+    ui.username_box.setText(login())
+
+
 # Run functions on startup
 if __name__ == "__main__":
     # Checking version
@@ -212,6 +219,7 @@ if __name__ == "__main__":
                                                                  f"/registration"))
     ui.changepass_button.clicked.connect(change_password_gui)
     ui.changeemail_button.clicked.connect(change_email_gui)
+    ui.loginlogout_button.clicked.connect(login_logout_gui)
 
     # Handle GUI exiting to exit whole program
     sys.exit(app.exec_())

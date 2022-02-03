@@ -2,7 +2,7 @@ import json
 import modules.vars as horsy_vars
 
 
-def get_auth(is_gui=False, login_ui=None, Ui_LoginWindow=None):
+def get_auth(is_gui=False, login_ui=None, Ui_LoginWindow=None, *args):
     with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)
 
@@ -28,6 +28,11 @@ def get_auth(is_gui=False, login_ui=None, Ui_LoginWindow=None):
             Ui_LoginWindow.show()
             login_ui.login_button.clicked.connect(lambda: get_gui_auth(login_ui=login_ui,
                                                                        Ui_LoginWindow=Ui_LoginWindow))
+
+    try:
+        args()
+    except:
+        pass
 
 
 def get_gui_auth(login_ui, Ui_LoginWindow):
