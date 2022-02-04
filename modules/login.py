@@ -10,9 +10,6 @@ def loginload():
     UiLoginWindow = QtWidgets.QMainWindow()
     login_ui = gui.Ui_LoginWindow()
     login_ui.setupUi(UiLoginWindow)
-    UiMainWindow = QtWidgets.QMainWindow()
-    ui = gui.Ui_MainWindow()
-    ui.setupUi(UiMainWindow)
     try:
         with open(horsy_vars.horsypath + 'config.cfg') as f:
             config = json.load(f)
@@ -28,6 +25,9 @@ def login():
     UiLoginWindow = QtWidgets.QMainWindow()
     login_ui = gui.Ui_LoginWindow()
     login_ui.setupUi(UiLoginWindow)
+    UiMainWindow = QtWidgets.QMainWindow()
+    ui = gui.Ui_MainWindow()
+    ui.setupUi(UiMainWindow)
     with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)
     try:
@@ -38,4 +38,5 @@ def login():
         else:
             raise 'No auth'
     except:
-        auth = get_auth(True, login_ui, QtWidgets.QMainWindow(), loginload())  # TODO: fix this
+        print('It will return from login')
+        print(get_auth(True, login_ui, QtWidgets.QMainWindow()))

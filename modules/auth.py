@@ -1,8 +1,9 @@
 import json
 import modules.vars as horsy_vars
+import ctypes
 
 
-def get_auth(is_gui=False, login_ui=None, Ui_LoginWindow=None, *args):
+def get_auth(is_gui=False, login_ui=None, Ui_LoginWindow=None):
     with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)
 
@@ -26,13 +27,10 @@ def get_auth(is_gui=False, login_ui=None, Ui_LoginWindow=None, *args):
         else:
             login_ui.setupUi(Ui_LoginWindow)
             Ui_LoginWindow.show()
-            login_ui.login_button.clicked.connect(lambda: get_gui_auth(login_ui=login_ui,
-                                                                       Ui_LoginWindow=Ui_LoginWindow))
 
-    try:
-        args()
-    except:
-        pass
+            def load_login_now():
+                return get_gui_auth(login_ui, Ui_LoginWindow)
+            login_ui.login_button.clicked.connect(load_login_now)
 
 
 def get_gui_auth(login_ui, Ui_LoginWindow):
@@ -43,6 +41,11 @@ def get_gui_auth(login_ui, Ui_LoginWindow):
             config['auth'] = {'email': login_ui.email_box.text(), 'password': login_ui.password_box.text()}
             json.dump(config, f)
         Ui_LoginWindow.close()
+        try:
+            ctypes.windll.user32.MessageBoxW(0, "Login updated. To see it, restart horsygui",
+                                             "Reload to take effect", 0)
+        except:
+            pass
 
 
 def del_auth():
