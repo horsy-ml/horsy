@@ -1,7 +1,8 @@
 import os
-import subprocess
 import sys
 import math
+import threading
+import time
 import webbrowser
 import modules.vars as horsy_vars
 from PyQt5 import QtWidgets
@@ -28,6 +29,10 @@ login_ui.setupUi(UiLoginWindow)
 UiDownloadWindow = QtWidgets.QMainWindow()
 download_ui = gui.Ui_DownloadWindow()
 download_ui.setupUi(UiDownloadWindow)
+
+UiPackageWindow = QtWidgets.QMainWindow()
+package_ui = gui.Ui_PackageWindow()
+package_ui.setupUi(UiPackageWindow)
 
 if __name__ == "__main__":
     UiMainWindow.show()
@@ -177,6 +182,43 @@ def login_logout_gui():
     ui.username_box.setText(login())
 
 
+def get_users_apps():
+    def get_threaded():
+        apps = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/users/public"
+                            f"/{ui.username_box.text()}").json()
+        try:
+            if apps['message'] == 'Too many requests':
+                while apps['message'] == 'Too many requests':
+                    time.sleep(0.5)
+                    apps = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/users/public"
+                                        f"/{ui.username_box.text()}").json()
+        except:
+            pass
+        try:
+            apps = apps['packages']
+            ui.manage_packages_table.clear()
+            ui.manage_packages_table.setColumnCount(4)
+            ui.manage_packages_table.setRowCount(math.ceil(len(apps) / 4))
+            for i in range(len(apps)):
+                ui.manage_packages_table.setItem(i // 4, i % 4, QtWidgets.QTableWidgetItem(str(apps[i])))
+        except:
+            pass
+    threading.Thread(target=get_threaded).start()
+
+
+def gui_package_edit():
+    from modules.package_edit import edit
+    try:
+        app_name = ui.manage_packages_table.currentItem().text()
+        if app_name == "":
+            return
+        else:
+            UiPackageWindow.show()
+            edit(app_name, UiPackageWindow)
+    except:
+        return
+
+
 # Run functions on startup
 if __name__ == "__main__":
     # Checking version
@@ -201,6 +243,7 @@ if __name__ == "__main__":
         os.system('horsy_updater.exe horsygui')
         sys.exit()
 
+    get_users_apps()
     installed_apps()
 
     # Binds
@@ -220,6 +263,7 @@ if __name__ == "__main__":
     ui.changepass_button.clicked.connect(change_password_gui)
     ui.changeemail_button.clicked.connect(change_email_gui)
     ui.loginlogout_button.clicked.connect(login_logout_gui)
+    ui.manage_packages_table.itemDoubleClicked.connect(gui_package_edit)
 
     # Handle GUI exiting to exit whole program
     sys.exit(app.exec_())

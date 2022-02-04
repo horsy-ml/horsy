@@ -9,7 +9,7 @@ import zipfile
 from modules.virustotal import get_key, scan_file, get_report
 
 
-def install(package, is_gui=False, UiDownloadWindow=None, ui_download=None):
+def install(package):
     r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
     if r == "":
         print(f"[red]Package {package} not found[/]")
@@ -127,7 +127,7 @@ def install(package, is_gui=False, UiDownloadWindow=None, ui_download=None):
         return
 
 
-def uninstall(package, is_gui=False):
+def uninstall(package):
     if os.path.exists('{1}apps/{0}'.format(package, horsy_vars.horsypath)):
         os.system('rmdir /s /q "{1}apps/{0}"'.format(package, horsy_vars.horsypath))
         print(f"[green][OK] Files deleted[/]")

@@ -93,22 +93,22 @@ class Ui_MainWindow(object):
                                         "border-radius: 5px;    \n"
                                         "color: rgb(242, 242, 242);\n"
                                         "padding: 0px 5px 0px 5px;\n")
-        self.username_box.setText("")
+        self.username_box.setText("Log in first")
         self.username_box.setReadOnly(True)
         self.username_box.setObjectName("username_box")
         self.regmessage_box = QtWidgets.QLineEdit(self.account_tab)
         self.regmessage_box.setGeometry(QtCore.QRect(720, 110, 151, 31))
         self.regmessage_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
-                                        "border-radius: 5px;    \n"
-                                        "color: rgb(27, 166, 221);")
+                                          "border-radius: 5px;    \n"
+                                          "color: rgb(27, 166, 221);")
         self.regmessage_box.setText(" Still not registered? Click here")
         self.regmessage_box.setReadOnly(True)
         self.regmessage_box.setObjectName("regmessage_box")
         self.regmessage_button = QtWidgets.QPushButton(self.account_tab)
         self.regmessage_button.setGeometry(QtCore.QRect(720, 110, 151, 31))
         self.regmessage_button.setStyleSheet("background-color: rgb(0, 0, 0, 0);\n"
-                                        "border-color: rgb(0, 0, 0, 0);\n"
-                                        "color: rgb(0, 0, 0, 0);")
+                                             "border-color: rgb(0, 0, 0, 0);\n"
+                                             "color: rgb(0, 0, 0, 0);")
         self.regmessage_button.setText("")
         self.regmessage_button.setObjectName("regmessage_button")
         self.changeemail_button = QtWidgets.QPushButton(self.account_tab)
@@ -202,13 +202,13 @@ class Ui_MainWindow(object):
         self.manage_packages_table = QtWidgets.QTableWidget(self.account_tab)
         self.manage_packages_table.setGeometry(QtCore.QRect(10, 240, 871, 411))
         self.manage_packages_table.setStyleSheet("QTableWidget\n"
-                                                 "{\n"
-                                                 "color: white;\n"
-                                                 "font: 15pt \"MS Shell Dlg 2\";\n"
-                                                 "margin: 20px;\n"
-                                                 "border-radius: 45px;\n"
-                                                 "}\n"
-                                                 "")
+                                           "{\n"
+                                           "color: white;\n"
+                                           "font: 15pt \"MS Shell Dlg 2\";\n"
+                                           "margin: 20px;\n"
+                                           "border-radius: 45px;\n"
+                                           "}\n"
+                                           "")
         self.manage_packages_table.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
         self.manage_packages_table.setAutoScroll(False)
         self.manage_packages_table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -217,7 +217,7 @@ class Ui_MainWindow(object):
         self.manage_packages_table.setDragDropOverwriteMode(False)
         self.manage_packages_table.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.manage_packages_table.setShowGrid(False)
-        self.manage_packages_table.setObjectName("manage_packages_table")
+        self.manage_packages_table.setObjectName("installed_table")
         self.manage_packages_table.horizontalHeader().setVisible(False)
         self.manage_packages_table.horizontalHeader().setDefaultSectionSize(203)
         self.manage_packages_table.horizontalHeader().setHighlightSections(False)
@@ -225,6 +225,10 @@ class Ui_MainWindow(object):
         self.manage_packages_table.verticalHeader().setVisible(False)
         self.manage_packages_table.verticalHeader().setDefaultSectionSize(120)
         self.manage_packages_table.verticalHeader().setHighlightSections(False)
+        self.manage_packages_table.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.manage_packages_table.setColumnCount(0)
+        self.manage_packages_table.setRowCount(0)
+        self.manage_packages_table.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.manage_packages_message = QtWidgets.QTextBrowser(self.account_tab)
         self.manage_packages_message.setGeometry(QtCore.QRect(380, 230, 121, 21))
         self.manage_packages_message.setStyleSheet("color: white;\n"
@@ -801,6 +805,116 @@ class Ui_DownloadWindow(object):
                                          "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
                                          "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.logs_box.setPlaceholderText(_translate("MainWindow", "Logs"))
+
+
+class Ui_PackageWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(331, 433)
+        MainWindow.setMinimumSize(QtCore.QSize(331, 433))
+        MainWindow.setMaximumSize(QtCore.QSize(331, 433))
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setStyleSheet("QWidget{\n"
+                                         "    background-color: rgb(30, 30, 30);\n"
+                                         "}\n"
+                                         "")
+        self.centralwidget.setObjectName("centralwidget")
+        self.packagename_box = QtWidgets.QLineEdit(self.centralwidget)
+        self.packagename_box.setGeometry(QtCore.QRect(20, 20, 151, 31))
+        self.packagename_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+                                           "border-radius: 5px;    \n"
+                                           "color: rgb(242, 242, 242);")
+        self.packagename_box.setText("")
+        self.packagename_box.setReadOnly(True)
+        self.packagename_box.setObjectName("packagename_box")
+        self.main_exe_box = QtWidgets.QLineEdit(self.centralwidget)
+        self.main_exe_box.setGeometry(QtCore.QRect(20, 305, 291, 31))
+        self.main_exe_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+                                        "border-radius: 5px;    \n"
+                                        "color: rgb(242, 242, 242);")
+        self.main_exe_box.setObjectName("main_exe_box")
+        self.source_url_box = QtWidgets.QLineEdit(self.centralwidget)
+        self.source_url_box.setGeometry(QtCore.QRect(20, 200, 291, 31))
+        self.source_url_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+                                          "border-radius: 5px;    \n"
+                                          "color: rgb(242, 242, 242);")
+        self.source_url_box.setObjectName("source_url_box")
+        self.url_of_exe_box = QtWidgets.QLineEdit(self.centralwidget)
+        self.url_of_exe_box.setGeometry(QtCore.QRect(20, 165, 291, 31))
+        self.url_of_exe_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+                                          "border-radius: 5px;    \n"
+                                          "color: rgb(242, 242, 242);")
+        self.url_of_exe_box.setObjectName("url_of_exe_box")
+        self.dependency_url_box = QtWidgets.QLineEdit(self.centralwidget)
+        self.dependency_url_box.setGeometry(QtCore.QRect(20, 235, 291, 31))
+        self.dependency_url_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+                                              "border-radius: 5px;    \n"
+                                              "color: rgb(242, 242, 242);")
+        self.dependency_url_box.setObjectName("dependency_url_box")
+        self.dependency_run_box = QtWidgets.QLineEdit(self.centralwidget)
+        self.dependency_run_box.setGeometry(QtCore.QRect(20, 270, 291, 31))
+        self.dependency_run_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+                                              "border-radius: 5px;    \n"
+                                              "color: rgb(242, 242, 242);")
+        self.dependency_run_box.setObjectName("dependency_run_box")
+        self.package_desc_box = QtWidgets.QTextBrowser(self.centralwidget)
+        self.package_desc_box.setGeometry(QtCore.QRect(20, 60, 256, 101))
+        self.package_desc_box.setStyleSheet("background-color: rgb(74, 76, 83);\n"
+                                            "border-radius: 5px;    \n"
+                                            "color: rgb(242, 242, 242);")
+        self.package_desc_box.setAcceptRichText(False)
+        self.package_desc_box.setTextInteractionFlags(
+            QtCore.Qt.LinksAccessibleByKeyboard | QtCore.Qt.LinksAccessibleByMouse | QtCore.Qt.TextBrowserInteraction | QtCore.Qt.TextEditable | QtCore.Qt.TextEditorInteraction | QtCore.Qt.TextSelectableByKeyboard | QtCore.Qt.TextSelectableByMouse)
+        self.package_desc_box.setObjectName("package_desc_box")
+        self.update_button = QtWidgets.QPushButton(self.centralwidget)
+        self.update_button.setEnabled(True)
+        self.update_button.setGeometry(QtCore.QRect(20, 360, 291, 50))
+        self.update_button.setMinimumSize(QtCore.QSize(0, 50))
+        self.update_button.setStyleSheet("QPushButton {\n"
+                                         "    color: rgb(204, 204, 204);\n"
+                                         "    border-width: 1px;\n"
+                                         "    border-radius:6px;\n"
+                                         "    border-style: solid;\n"
+                                         "    background-color: rgb(28, 30, 33);\n"
+                                         "    border-color: rgb(66, 143, 225);\n"
+                                         "}\n"
+                                         "QPushButton:hover{\n"
+                                         "    border-width: 2px;\n"
+                                         "}\n"
+                                         "QPushButton:pressed{\n"
+                                         "    background-color: rgb(50, 60, 63);\n"
+                                         "}\n"
+                                         "QPushButton:disabled{\n"
+                                         "    border-width: 0px;\n"
+                                         "    background-color: rgb(92, 99, 109);\n"
+                                         "}")
+        self.update_button.setObjectName("update_button")
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "horsy - editing package"))
+        self.packagename_box.setPlaceholderText(_translate("MainWindow", "Editing package"))
+        self.main_exe_box.setPlaceholderText(
+            _translate("MainWindow", "Main executable command (file.exe, python main.py, etc)"))
+        self.source_url_box.setPlaceholderText(
+            _translate("MainWindow", "Url of source (project on GitHub, source archive)"))
+        self.url_of_exe_box.setPlaceholderText(_translate("MainWindow", "Url of executable (ends on .exe or .zip)"))
+        self.dependency_url_box.setPlaceholderText(_translate("MainWindow", "Dependency URL (installer in .exe)"))
+        self.dependency_run_box.setPlaceholderText(
+            _translate("MainWindow", "Dependency run (run this during installation)"))
+        self.package_desc_box.setHtml(_translate("MainWindow",
+                                                 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                                 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                                 "p, li { white-space: pre-wrap; }\n"
+                                                 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+                                                 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.package_desc_box.setPlaceholderText(
+            _translate("MainWindow", "Package description. It should be a short text under 256 characters"))
+        self.update_button.setText(_translate("MainWindow", "Update"))
 
 
 def popup(title, text):
