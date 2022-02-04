@@ -38,5 +38,4 @@ def login():
         else:
             raise 'No auth'
     except:
-        print('It will return from login')
-        print(get_auth(True, login_ui, QtWidgets.QMainWindow()))
+        get_auth(True, login_ui, QtWidgets.QMainWindow())
