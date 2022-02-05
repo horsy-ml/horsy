@@ -9,9 +9,9 @@ import modules.vars as horsy_vars
 
 # Getting the arguments
 parser = argparse.ArgumentParser(description='horsy - the best package manager')
-parser.add_argument('option', help='options for horsy (install/i | uninstall/un | source/s | update/u | list/l | '
+parser.add_argument('option', help='options for horsy (install/i | uninstall/un | source/s | list/l | '
                                    'upload | search | info | like | dislike)',
-                    choices=['install', 'i', 'uninstall', 'un', 'source', 's', 'update', 'u', 'list', 'l', 'upload',
+                    choices=['install', 'i', 'uninstall', 'un', 'source', 's', 'list', 'l', 'upload',
                              'search', 'info', 'like', 'dislike'],
                     nargs='?')
 parser.add_argument('app', help='app to do function with', nargs='?')
@@ -71,8 +71,8 @@ if args.vt_key:
 
 # Checking if arguments are empty to use in-app CLI
 if not args.option:
-    option = ['install', 'uninstall', 'source', 'update', 'list', 'upload', 'search', 'info'][
-        tui.menu(['install app', 'uninstall app', 'get source', 'update app', 'list of installed apps',
+    option = ['install', 'uninstall', 'source', 'list', 'upload', 'search', 'info'][
+        tui.menu(['install app', 'uninstall app', 'get source', 'list of installed apps',
                   'upload your app', 'search for app', 'get information about app'])]
     isNoArgs = True
 
@@ -82,7 +82,7 @@ if not args.app:
         app = tui.get(f'Select app to {option}')
 
 # Checking user option (Yanderedev method)
-if option in 'upload':
+if option in ['upload']:
     from modules.uploader import upload
     upload()
 

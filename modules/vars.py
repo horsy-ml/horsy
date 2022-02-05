@@ -1,6 +1,6 @@
 import os
 
 
-protocol = "http://"
-server_url = 'localhost:60666'
+protocol = "https://"
+server_url = 'horsy.ml'
 horsypath = os.popen('echo %HORSYPATH%').read().replace('\n', '') + '/'
