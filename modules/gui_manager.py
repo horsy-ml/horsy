@@ -17,6 +17,7 @@ def install(package):
     r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
     if r == "":
         run_threaded(popup("Installation", f"Package {package} not found"))
+        print(r)
         return f"Package {package} not found"
     try:
         r = json.loads(r)

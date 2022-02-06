@@ -18,11 +18,11 @@ if not os.path.exists(path_to_install + "\\apps"):
     os.makedirs(path_to_install + "\\apps")
 threads = list()
 threads.append(threading.Thread(target=urllib.request.urlretrieve,
-                                args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsy.exe",
+                                args=("https://github.com/horsy-ml/horsy/raw/master/bin/horsy.exe",
                                       os.path.join(path_to_install) + '/horsy.exe'), ))
 if os.path.exists(path_to_install + '/horsygui.exe'):
     threads.append(threading.Thread(target=urllib.request.urlretrieve,
-                                    args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsygui.exe",
+                                    args=("https://github.com/horsy-ml/horsy/raw/master/bin/horsygui.exe",
                                           os.path.join(path_to_install) + '/horsygui.exe'), ))
 try:
     for thread in threads:
@@ -31,7 +31,7 @@ except:
     ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
     sys.exit()
 
-urllib.request.urlretrieve("https://github.com/BarsTiger/horsy/raw/master/web_vars/version",
+urllib.request.urlretrieve("https://github.com/horsy-ml/horsy/raw/master/web_vars/version",
                            os.path.join(path_to_install) + '/apps/version')
 
 for thread in threads:

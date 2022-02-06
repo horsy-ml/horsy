@@ -185,12 +185,12 @@ def install():
     threads = list()
     ui.logs_box.append("Adding task to download horsy")
     threads.append(threading.Thread(target=urllib.request.urlretrieve,
-                                    args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsy.exe",
+                                    args=("https://github.com/horsy-ml/horsy/raw/master/bin/horsy.exe",
                                           os.path.join(path_to_install) + '/horsy.exe'), ))
     if ui.install_gui_check.isChecked():
         ui.logs_box.append("Adding task to download horsygui")
         threads.append(threading.Thread(target=urllib.request.urlretrieve,
-                                        args=("https://github.com/BarsTiger/horsy/raw/master/bin/horsygui.exe",
+                                        args=("https://github.com/horsy-ml/horsy/raw/master/bin/horsygui.exe",
                                               os.path.join(path_to_install) + '/horsygui.exe'), ))
     try:
         ui.logs_box.append("Starting tasks")
@@ -204,7 +204,7 @@ def install():
     add_var(path_to_install)
     add_to_path(os.path.join(path_to_install))
     ui.logs_box.append("Downloading version file")
-    urllib.request.urlretrieve("https://github.com/BarsTiger/horsy/raw/master/web_vars/version",
+    urllib.request.urlretrieve("https://github.com/horsy-ml/horsy/raw/master/web_vars/version",
                                os.path.join(path_to_install) + '/apps/version')
     ui.logs_box.append("Version specified")
 

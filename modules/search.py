@@ -7,8 +7,8 @@ import json
 from rich import print
 
 client = SearchClient.create(
-    requests.get('https://raw.githubusercontent.com/BarsTiger/horsy/master/web_vars/search_app').json()['APP_ID'],
-    requests.get('https://raw.githubusercontent.com/BarsTiger/horsy/master/web_vars/search_app').json()['API_KEY'])
+    requests.get('https://raw.githubusercontent.com/horsy-ml/horsy/master/web_vars/search_app').json()['APP_ID'],
+    requests.get('https://raw.githubusercontent.com/horsy-ml/horsy/master/web_vars/search_app').json()['API_KEY'])
 index = client.init_index('packages')
 
 

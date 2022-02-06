@@ -1,4 +1,4 @@
-# [🎠horsy](https://horsy.ml/) [![logo](https://raw.githubusercontent.com/BarsTiger/horsy/master/img/horsy32x32.png)](https://horsy.ml/)
+# [🎠horsy](https://horsy.ml/) [![logo](https://raw.githubusercontent.com/horsy-ml/horsy/master/img/horsy32x32.png)](https://horsy.ml/)
 
 ## _The Best Open Source Package Manager_
 
