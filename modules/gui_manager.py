@@ -123,7 +123,7 @@ def install(package):
 
         with open('{1}apps/{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
             f.write(f"@ECHO off\n")
-            f.write(f"{horsy_vars.horsypath[0:2:1]}\n")
+            f.write(f"%horsypath:~0,1%:\n")
             f.write(f"cd %horsypath%/apps/{r['name']}\n")
             f.write(f"{r['run']} %*\n")
 

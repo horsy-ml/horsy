@@ -221,11 +221,19 @@ def gui_package_edit():
 
 # Run functions on startup
 if __name__ == "__main__":
+    # Checking directories and files
+    if not os.path.exists(horsy_vars.horsypath + 'apps'):
+        os.makedirs(horsy_vars.horsypath + 'apps')
+    if not os.path.isfile(horsy_vars.horsypath + 'config.cfg'):
+        with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
+            f.write('{}')
+
     # Checking version
     try:
         f = open(horsy_vars.horsypath + 'apps/version', 'r')
     except:
-        gui.popup('Error', 'Horsy may be not installed correctly. Please reinstall it.')
+        gui.popup('Error', 'Horsy may be not installed correctly. Please reinstall it or stop another instances if '
+                           'running. If you installed it just now, please restart PC.')
     version = int(f.read())
     if int(requests.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
         gui.popup('Update', 'New version available! \nWe appreciate your safety, so you need to update horsy.'

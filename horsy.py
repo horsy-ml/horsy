@@ -54,7 +54,8 @@ try:
             os.system('horsy_updater.exe horsy')
             sys.exit(0)
 except:
-    print('Horsy may be not installed correctly. Please reinstall it.')
+    print('Horsy may be not installed correctly. Please reinstall it or stop other horsy instances. '
+          'If you installed it just now, please restart PC.')
 
 
 isNoArgs = False
