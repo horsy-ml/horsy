@@ -6,6 +6,7 @@ from modules.auth import get_auth, del_auth
 import re
 import modules.vars as horsy_vars
 import os
+from modules.http_status import handle, codes as status_codes
 
 
 def matches(s):
@@ -139,10 +140,12 @@ def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
     r = None
     while r is None:
         try:
-            r = requests.post(horsy_vars.protocol + horsy_vars.server_url + '/packages/new', json=request).text
+            r = requests.post(horsy_vars.protocol + horsy_vars.server_url + '/packages/new', json=request)
+            r_code = handle(r.status_code)
+            r = r.text
             r = json.loads(r)
 
-            if r['message'] == 'Unauthorized':
+            if r_code[1] in [403, 401]:
                 print('[red]Invalid credentials[/red]')
                 print('Deleting auth from config')
                 del_auth()
@@ -150,28 +153,16 @@ def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
                 print(r)
                 r = None
 
-            elif r['message'] == 'Internal server error':
-                print('[red]Internal server error[/red]')
-                return 'Internal server error'
-
-            elif r['message'] == 'Success':
+            elif r_code == 200:
                 print('[green]Success, your project is created. You can install it by running[/] '
                       '[i]horsy i {0}[/]'.format(request['name']))
                 return 'Success, your project is created. You can install it by running horsy i {0}'.format(
                     request['name'])
 
-            elif 'already exists' in r['message']:
-                print(f"[red]{r['message']}[/red]")
-                return {r['message']}
-
-            else:
-                print('[red]Unknown error, please try again[/red]')
-                print('Server response:')
-                print(r)
-                return 'Unknown error, please try again, \n Server response: \n' + str(r)
+            return r_code[0]
         except:
             with open(f'error_{time.time()}.txt', 'w') as f:
-                f.write(str(r))
+                f.write(str(r.text))
                 print(f'[red]Something went wrong with unsupported error. You can check servers response in '
                       f'{os.getcwd()}/{f.name}[/red]')
             break
