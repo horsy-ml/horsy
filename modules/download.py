@@ -7,7 +7,7 @@ def dl(urls, save_to):
     for url in urls:
         def dl_thread(url_in_thread):
             with requests.get(url_in_thread, stream=True) as r:
-                with open(save_to, "wb") as f:
+                with open(save_to + "/" + url.split('/')[-1], "wb") as f:
                     pbar = tqdm(unit="B", unit_scale=True, total=int(r.headers['Content-Length']),
                                 position=urls.index(url_in_thread))
                     for chunk in r.iter_content(chunk_size=1024):

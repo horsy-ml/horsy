@@ -3,11 +3,11 @@ import threading
 from rich import print
 import requests
 import modules.vars as horsy_vars
-from tqdm import tqdm
 import os
 import zipfile
-from modules.virustotal import get_key, scan_file, get_report
+from modules.virustotal import scan_to_cli
 from modules.http_status import handle
+from modules.download import dl
 
 
 def install(package):
@@ -17,7 +17,7 @@ def install(package):
     r = json.loads(r)
 
     if r_code[1] not in [403, 401]:
-        print(r_code[0])
+        return r_code[1]
 
     try:
         print(f"[green]App {r['name']} found, information loaded[/]")
@@ -26,33 +26,14 @@ def install(package):
             os.makedirs('{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
 
         print(f"Downloading {r['url'].split('/')[-1]}")
+        to_download = [r['url']]
+        if r['download']:
+            print(f"Found dependency")
+            print(f"Downloading {r['download'].split('/')[-1]}")
+            to_download.append(r['download'])
 
-        chunk_size = 1024
-        file_r = requests.get(r['url'], stream=True)
-        with open('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath), "wb") as f:
-            pbar = tqdm(unit="B", unit_scale=True, total=int(file_r.headers['Content-Length']))
-            for chunk in file_r.iter_content(chunk_size=chunk_size):
-                if chunk:
-                    pbar.update(len(chunk))
-                    f.write(chunk)
-            pbar.close()
-
-        print(f"Starting virustotal scan")
-        if not get_key():
-            print(f"[red]Virustotal api key not found[/]")
-            print(f"You can add it by entering [bold]horsy --vt \[your key][/] in terminal")
-        else:
-            print(f"[green]Virustotal api key found[/]")
-            print(f"[italic white]If you want to disable scan, type [/][bold]horsy --vt disable[/]"
-                  f"[italic white] in terminal[/]")
-            scan_file('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
-            print(f"[green]Virustotal scan finished[/]")
-            analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1],
-                                                           horsy_vars.horsypath))
-            print(f"[green]You can see report by opening: [white]{analysis['link']}[/]")
-            print(f"{analysis['detect']['malicious']} antivirus flagged this file as malicious")
-
-        print(f"[green][OK] Done[/]")
+        dl(to_download, '{0}apps/{1}'.format(horsy_vars.horsypath, r['name']))
+        scan_to_cli('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
 
         def unzip(file, where):
             with zipfile.ZipFile(file, 'r') as zip_ref:
@@ -65,37 +46,11 @@ def install(package):
                   '{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
 
         if r['download']:
-            print(f"Found dependency")
-            # if not is_gui:
-            print(f"Downloading {r['download'].split('/')[-1]}")
-
-            chunk_size = 1024
-            file_r = requests.get(r['download'], stream=True)
-            with open('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsy_vars.horsypath),
-                      "wb") as f:
-                pbar = tqdm(unit="B", unit_scale=True, total=int(file_r.headers['Content-Length']))
-                for chunk in file_r.iter_content(chunk_size=chunk_size):
-                    if chunk:
-                        pbar.update(len(chunk))
-                        f.write(chunk)
-                pbar.close()
-
-            print(f"Starting virustotal scan")
-            if not get_key():
-                print(f"[red]Virustotal api key not found[/]")
-                print(f"You can add it by entering [italic white]horsy --vt \[your key][/] in terminal")
-            else:
-                print(f"[green]Virustotal api key found[/]")
-                scan_file('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsy_vars.horsypath))
-                print(f"[green]Virustotal scan finished[/]")
-                analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1],
-                                                               horsy_vars.horsypath))
-                print(f"[green]You can see report by opening: [white]{analysis['link']}[/]")
-                print(f"{analysis['detect']['malicious']} antivirus flagged this file as malicious")
-                if analysis['detect']['malicious'] > 0:
-                    print(f"[red]Dependency can be malicious. It may run now, if this added to installation "
-                          f"config[/]")
-                    input("Press enter if you want continue, or ctrl+c to exit")
+            if scan_to_cli('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1],
+                                                    horsy_vars.horsypath))['detect']['malicious'] > 0:
+                print(f"[red]Dependency can be malicious. It may run now, if this added to installation "
+                      f"config[/]")
+                input("Press enter if you want continue, or ctrl+c to exit")
 
         if r['install']:
             print(f"Found install option")
