@@ -1,4 +1,6 @@
 import json
+import sys
+
 import modules.vars as horsy_vars
 import ctypes
 
@@ -31,6 +33,22 @@ def get_auth(is_gui=False, login_ui=None, Ui_LoginWindow=None):
             def load_login_now():
                 return get_gui_auth(login_ui, Ui_LoginWindow)
             login_ui.login_button.clicked.connect(load_login_now)
+
+
+def get_auth_without_login(is_gui=False):
+    with open(horsy_vars.horsypath + 'config.cfg') as f:
+        config = json.load(f)
+
+    try:
+        if config['auth']:
+            return config['auth']
+        else:
+            raise Exception('No auth found')
+    except:
+        ctypes.windll.user32.MessageBoxW(0, "Login not found. Please, use the login button on account tab. "
+                                            "horsy will close now, but you don't need to restart it later",
+                                         "No auth", 0)
+        sys.exit(0)
 
 
 def get_gui_auth(login_ui, Ui_LoginWindow):

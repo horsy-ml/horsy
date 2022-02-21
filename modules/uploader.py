@@ -2,7 +2,7 @@ import json
 import time
 import requests
 from rich import print
-from modules.auth import get_auth, del_auth
+from modules.auth import get_auth, del_auth, get_auth_without_login
 import re
 import modules.vars as horsy_vars
 import os
@@ -94,7 +94,7 @@ def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
         }
 
     else:
-        auth = get_auth(is_gui, login_ui, Ui_LoginWindow)
+        auth = get_auth_without_login(is_gui)
 
         project_name = ui.packagename_box.text()
         if not matches(project_name) or len(project_name) > 64 or len(project_name) < 3:
@@ -153,7 +153,7 @@ def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
                 print(r)
                 r = None
 
-            elif r_code == 200:
+            elif r_code[1] in [200, 201]:
                 print('[green]Success, your project is created. You can install it by running[/] '
                       '[i]horsy i {0}[/]'.format(request['name']))
                 return 'Success, your project is created. You can install it by running horsy i {0}'.format(

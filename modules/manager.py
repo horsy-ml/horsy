@@ -7,24 +7,17 @@ from tqdm import tqdm
 import os
 import zipfile
 from modules.virustotal import get_key, scan_file, get_report
+from modules.http_status import handle
 
 
 def install(package):
-    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
-    if r == "":
-        print(f"[red]Package {package} not found[/]")
-        return
-    try:
-        r = json.loads(r)
-    except:
-        print("[red]Error with unsupported message[/]")
-        return
-    try:
-        if r["message"] == "Internal server error":
-            print("[red]Internal server error[/]")
-            return
-    except:
-        pass
+    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
+    r_code = handle(r.status_code)
+    r = r.text
+    r = json.loads(r)
+
+    if r_code[1] not in [403, 401]:
+        print(r_code[0])
 
     try:
         print(f"[green]App {r['name']} found, information loaded[/]")
@@ -32,7 +25,6 @@ def install(package):
         if not os.path.exists('{1}apps/{0}'.format(r['name'], horsy_vars.horsypath)):
             os.makedirs('{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
 
-        # if not is_gui:
         print(f"Downloading {r['url'].split('/')[-1]}")
 
         chunk_size = 1024
@@ -110,6 +102,7 @@ def install(package):
             threading.Thread(target=os.system, args=('{2}apps/{0}/{1}'.format(r['name'], r['install'],
                                                                               horsy_vars.horsypath),)).start()
 
+        # Launch script
         print(f"Generating launch script")
 
         with open('{1}apps/{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
@@ -118,6 +111,7 @@ def install(package):
             f.write(f"cd %horsypath%/apps/{r['name']}\n")
             f.write(f"{r['run']} %*\n")
 
+        # Done message
         print(f"[green][OK] All done![/]")
         print(f"[green]You can run your app by entering [italic white]{r['name']}[/] in terminal[/]")
 
