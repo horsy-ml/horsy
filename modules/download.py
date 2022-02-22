@@ -1,20 +1,62 @@
-import threading
-from tqdm import tqdm
-import requests
+import os.path
+from concurrent.futures import ThreadPoolExecutor
+import signal
+from functools import partial
+from threading import Event
+from urllib.request import urlopen
+
+from rich.progress import (
+    BarColumn,
+    DownloadColumn,
+    Progress,
+    TaskID,
+    TextColumn,
+    TimeRemainingColumn,
+    TransferSpeedColumn,
+)
+
+progress = Progress(
+    TextColumn("[bold blue]{task.fields[filename]}", justify="right"),
+    BarColumn(bar_width=None),
+    "[progress.percentage]{task.percentage:>3.1f}%",
+    "•",
+    DownloadColumn(),
+    "•",
+    TransferSpeedColumn(),
+    "•",
+    TimeRemainingColumn(),
+)
 
 
-def dl(urls, save_to):
-    for url in urls:
-        def dl_thread(url_in_thread):
-            with requests.get(url_in_thread, stream=True) as r:
-                with open(save_to + "/" + url.split('/')[-1], "wb") as f:
-                    pbar = tqdm(unit="B", unit_scale=True, total=int(r.headers['Content-Length']),
-                                position=urls.index(url_in_thread))
-                    for chunk in r.iter_content(chunk_size=1024):
-                        if chunk:
-                            if pbar.n < pbar.total - 1:
-                                pbar.update(len(chunk))
-                            f.write(chunk)
-            pbar.clear()
+done_event = Event()
 
-        threading.Thread(target=dl_thread, args=(url,)).start()
+
+def handle_sigint(signum, frame):
+    done_event.set()
+
+
+signal.signal(signal.SIGINT, handle_sigint)
+
+
+def copy_url(task_id: TaskID, url: str, path: str) -> None:
+    progress.console.log(f"Requesting {url}")
+    response = urlopen(url)
+    progress.update(task_id, total=int(response.info()["Content-length"]))
+    with open(path, "wb") as dest_file:
+        progress.start_task(task_id)
+        for data in iter(partial(response.read, 32768), b""):
+            dest_file.write(data)
+            progress.update(task_id, advance=len(data))
+            if done_event.is_set():
+                return
+    progress.console.log(f"Downloaded {path}")
+
+
+def dl(urls, dest_dir: str):
+    with progress:
+        with ThreadPoolExecutor(max_workers=len(urls)) as pool:
+            for url in urls:
+                filename = url.split("/")[-1]
+                dest_path = os.path.join(dest_dir, filename)
+                task_id = progress.add_task("download", filename=filename, start=False)
+                pool.submit(copy_url, task_id, url, dest_path)

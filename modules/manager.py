@@ -16,25 +16,34 @@ def install(package):
     r = r.text
     r = json.loads(r)
 
-    if r_code[1] not in [403, 401]:
+    if r_code[1] not in [200, 201]:
         return r_code[1]
 
     try:
+        # Inform the user
         print(f"[green]App {r['name']} found, information loaded[/]")
+        print()
 
-        if not os.path.exists('{1}apps/{0}'.format(r['name'], horsy_vars.horsypath)):
-            os.makedirs('{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
+        # Create the app directory
+        if not os.path.exists('{1}apps\{0}'.format(r['name'], horsy_vars.horsypath)):
+            os.makedirs('{1}apps\{0}'.format(r['name'], horsy_vars.horsypath))
 
+        # Get all download files urls
         print(f"Downloading {r['url'].split('/')[-1]}")
         to_download = [r['url']]
         if r['download']:
             print(f"Found dependency")
-            print(f"Downloading {r['download'].split('/')[-1]}")
             to_download.append(r['download'])
 
-        dl(to_download, '{0}apps/{1}'.format(horsy_vars.horsypath, r['name']))
-        scan_to_cli('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
+        # Download all files
+        dl(to_download, '{0}apps\{1}'.format(horsy_vars.horsypath, r['name']))
+        print()
 
+        # Scan main file
+        scan_to_cli('{2}apps\{0}\{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
+        print()
+
+        # Unzip the main file if needed
         def unzip(file, where):
             with zipfile.ZipFile(file, 'r') as zip_ref:
                 zip_ref.extractall(where)
@@ -42,25 +51,33 @@ def install(package):
 
         if r['url'].split('.')[-1] == 'zip':
             print(f"Extracting {r['url'].split('/')[-1]}")
-            unzip('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath),
-                  '{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
+            unzip('{2}apps\{0}\{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath),
+                  '{1}apps\{0}'.format(r['name'], horsy_vars.horsypath))
+            print()
 
-        if r['download']:
-            if scan_to_cli('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1],
-                                                    horsy_vars.horsypath))['detect']['malicious'] > 0:
-                print(f"[red]Dependency can be malicious. It may run now, if this added to installation "
-                      f"config[/]")
-                input("Press enter if you want continue, or ctrl+c to exit")
+        # Scan dependencies
+        try:
+            if r['download']:
+                if scan_to_cli('{2}apps\{0}\{1}'.format(r['name'], r['download'].split('/')[-1],
+                                                        horsy_vars.horsypath))['detect']['malicious'] > 0:
+                    print(f"[red]Dependency can be malicious. It may run now, if this added to installation "
+                          f"config[/]")
+                    input("Press enter if you want continue, or ctrl+c to exit")
+                    print()
+        except:
+            pass
 
+        # Execute install script
         if r['install']:
             print(f"Found install option")
-            threading.Thread(target=os.system, args=('{2}apps/{0}/{1}'.format(r['name'], r['install'],
+            threading.Thread(target=os.system, args=('{2}apps\{0}\{1}'.format(r['name'], r['install'],
                                                                               horsy_vars.horsypath),)).start()
+            print()
 
-        # Launch script
+        # Create launch script
         print(f"Generating launch script")
 
-        with open('{1}apps/{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
+        with open('{1}apps\{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
             f.write(f"@ECHO off\n")
             f.write(f"%horsypath:~0,1%:\n")
             f.write(f"cd %horsypath%/apps/{r['name']}\n")
@@ -72,8 +89,8 @@ def install(package):
 
     except:
         print("[red]Unexpected error[/]")
-        # raise
-        return
+        raise
+        # return
 
 
 def uninstall(package):

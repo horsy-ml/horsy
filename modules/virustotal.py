@@ -77,5 +77,4 @@ def scan_to_cli(filename):
         print(f"[green]You can see report by opening: [white]{analysis['link']}[/]")
         print(f"{analysis['detect']['malicious']} antivirus flagged this file as malicious")
 
-    print(f"[green][OK] Done[/]")
-    return analysis
+        return analysis
