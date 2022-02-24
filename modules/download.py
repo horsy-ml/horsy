@@ -1,3 +1,6 @@
+# Idea from rich examples
+# https://github.com/Textualize/rich/blob/master/examples/downloader.py
+
 import os.path
 from concurrent.futures import ThreadPoolExecutor
 import signal

@@ -40,7 +40,7 @@ if __name__ == "__main__":
     ui.username_box.setText(loginload())
 
 
-# Functions
+# Connected functions
 def refresh_gui():
     installed_apps()
 

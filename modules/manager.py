@@ -29,7 +29,6 @@ def install(package):
             os.makedirs('{1}apps\{0}'.format(r['name'], horsy_vars.horsypath))
 
         # Get all download files urls
-        print(f"Downloading {r['url'].split('/')[-1]}")
         to_download = [r['url']]
         if r['download']:
             print(f"Found dependency")

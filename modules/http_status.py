@@ -97,6 +97,9 @@ codes = {'CONTINUE': 100,
          }
 
 
-def handle(code):
+def handle(code) -> list:
+    """Prints and the status code in another way and code from args.
+    If it was number code returns list with message and code and if it was string code
+    returns list with code and message"""
     print(codes[code])
     return [codes[code], code]
