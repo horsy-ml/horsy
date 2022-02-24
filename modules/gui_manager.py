@@ -8,7 +8,7 @@ import os
 import zipfile
 from modules.virustotal import get_key, scan_file, get_report
 from horsygui import UiDownloadWindow, download_ui
-from modules.gui import popup
+from modules.gui import popup, cpopup
 success = 0
 
 
@@ -53,7 +53,7 @@ def install(package):
                     if chunk:
                         percent += 1
                         f.write(chunk)
-
+            download_ui.logs_box.append("")
             if not get_key():
                 download_ui.logs_box.append("Virustotal api key not found \n"
                                             "You can add it by entering horsy --vt [key] in terminal")
@@ -93,6 +93,7 @@ def install(package):
                     for chunk in file_r.iter_content(chunk_size=chunk_size):
                         if chunk:
                             f.write(chunk)
+                download_ui.logs_box.append("")
                 download_ui.logs_box.append(f"Starting virustotal scan for dependency")
                 if not get_key():
                     download_ui.logs_box.append(f"Virustotal api key not found")
@@ -135,7 +136,7 @@ def install(package):
                     download_ui.logs_box.append(f"Found install option")
                     threading.Thread(target=os.system, args=('{2}apps/{0}/{1}'.format(r['name'], r['install'],
                                                                                       horsy_vars.horsypath),)).start()
-                download_ui.logs_box.append(f"All done!\n You can run your app by entering {r['name']} in terminal")
+                download_ui.logs_box.append(f"All done!\nYou can run your app by entering {r['name']} in terminal")
                 return
         threading.Thread(target=wait_for_success).start()
 
@@ -146,11 +147,11 @@ def install(package):
 def uninstall(package, login_ui=None, Ui_LoginWindow=None):
     if os.path.exists('{1}apps/{0}'.format(package, horsy_vars.horsypath)):
         os.system('rmdir /s /q "{1}apps/{0}"'.format(package, horsy_vars.horsypath))
-        print(f"[green][OK] Files deleted[/]")
+        cpopup("Uninstallation", f"Files deleted")
     else:
-        print(f"[red]App {package} is not installed or doesn't have files[/]")
+        cpopup("Uninstallation", f"App {package} is not installed or doesn't have files")
     if os.path.isfile('{1}apps/{0}.bat'.format(package, horsy_vars.horsypath)):
         os.remove("{1}apps/{0}.bat".format(package, horsy_vars.horsypath))
-        print(f"[green][OK] Launch script deleted[/]")
+        cpopup("Uninstallation", f"Launch script deleted")
     else:
-        print(f"[red]App {package} is not installed or doesn't have launch script[/]")
+        cpopup("Uninstallation", f"App {package} is not installed or doesn't have launch script")

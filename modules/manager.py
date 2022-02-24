@@ -22,7 +22,6 @@ def install(package):
     try:
         # Inform the user
         print(f"[green]App {r['name']} found, information loaded[/]")
-        print()
 
         # Create the app directory
         if not os.path.exists('{1}apps\{0}'.format(r['name'], horsy_vars.horsypath)):

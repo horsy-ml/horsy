@@ -73,7 +73,7 @@ def uninstall_app():
         if app_name == "":
             return
         else:
-            from modules.manager import uninstall
+            from modules.gui_manager import uninstall
             uninstall(app_name)
             installed_apps()
     except:
