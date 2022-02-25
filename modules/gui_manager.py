@@ -141,8 +141,8 @@ def install(package):
                 download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
                 threading.Thread(target=os.system, args=('{2}apps/{0}/{1}'.format(r['name'], r['install'],
                                                                                   horsy_vars.horsypath),)).start()
-                download_ui.logs_box.append(f"All done!\nYou can run your app by entering {r['name']} in terminal")
-                download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+            download_ui.logs_box.append(f"All done!\nYou can run your app by entering {r['name']} in terminal")
+            download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
         threading.Thread(target=install_this).start()
 
     except:

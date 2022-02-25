@@ -6,7 +6,7 @@ from modules.auth import get_auth, del_auth, get_auth_without_login
 import re
 import modules.vars as horsy_vars
 import os
-from modules.http_status import handle, codes as status_codes
+from modules.http_status import handle
 
 
 def matches(s):
@@ -17,7 +17,7 @@ def urlmatch(s):
     return re.match("^https?://.*.(?:zip|exe)$", s) is not None
 
 
-def upload(is_gui=False, ui=None, login_ui=None, Ui_LoginWindow=None):
+def upload(is_gui=False, ui=None):
     if not is_gui:
         print('Welcome to the uploader')
         print('Before starting, please make sure you have done your project and [blink]uploaded[/] it to any hosting '
