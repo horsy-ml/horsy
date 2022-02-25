@@ -699,6 +699,9 @@ class Ui_MainWindow(object):
 class Ui_LoginWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/images/horsy_white32x32.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         MainWindow.resize(292, 200)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -771,6 +774,9 @@ class Ui_DownloadWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(682, 252)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/images/horsy_white32x32.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         MainWindow.setMinimumSize(QtCore.QSize(682, 252))
         MainWindow.setMaximumSize(QtCore.QSize(682, 252))
         MainWindow.setStyleSheet("QWidget{\n"
@@ -810,6 +816,9 @@ class Ui_DownloadWindow(object):
 class Ui_PackageWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/images/horsy_white32x32.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         MainWindow.resize(331, 433)
         MainWindow.setMinimumSize(QtCore.QSize(331, 433))
         MainWindow.setMaximumSize(QtCore.QSize(331, 433))
