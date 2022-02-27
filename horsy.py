@@ -21,19 +21,8 @@ args = parser.parse_args()
 option = args.option
 app = args.app
 
-# Displaying the logo
+# Window title
 os.system('title horsy')
-cls()
-print('''
- __   __  _______  ______    _______  __   __ 
-|  | |  ||       ||    _ |  |       ||  | |  |
-|  |_|  ||   _   ||   | ||  |  _____||  |_|  |
-|       ||  | |  ||   |_||_ | |_____ |       |
-|       ||  |_|  ||    __  ||_____  ||_     _|
-|   _   ||       ||   |  | | _____| |  |   |  
-|__| |__||_______||___|  |_||_______|  |___|  
-        Search powered by Algolia
-''')
 
 # Checking directories and files
 if not os.path.exists(horsy_vars.horsypath + 'apps'):
@@ -60,6 +49,22 @@ except:
 
 isNoArgs = False
 
+
+# Function to display logo
+def log_logo():
+    cls()
+    print('''
+ __   __  _______  ______    _______  __   __ 
+|  | |  ||       ||    _ |  |       ||  | |  |
+|  |_|  ||   _   ||   | ||  |  _____||  |_|  |
+|       ||  | |  ||   |_||_ | |_____ |       |
+|       ||  |_|  ||    __  ||_____  ||_     _|
+|   _   ||       ||   |  | | _____| |  |   |  
+|__| |__||_______||___|  |_||_______|  |___|  
+        Search powered by Algolia
+    ''')
+
+
 # Checking if the user has a new VT key
 if args.vt_key:
     if args.vt_key != 'disable':
@@ -72,15 +77,16 @@ if args.vt_key:
 
 # Checking if arguments are empty to use in-app CLI
 if not args.option:
+    log_logo()
     option = ['install', 'uninstall', 'source', 'list', 'upload', 'search', 'info'][
         tui.menu(['install app', 'uninstall app', 'get source', 'list of installed apps',
                   'upload your app', 'search for app', 'get information about app'])]
     isNoArgs = True
 
-if not args.app:
-    if option not in ['list', 'upload', 'update']:
-        print('\n')
-        app = tui.get(f'Select app to {option}')
+if not args.app and option not in ['list', 'upload', 'update']:
+    log_logo()
+    print('\n')
+    app = tui.get(f'Select app to {option}')
 
 # Checking user option (Yanderedev method)
 if option in ['upload']:
