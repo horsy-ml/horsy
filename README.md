@@ -26,7 +26,7 @@ Launch it (press `Launch anyways` if asked)
 
 Choose where to install
 
-Press `Install ` button.
+Press `Install` button.
 
 Thats all!
 
