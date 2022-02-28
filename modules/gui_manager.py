@@ -82,6 +82,7 @@ def install(package):
                 download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
                 unzip('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath),
                       '{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
+                os.remove('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
 
             download_ui.logs_box.append("")
             download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
@@ -129,9 +130,7 @@ def install(package):
             download_ui.logs_box.append("Generating launch script")
             with open('{1}apps/{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
                 f.write(f"@ECHO off\n")
-                f.write(f"%horsypath:~0,1%:\n")
-                f.write(f"cd %horsypath%/apps/{r['name']}\n")
-                f.write(f"{r['run']} %*\n")
+                f.write(f"""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')} %*\n""")
             download_ui.logs_box.append("")
             download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
 

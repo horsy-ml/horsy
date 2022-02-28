@@ -51,6 +51,7 @@ def install(package):
             print(f"Extracting {r['url'].split('/')[-1]}")
             unzip('{2}apps\{0}\{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath),
                   '{1}apps\{0}'.format(r['name'], horsy_vars.horsypath))
+            os.remove('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
             print()
 
         # Scan dependencies
@@ -77,9 +78,7 @@ def install(package):
 
         with open('{1}apps\{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
             f.write(f"@ECHO off\n")
-            f.write(f"%horsypath:~0,1%:\n")
-            f.write(f"cd %horsypath%/apps/{r['name']}\n")
-            f.write(f"{r['run']} %*\n")
+            f.write(f"""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')} %*\n""")
 
         # Done message
         print(f"[green][OK] All done![/]")

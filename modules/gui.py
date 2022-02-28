@@ -665,7 +665,7 @@ class Ui_MainWindow(object):
         self.dependency_run_box.setPlaceholderText(
             _translate("MainWindow", "Dependency run (run this during installation)"))
         self.main_exe_box.setPlaceholderText(
-            _translate("MainWindow", "Main executable command (file.exe, python main.py, etc)"))
+            _translate("MainWindow", "Command ($appdir$\\file.exe, python $appdir$\\main.py, etc)"))
         self.upload_button.setText(_translate("MainWindow", "Upload"))
         self.safetywarning_message.setHtml(_translate("MainWindow",
                                                       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -908,7 +908,7 @@ class Ui_PackageWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "horsy - editing package"))
         self.packagename_box.setPlaceholderText(_translate("MainWindow", "Editing package"))
         self.main_exe_box.setPlaceholderText(
-            _translate("MainWindow", "Main executable command (file.exe, python main.py, etc)"))
+            _translate("MainWindow", "Main executable command ($appdir$\\file.exe, python $appdir$\\main.py, etc)"))
         self.source_url_box.setPlaceholderText(
             _translate("MainWindow", "Url of source (project on GitHub, source archive)"))
         self.url_of_exe_box.setPlaceholderText(_translate("MainWindow", "Url of executable (ends on .exe or .zip)"))

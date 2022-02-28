@@ -56,8 +56,8 @@ def upload(is_gui=False, ui=None):
         source_url = input('> ')
         source_url = None if source_url == '' else source_url
 
-        print('If your app needs any dependencies, please paste its link here. It can be exe of installer from official '
-              'site. If you don\'t want to add it, just press Enter')
+        print('If your app needs any dependencies, please paste its link here. It can be exe of installer from official'
+              ' site. If you don\'t want to add it, just press Enter')
         download = None
         while download is None:
             download = input('> ')
@@ -73,8 +73,9 @@ def upload(is_gui=False, ui=None):
         install = input('> ')
         install = None if install == '' else install
 
-        print('Please specify main executable command. It can be executable file name (some-file.exe) or command, that '
-              'launches your script (python some-file.py, etc)')
+        print('Please specify main executable command. It can be executable file name ($appdir$\\some-file.exe) or '
+              'command, that launches your script (python $appdir$\\some-file.py, etc). $appdir$ will be replaced '
+              'with application directory. It is nessesary to add!')
         run = None
         while run is None:
             run = input('> ')

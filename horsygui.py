@@ -164,7 +164,7 @@ def dislike_gui():
 
 def upload_gui():
     from modules.uploader import upload
-    gui.popup('Upload', str(upload(True, ui, login_ui, UiMainWindow)))
+    gui.popup('Upload', str(upload(True, ui)))
 
 
 def change_password_gui():
