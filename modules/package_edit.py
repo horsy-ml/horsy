@@ -1,10 +1,9 @@
-import time
 from modules.auth import get_auth
 from horsygui import login_ui, UiLoginWindow as Ui_LoginWindow
 import modules.gui as gui
 import requests
 import modules.vars as horsy_vars
-import modules.http_status as status
+from modules.http_status import handle
 import json
 
 
@@ -12,33 +11,13 @@ def edit(package, UiPackageWindow):
     package_ui = gui.Ui_PackageWindow()
     package_ui.setupUi(UiPackageWindow)
 
-    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
-    if r == "":
-        gui.cpopup("Installation", f"Package {package} not found")
-        return f"Package {package} not found"
+    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
     try:
+        r_code = handle(r.status_code)
+        if r_code[1] not in [200, 201]:
+            gui.cpopup("Error", r_code[1])
+        r = r.text
         r = json.loads(r)
-    except:
-        print("[red]Error with unsupported message[/]")
-        gui.cpopup("Error", "Error with unsupported message")
-        return "Error with unsupported message"
-    try:
-        if r["message"] == "Internal server error":
-            print("Internal server error")
-            gui.cpopup("Error", "Internal server error")
-            return "Internal server error"
-        if r["message"] == "Too many requests":
-            try:
-                if r['message'] == 'Too many requests':
-                    while r['message'] == 'Too many requests':
-                        time.sleep(0.5)
-                        r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
-                        try:
-                            r = json.loads(r)
-                        except:
-                            pass
-            except:
-                pass
     except:
         pass
 
@@ -64,20 +43,6 @@ def edit(package, UiPackageWindow):
             'run': (lambda x: x if x != '' else None)(package_ui.main_exe_box.text())
         }
 
-        r = requests.put(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages", json=body)
-        if r.status_code == status.OK:
-            gui.cpopup('Success', 'Success, package edited')
-        elif r.status_code == status.UNAUTHORIZED:
-            gui.cpopup('Error', 'Unauthorized')
-        elif r.status_code == status.NOT_FOUND:
-            gui.cpopup('Error', 'Package not found or its not yours')
-        elif r.status_code == status.BAD_REQUEST:
-            gui.cpopup('Error', 'Bad request')
-        elif r.status_code == status.INTERNAL_SERVER_ERROR:
-            gui.cpopup('Error', 'Internal server error')
-        elif r.status_code == status.TOO_MANY_REQUESTS:
-            gui.cpopup('Error', 'Too many requests')
-        else:
-            gui.cpopup('Error', 'Unknown error')
+        handle(requests.put(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages", json=body).status_code)
 
     package_ui.update_button.clicked.connect(send)

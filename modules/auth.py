@@ -1,6 +1,5 @@
 import json
 import sys
-
 import modules.vars as horsy_vars
 import ctypes
 
@@ -35,7 +34,7 @@ def get_auth(is_gui=False, login_ui=None, Ui_LoginWindow=None):
             login_ui.login_button.clicked.connect(load_login_now)
 
 
-def get_auth_without_login(is_gui=False):
+def get_auth_without_login():
     with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)
 

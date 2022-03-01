@@ -95,7 +95,7 @@ def upload(is_gui=False, ui=None):
         }
 
     else:
-        auth = get_auth_without_login(is_gui)
+        auth = get_auth_without_login()
 
         project_name = ui.packagename_box.text()
         if not matches(project_name) or len(project_name) > 64 or len(project_name) < 3:

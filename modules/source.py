@@ -3,24 +3,16 @@ import json
 import webbrowser
 import modules.vars as horsy_vars
 from rich import print
+from modules.http_status import handle
 
 
 def get_source(package):
-    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
-    try:
-        r = json.loads(r)
-    except:
-        print("[red]Error with unsupported message[/]")
-        return "Error with unsupported message"
-    try:
-        if r["message"] == "not found":
-            print("[red]Package not found[/]")
-            return "Package not found"
-        if r["message"] == "Internal server error":
-            print("[red]Internal server error[/]")
-            return "Internal server error"
-    except:
-        pass
+    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
+    r_code = handle(r.status_code)
+    if r_code[1] not in [200, 201]:
+        return r_code[1]
+    r = r.text
+    r = json.loads(r)
 
     try:
         webbrowser.open(r["sourceUrl"])

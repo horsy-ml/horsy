@@ -1,10 +1,10 @@
 import requests
 import modules.gui as gui
-from modules.auth import del_auth, get_auth
+from modules.auth import get_auth
 import modules.vars as horsy_vars
-import json
 import threading
 from PyQt5 import QtWidgets
+from modules.http_status import handle
 
 
 def change(email):
@@ -21,34 +21,10 @@ def change(email):
     try:
         def change_in_new_thread():
             try:
-                r = requests.put(horsy_vars.protocol + horsy_vars.server_url + '/users',
-                                 json={'auth': auth, 'email': email})
-                try:
-                    r = r.json()
-                except:
-                    if r.text == '':
-                        gui.cpopup('Success', 'Success, your email has been changed')
-                        with open(horsy_vars.horsypath + 'config.cfg') as f:
-                            config = json.load(f)
-                        config['auth'] = {'email': email, 'password': config['auth']['password']}
-                        with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
-                            json.dump(config, f)
-                try:
-                    if r['message'] == 'Unauthorized':
-                        gui.cpopup('Error', 'Invalid credentials \nDeleting auth from config')
-                        del_auth()
-
-                    elif r['message'] == 'Internal server error':
-                        gui.cpopup('Error', 'Internal server error')
-                        return 'Internal server error'
-
-                    else:
-                        print('Unknown error, please try again')
-                        print('Server response:')
-                        print(r.text)
-                        return 'Unknown error, please try again, \n Server response: \n' + str(r.text)
-                except:
-                    pass
+                r_code = handle(requests.put(horsy_vars.protocol + horsy_vars.server_url + '/users',
+                                             json={'auth': auth, 'email': email}).status_code)
+                if r_code[1] not in [200, 201]:
+                    gui.cpopup("Error", r_code[1])
             except:
                 gui.cpopup('Error', 'Unexpected error.')
         threading.Thread(target=change_in_new_thread).start()

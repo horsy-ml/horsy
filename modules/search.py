@@ -5,6 +5,7 @@ import requests
 import modules.vars as horsy_vars
 import json
 from rich import print
+from modules.http_status import handle
 
 client = SearchClient.create(
     requests.get('https://raw.githubusercontent.com/horsy-ml/horsy/master/web_vars/search_app').json()['APP_ID'],
@@ -26,21 +27,10 @@ def search(query, is_gui=False):
 
 
 def info(package, download_ui=None, UiDownloadWindow=None):
-    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}").text
-    if r == "":
-        print(f"[red]Package {package} not found[/]")
-        return f"Package {package} not found"
-    try:
-        r = json.loads(r)
-    except:
-        print("[red]Error with unsupported message[/]")
-        return "Error with unsupported message"
-    try:
-        if r["message"] == "Internal server error":
-            print("[red]Internal server error[/]")
-            return "Internal server error"
-    except:
-        pass
+    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
+    r_code = handle(r.status_code)
+    r = r.text
+    r = json.loads(r)
 
     print(f"[bold]{r['name']}{'✅' if r['verified'] else ''} by {r['authorName']}[/]")
     print(f"{r['description']}")
@@ -71,4 +61,3 @@ def info(package, download_ui=None, UiDownloadWindow=None):
                                         "We don't call you to trust this app, use it at your own risk \n"
                                         "but we recommend you more to install verified packages")
         return None
-
