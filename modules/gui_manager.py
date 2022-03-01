@@ -82,7 +82,6 @@ def install(package):
                 download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
                 unzip('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath),
                       '{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
-                os.remove('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
 
             download_ui.logs_box.append("")
             download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
