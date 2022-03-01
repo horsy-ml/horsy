@@ -91,39 +91,46 @@ def install(package):
                                             "You can add it by entering horsy --vt [key] in terminal")
                 download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
             else:
-                download_ui.logs_box.append("If you want to disable scan, type horsy --vt disable in terminal")
-                download_ui.logs_box.append("Starting virustotal scan for program")
-                download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
-                scan_file('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
-                analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1],
-                                                               horsy_vars.horsypath))
-                download_ui.logs_box.append(f"Scan finished for program \nYou can see report for program by opening: "
-                                            f"{analysis['link']} \n"
-                                    f"{analysis['detect']['malicious']} antivirus flagged this file as malicious")
-                download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                try:
+                    download_ui.logs_box.append("If you want to disable scan, type horsy --vt disable in terminal")
+                    download_ui.logs_box.append("Starting virustotal scan for program")
+                    download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                    scan_file('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
+                    analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1],
+                                                                   horsy_vars.horsypath))
+                    download_ui.logs_box.append(f"Scan finished for program \nYou can see report for program by opening: "
+                                                f"{analysis['link']} \n"
+                                        f"{analysis['detect']['malicious']} antivirus flagged this file as malicious")
+                    download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                except:
+                    pass
 
                 if r['download']:
-                    download_ui.logs_box.append("")
-                    download_ui.logs_box.append("Starting virustotal scan for dependency")
-                    download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
-                    scan_file('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1], horsy_vars.horsypath))
-                    download_ui.logs_box.append(f"Scan finished for dependency")
-                    download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
-                    analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1],
-                                                                   horsy_vars.horsypath))
-                    download_ui.logs_box.append(f"You can see report for dependency by opening: {analysis['link']}")
-                    download_ui.logs_box.append(f"{analysis['detect']['malicious']} "
-                                                f"antivirus flagged this file as malicious")
-                    download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
-                    if analysis['detect']['malicious'] > 0:
+                    try:
                         download_ui.logs_box.append("")
-                        download_ui.logs_box.append(f"SECURITY WARNING, APP INSTALLATION STOPPED")
-                        download_ui.logs_box.append(f"Dependency can be malicious. "
-                                                    f"It may run now, if this added to installation config")
-                        download_ui.logs_box.append(f"You can disable VT check with horsy --vt disable \n"
-                                                    f"or use horsy CLI to force install")
-                        download_ui.logs_box.append("")
+                        download_ui.logs_box.append("Starting virustotal scan for dependency")
                         download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                        scan_file('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1],
+                                                           horsy_vars.horsypath))
+                        download_ui.logs_box.append(f"Scan finished for dependency")
+                        download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                        analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], r['download'].split('/')[-1],
+                                                                       horsy_vars.horsypath))
+                        download_ui.logs_box.append(f"You can see report for dependency by opening: {analysis['link']}")
+                        download_ui.logs_box.append(f"{analysis['detect']['malicious']} "
+                                                    f"antivirus flagged this file as malicious")
+                        download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                        if analysis['detect']['malicious'] > 0:
+                            download_ui.logs_box.append("")
+                            download_ui.logs_box.append(f"SECURITY WARNING, APP INSTALLATION STOPPED")
+                            download_ui.logs_box.append(f"Dependency can be malicious. "
+                                                        f"It may run now, if this added to installation config")
+                            download_ui.logs_box.append(f"You can disable VT check with horsy --vt disable \n"
+                                                        f"or use horsy CLI to force install")
+                            download_ui.logs_box.append("")
+                            download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                    except:
+                        pass
 
             if r['url'].split('.')[-1] == 'zip':
                 os.remove('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))

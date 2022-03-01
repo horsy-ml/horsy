@@ -63,18 +63,21 @@ def get_report(filename):
 
 
 def scan_to_cli(filename):
-    print(f"Starting virustotal scan")
-    if not get_key():
-        print(f"[red]Virustotal api key not found[/]")
-        print(f"You can add it by entering [bold]horsy --vt \[your key][/] in terminal")
-    else:
-        print(f"[green]Virustotal api key found[/]")
-        print(f"[italic white]If you want to disable scan, type [/][bold]horsy --vt disable[/]"
-              f"[italic white] in terminal[/]")
-        scan_file(filename)
-        print(f"[green]Virustotal scan finished[/]")
-        analysis = get_report(filename)
-        print(f"[green]You can see report by opening: [white]{analysis['link']}[/]")
-        print(f"{analysis['detect']['malicious']} antivirus flagged this file as malicious")
+    try:
+        print(f"Starting virustotal scan")
+        if not get_key():
+            print(f"[red]Virustotal api key not found[/]")
+            print(f"You can add it by entering [bold]horsy --vt \[your key][/] in terminal")
+        else:
+            print(f"[green]Virustotal api key found[/]")
+            print(f"[italic white]If you want to disable scan, type [/][bold]horsy --vt disable[/]"
+                  f"[italic white] in terminal[/]")
+            scan_file(filename)
+            print(f"[green]Virustotal scan finished[/]")
+            analysis = get_report(filename)
+            print(f"[green]You can see report by opening: [white]{analysis['link']}[/]")
+            print(f"{analysis['detect']['malicious']} antivirus flagged this file as malicious")
 
-        return analysis
+            return analysis
+    except:
+        return None
