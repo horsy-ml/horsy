@@ -29,6 +29,6 @@ def change(oldpass, newpass):
         gui.cpopup("Changing password",
                    handle(requests.put(horsy_vars.protocol + horsy_vars.server_url + '/users',
                                        json={'auth': get_auth(True, login_ui, QtWidgets.QMainWindow()),
-                                             'password': newpass}).status_code)[1])
+                                             'password': newpass}).status_code)[0])
     except:
         gui.popup('Error', 'Unexpected error.')

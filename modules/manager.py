@@ -17,7 +17,7 @@ def install(package):
     r = json.loads(r)
 
     if r_code[1] not in [200, 201]:
-        return r_code[1]
+        return r_code[0]
 
     try:
         # Inform the user

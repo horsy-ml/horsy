@@ -18,7 +18,7 @@ def install(package):
     r = json.loads(r)
 
     if r_code[1] not in [200, 201]:
-        cpopup("Error", r_code[1])
+        cpopup("Error", r_code[0])
 
     try:
         UiDownloadWindow.show()

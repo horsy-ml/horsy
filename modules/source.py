@@ -10,7 +10,7 @@ def get_source(package):
     r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
     r_code = handle(r.status_code)
     if r_code[1] not in [200, 201]:
-        return r_code[1]
+        return r_code[0]
     r = r.text
     r = json.loads(r)
 

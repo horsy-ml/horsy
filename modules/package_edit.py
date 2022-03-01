@@ -15,7 +15,7 @@ def edit(package, UiPackageWindow):
     try:
         r_code = handle(r.status_code)
         if r_code[1] not in [200, 201]:
-            gui.cpopup("Error", r_code[1])
+            gui.cpopup("Error", r_code[0])
         r = r.text
         r = json.loads(r)
     except:
@@ -43,6 +43,8 @@ def edit(package, UiPackageWindow):
             'run': (lambda x: x if x != '' else None)(package_ui.main_exe_box.text())
         }
 
-        handle(requests.put(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages", json=body).status_code)
+        gui.cpopup("Updating",
+                   handle(requests.put(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages",
+                                       json=body).status_code)[0])
 
     package_ui.update_button.clicked.connect(send)

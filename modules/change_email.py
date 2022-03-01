@@ -24,7 +24,7 @@ def change(email):
                 r_code = handle(requests.put(horsy_vars.protocol + horsy_vars.server_url + '/users',
                                              json={'auth': auth, 'email': email}).status_code)
                 if r_code[1] not in [200, 201]:
-                    gui.cpopup("Error", r_code[1])
+                    gui.cpopup("Error", r_code[0])
             except:
                 gui.cpopup('Error', 'Unexpected error.')
         threading.Thread(target=change_in_new_thread).start()
