@@ -126,6 +126,9 @@ def install(package):
                         download_ui.logs_box.append("")
                         download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
 
+            if r['url'].split('.')[-1] == 'zip':
+                os.remove('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
+
             download_ui.logs_box.append("")
             download_ui.logs_box.append("Generating launch script")
             with open('{1}apps/{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
