@@ -9,6 +9,7 @@ from PyQt5 import QtWidgets
 import ctypes
 import modules.gui as gui
 import requests
+import subprocess
 
 
 # Hide console window (does not work on custom terminals like Windows Terminal)
@@ -237,7 +238,9 @@ if __name__ == "__main__":
     version = int(f.read())
     if int(requests.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
         gui.popup('Update', 'New version available! \nWe appreciate your safety, so you need to update horsy.'
-                            '\nPress OK and updater will download the latest version.')
+                            '\nPress OK and updater will download the latest version.\n'
+                            'If you see this message again, or horsy doesn\'t launch \n'
+                            'itself for long time, please type horsy_updater in your terminal.')
         try:
             with open(os.path.join(horsy_vars.horsypath) + '/horsy_updater.exe', 'wb') as f:
                 f.write(requests.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe').content)
@@ -248,7 +251,7 @@ if __name__ == "__main__":
                                'Afterwards, delete updater file and launch horsy again.')
             webbrowser.open('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe')
         UiMainWindow.close()
-        os.system('horsy_updater.exe horsygui')
+        subprocess.Popen('horsy_updater.exe horsygui', shell=True, close_fds=True)
         sys.exit()
 
     get_users_apps()

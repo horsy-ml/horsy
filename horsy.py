@@ -1,5 +1,6 @@
 import argparse
 import os
+import subprocess
 import sys
 import requests
 import modules.tui as tui
@@ -35,16 +36,21 @@ if not os.path.isfile(horsy_vars.horsypath + 'config.cfg'):
 try:
     with open(horsy_vars.horsypath + 'apps/version', 'r') as f:
         version = int(f.read())
-        if int(requests.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
-            print('New version available!')
-            input('Press enter to update...')
-            with open(os.path.join(horsy_vars.horsypath) + '/horsy_updater.exe', 'wb') as f:
-                f.write(requests.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe').content)
-            os.system('horsy_updater.exe horsy')
-            sys.exit(0)
 except:
     print('Horsy may be not installed correctly. Please reinstall it or stop other horsy instances. '
           'If you installed it just now, please restart PC.')
+
+if int(requests.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
+    print('New version available!')
+    print('If you see this message again, or horsy doesn\'t launch itself for long time, please type '
+          'horsy_updater in your terminal to update it manually.')
+    input('Press enter to update...')
+    print('Updating...')
+    print('Please wait, if process seems closed, its OK, just wait a bit.')
+    with open(os.path.join(horsy_vars.horsypath) + '/horsy_updater.exe', 'wb') as f:
+        f.write(requests.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe').content)
+    subprocess.Popen('horsy_updater.exe horsy', shell=True, close_fds=True)
+    sys.exit(0)
 
 
 isNoArgs = False

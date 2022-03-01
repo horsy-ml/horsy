@@ -37,4 +37,7 @@ urllib.request.urlretrieve("https://github.com/horsy-ml/horsy/raw/master/web_var
 for thread in threads:
     thread.join()
 
-os.system(option)
+try:
+    os.system(option)
+except:
+    input("horsy updated manually. You can launch it now. Press enter to exit.")
