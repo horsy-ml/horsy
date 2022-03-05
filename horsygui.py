@@ -200,6 +200,8 @@ def get_users_apps():
             ui.manage_packages_table.clear()
             ui.manage_packages_table.setColumnCount(4)
             ui.manage_packages_table.setRowCount(math.ceil(len(apps) / 4))
+            print(math.ceil(len(apps) / 4))
+            print(apps)
             for i in range(len(apps)):
                 ui.manage_packages_table.setItem(i // 4, i % 4, QtWidgets.QTableWidgetItem(str(apps[i])))
         except:

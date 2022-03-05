@@ -14,7 +14,7 @@ def matches(s):
 
 
 def urlmatch(s):
-    return re.match("^https?://.*.(?:zip|exe)$", s) is not None
+    return re.match("^https?://.*.(?:zip|exe|py|msi|js|bat|cmd|ps1)$", s) is not None
 
 
 def upload(is_gui=False, ui=None):
@@ -47,7 +47,7 @@ def upload(is_gui=False, ui=None):
         while url is None:
             url = input('> ')
             if not urlmatch(url):
-                print('[red]Invalid file url, also it should end on .exe or .zip[/red]')
+                print('[red]Invalid file url, also it should end on .exe, .zip, .py, .msi, .js, .bat, .cmd, .ps1[/red]')
                 url = None
 
         print('Please paste there url of your project on GitHub or somewhere else. It should be a link to source code '
