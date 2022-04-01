@@ -277,6 +277,7 @@ if __name__ == "__main__":
     ui.changeemail_button.clicked.connect(change_email_gui)
     ui.loginlogout_button.clicked.connect(login_logout_gui)
     ui.manage_packages_table.itemDoubleClicked.connect(gui_package_edit)
+    ui.editowned_button.clicked.connect(gui_package_edit)
 
     # Handle GUI exiting to exit whole program
     sys.exit(app.exec_())

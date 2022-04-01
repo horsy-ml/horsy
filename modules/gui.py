@@ -111,6 +111,50 @@ class Ui_MainWindow(object):
                                              "color: rgb(0, 0, 0, 0);")
         self.regmessage_button.setText("")
         self.regmessage_button.setObjectName("regmessage_button")
+        self.requestupdate_button = QtWidgets.QPushButton(self.account_tab)
+        self.requestupdate_button.setGeometry(QtCore.QRect(225, 590, 200, 40))
+        self.requestupdate_button.setStyleSheet("QPushButton {\n"
+                                                "    color: rgb(204, 204, 204);\n"
+                                                "    border-width: 1px;\n"
+                                                "    border-radius:6px;\n"
+                                                "    border-style: solid;\n"
+                                                "    background-color: rgb(28, 30, 33);\n"
+                                                "    border-color: rgb(66, 143, 225);\n"
+                                                "}\n"
+                                                "QPushButton:hover{\n"
+                                                "    border-width: 2px;\n"
+                                                "}\n"
+                                                "QPushButton:pressed{\n"
+                                                "    background-color: rgb(50, 60, 63);\n"
+                                                "}\n"
+                                                "QPushButton:disabled{\n"
+                                                "    border-width: 0px;\n"
+                                                "    background-color: rgb(92, 99, 109);\n"
+                                                "}")
+        self.requestupdate_button.setText("Request selected package \nupdate on user side (dev)")
+        self.requestupdate_button.setObjectName("requestupdate_button")
+        self.editowned_button = QtWidgets.QPushButton(self.account_tab)
+        self.editowned_button.setGeometry(QtCore.QRect(445, 590, 200, 40))
+        self.editowned_button.setStyleSheet("QPushButton {\n"
+                                            "    color: rgb(204, 204, 204);\n"
+                                            "    border-width: 1px;\n"
+                                            "    border-radius:6px;\n"
+                                            "    border-style: solid;\n"
+                                            "    background-color: rgb(28, 30, 33);\n"
+                                            "    border-color: rgb(66, 143, 225);\n"
+                                            "}\n"
+                                            "QPushButton:hover{\n"
+                                            "    border-width: 2px;\n"
+                                            "}\n"
+                                            "QPushButton:pressed{\n"
+                                            "    background-color: rgb(50, 60, 63);\n"
+                                            "}\n"
+                                            "QPushButton:disabled{\n"
+                                            "    border-width: 0px;\n"
+                                            "    background-color: rgb(92, 99, 109);\n"
+                                            "}")
+        self.editowned_button.setText("Edit selected package")
+        self.editowned_button.setObjectName("requestupdate_button")
         self.changeemail_button = QtWidgets.QPushButton(self.account_tab)
         self.changeemail_button.setEnabled(True)
         self.changeemail_button.setGeometry(QtCore.QRect(360, 20, 151, 50))
@@ -200,15 +244,15 @@ class Ui_MainWindow(object):
                                              "}")
         self.changepass_button.setObjectName("changepass_button")
         self.manage_packages_table = QtWidgets.QTableWidget(self.account_tab)
-        self.manage_packages_table.setGeometry(QtCore.QRect(10, 240, 871, 411))
+        self.manage_packages_table.setGeometry(QtCore.QRect(10, 240, 871, 351))
         self.manage_packages_table.setStyleSheet("QTableWidget\n"
-                                           "{\n"
-                                           "color: white;\n"
-                                           "font: 15pt \"MS Shell Dlg 2\";\n"
-                                           "margin: 20px;\n"
-                                           "border-radius: 45px;\n"
-                                           "}\n"
-                                           "")
+                                                 "{\n"
+                                                 "color: white;\n"
+                                                 "font: 15pt \"MS Shell Dlg 2\";\n"
+                                                 "margin: 20px;\n"
+                                                 "border-radius: 45px;\n"
+                                                 "}\n"
+                                                 "")
         self.manage_packages_table.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustIgnored)
         self.manage_packages_table.setAutoScroll(False)
         self.manage_packages_table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -610,6 +654,7 @@ class Ui_MainWindow(object):
         self.tabWidget.raise_()
         self.horsy_logo_lefttop.raise_()
         self.horsy_text_lefttop.raise_()
+        self.requestupdate_button.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
