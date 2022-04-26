@@ -76,7 +76,7 @@ def install(package):
         # Create launch script
         print(f"Generating launch script")
 
-        with open('{1}apps\{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
+        with open('{1}apps\{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w+') as f:
             f.write(f"@ECHO off\n")
             f.write(f"""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')} %*\n""")
 

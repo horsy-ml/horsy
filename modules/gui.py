@@ -14,10 +14,84 @@ class Ui_MainWindow(object):
         MainWindow.setWindowIcon(icon)
         MainWindow.setWindowOpacity(0.99)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setStyleSheet("QWidget{\n"
-                                         "    background-color: rgb(30, 30, 30);\n"
-                                         "}\n"
-                                         "")
+        self.centralwidget.setStyleSheet("""QWidget{\n"
+    background-color: rgb(30, 30, 30);
+}
+QScrollBar:horizontal {
+    border: none;
+    background: rgb(52, 59, 72);
+    height: 8px;
+    margin: 0px 21px 0 21px;
+    border-radius: 0px;
+}
+QScrollBar::handle:horizontal {
+    background: rgb(47, 48, 50);
+    min-width: 25px;
+    border-radius: 4px
+}
+QScrollBar::add-line:horizontal {
+    border: none;
+    background: rgb(55, 63, 77);
+    width: 20px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+QScrollBar::sub-line:horizontal {
+    border: none;
+    background: rgb(55, 63, 77);
+    width: 20px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal
+{
+     background: none;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
+{
+     background: none;
+}
+QScrollBar:vertical {
+    border: none;
+    background: rgb(52, 59, 72);
+    width: 8px;
+    margin: 21px 0 21px 0;
+    border-radius: 0px;
+}
+ QScrollBar::handle:vertical {	
+    background: rgb(47, 48, 50);
+    min-height: 25px;
+    border-radius: 4px
+ }
+ QScrollBar::add-line:vertical {
+    border: none;
+    background: transparent;
+    height: 10px;
+    border-radius: 4px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+ }
+ QScrollBar::sub-line:vertical {
+    border: none;
+    background: transparent;
+    height: 10px;
+    border-radius: 4px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+ }
+ QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+     background: none;
+ }
+
+ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+     background: none;
+ }
+
+""")
         self.centralwidget.setObjectName("centralwidget")
         self.horsy_logo_lefttop = QtWidgets.QLabel(self.centralwidget)
         self.horsy_logo_lefttop.setGeometry(QtCore.QRect(10, 10, 32, 32))
@@ -574,7 +648,7 @@ class Ui_MainWindow(object):
         self.installed_tab.setObjectName("installed_tab")
         self.delete_button = QtWidgets.QPushButton(self.installed_tab)
         self.delete_button.setEnabled(True)
-        self.delete_button.setGeometry(QtCore.QRect(440, 575, 421, 50))
+        self.delete_button.setGeometry(QtCore.QRect(300, 575, 275, 50))
         self.delete_button.setMinimumSize(QtCore.QSize(0, 50))
         self.delete_button.setStyleSheet("QPushButton {\n"
                                          "    color: rgb(204, 204, 204);\n"
@@ -597,7 +671,7 @@ class Ui_MainWindow(object):
         self.delete_button.setObjectName("delete_button")
         self.update_button = QtWidgets.QPushButton(self.installed_tab)
         self.update_button.setEnabled(True)
-        self.update_button.setGeometry(QtCore.QRect(20, 575, 401, 50))
+        self.update_button.setGeometry(QtCore.QRect(5, 575, 275, 50))
         self.update_button.setMinimumSize(QtCore.QSize(0, 50))
         self.update_button.setStyleSheet("QPushButton {\n"
                                          "    color: rgb(204, 204, 204);\n"
@@ -618,6 +692,29 @@ class Ui_MainWindow(object):
                                          "    background-color: rgb(92, 99, 109);\n"
                                          "}")
         self.update_button.setObjectName("update_button")
+        self.check_updates_button = QtWidgets.QPushButton(self.installed_tab)
+        self.check_updates_button.setEnabled(True)
+        self.check_updates_button.setGeometry(QtCore.QRect(595, 575, 275, 50))
+        self.check_updates_button.setMinimumSize(QtCore.QSize(0, 50))
+        self.check_updates_button.setStyleSheet("QPushButton {\n"
+                                                "    color: rgb(204, 204, 204);\n"
+                                                "    border-width: 1px;\n"
+                                                "    border-radius:6px;\n"
+                                                "    border-style: solid;\n"
+                                                "    background-color: rgb(28, 30, 33);\n"
+                                                "    border-color: rgb(66, 143, 225);\n"
+                                                "}\n"
+                                                "QPushButton:hover{\n"
+                                                "    border-width: 2px;\n"
+                                                "}\n"
+                                                "QPushButton:pressed{\n"
+                                                "    background-color: rgb(50, 60, 63);\n"
+                                                "}\n"
+                                                "QPushButton:disabled{\n"
+                                                "    border-width: 0px;\n"
+                                                "    background-color: rgb(92, 99, 109);\n"
+                                                "}")
+        self.check_updates_button.setObjectName("check_updates_button")
         self.installed_table = QtWidgets.QTableWidget(self.installed_tab)
         self.installed_table.setGeometry(QtCore.QRect(0, 10, 871, 571))
         self.installed_table.setStyleSheet("QTableWidget\n"
@@ -733,6 +830,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.browse_tab), _translate("MainWindow", "Browse"))
         self.delete_button.setText(_translate("MainWindow", "Uninstall"))
         self.update_button.setText(_translate("MainWindow", "Update"))
+        self.check_updates_button.setText(_translate("MainWindow", "Check all updates"))
         self.installed_table.setSortingEnabled(True)
         __sortingEnabled = self.installed_table.isSortingEnabled()
         self.installed_table.setSortingEnabled(False)

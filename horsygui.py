@@ -58,7 +58,7 @@ def installed_apps():
 
 def update_app():
     try:
-        app_name = ui.installed_table.currentItem().text()
+        app_name = ui.installed_table.currentItem().text().replace('!', '')
         if app_name == "":
             return
         else:
@@ -70,7 +70,7 @@ def update_app():
 
 def uninstall_app():
     try:
-        app_name = ui.installed_table.currentItem().text()
+        app_name = ui.installed_table.currentItem().text().replace('!', '')
         if app_name == "":
             return
         else:
@@ -105,6 +105,16 @@ def install_app():
             install(app_name)
     except:
         return
+
+
+def check_updates():
+    from modules.updates import check
+    needupdate = check()
+    try:
+        for module in needupdate:
+            print(module)
+    except:
+        gui.cpopup("Error", str(needupdate))
 
 
 def get_source_gui():
@@ -263,6 +273,7 @@ if __name__ == "__main__":
     ui.tabWidget.currentChanged.connect(refresh_gui)
     ui.update_button.clicked.connect(update_app)
     ui.delete_button.clicked.connect(uninstall_app)
+    ui.check_updates_button.clicked.connect(check_updates)
     ui.search_button.clicked.connect(search_gui)
     ui.install_button.clicked.connect(install_app)
     ui.source_button.clicked.connect(get_source_gui)
