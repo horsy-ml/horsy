@@ -97,42 +97,35 @@ if not args.app and option not in ['list', 'upload', 'update']:
     print('\n')
     app = tui.get(f'Select app to {option}')
 
-# Checking user option (Yanderedev method)
-if option in ['upload']:
-    from modules.uploader import upload
-    upload()
-
-if option in ['install', 'i']:
-    from modules.manager import install
-    install(app)
-
-if option in ['uninstall', 'un']:
-    from modules.manager import uninstall
-    uninstall(app)
-
-if option in ['source', 's']:
-    from modules.source import get_source
-    get_source(app)
-
-if option in ['search']:
-    from modules.search import search
-    search(app)
-
-if option in ['info']:
-    from modules.search import info
-    info(app)
-
-if option in ['list', 'l']:
-    from modules.manager import apps_list
-    apps_list()
-
-if option in ['like']:
-    from modules.liker import like
-    like(app)
-
-if option in ['dislike']:
-    from modules.liker import dislike
-    dislike(app)
+# Checking user option
+match option:
+    case 'upload':
+        from modules.uploader import upload
+        upload()
+    case 'install', 'i':
+        from modules.manager import install
+        install(app)
+    case 'uninstall', 'un':
+        from modules.manager import uninstall
+        uninstall(app)
+    case 'source', 's':
+        from modules.source import get_source
+        get_source(app)
+    case 'search':
+        from modules.search import search
+        search(app)
+    case 'info':
+        from modules.search import info
+        info(app)
+    case 'list', 'l':
+        from modules.manager import apps_list
+        apps_list()
+    case 'like':
+        from modules.liker import like
+        like(app)
+    case 'dislike':
+        from modules.liker import dislike
+        dislike(app)
 
 if isNoArgs:
     input('[EXIT] Press enter to exit horsy...')
