@@ -232,6 +232,18 @@ def gui_package_edit():
         return
 
 
+def gui_push_version():
+    from modules.package_edit import push_version
+    try:
+        app_name = ui.manage_packages_table.currentItem().text()
+        if app_name == "":
+            return
+        else:
+            push_version(app_name)
+    except:
+        return
+
+
 # Run functions on startup
 if __name__ == "__main__":
     # Checking directories and files
@@ -289,6 +301,7 @@ if __name__ == "__main__":
     ui.loginlogout_button.clicked.connect(login_logout_gui)
     ui.manage_packages_table.itemDoubleClicked.connect(gui_package_edit)
     ui.editowned_button.clicked.connect(gui_package_edit)
+    ui.requestupdate_button.clicked.connect(gui_push_version)
 
     # Handle GUI exiting to exit whole program
     sys.exit(app.exec_())

@@ -19,7 +19,7 @@ def edit(package, UiPackageWindow):
         r = r.text
         r = json.loads(r)
     except:
-        pass
+        return
 
     package_ui.packagename_box.setText("Editing package " + r["name"])
     package_ui.package_desc_box.setText(r["description"])
@@ -48,3 +48,11 @@ def edit(package, UiPackageWindow):
                                        json=body).status_code)[0])
 
     package_ui.update_button.clicked.connect(send)
+
+
+def push_version(package):
+    gui.cpopup("Pushing version",
+               handle(requests.post(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/push-version", json={
+                   'auth': get_auth(True, login_ui, Ui_LoginWindow),
+                   'name': package
+               }).status_code)[0])

@@ -205,7 +205,7 @@ QScrollBar:vertical {
                                                 "    border-width: 0px;\n"
                                                 "    background-color: rgb(92, 99, 109);\n"
                                                 "}")
-        self.requestupdate_button.setText("Request selected package \nupdate on user side (dev)")
+        self.requestupdate_button.setText("Request selected package \nupdate on user side")
         self.requestupdate_button.setObjectName("requestupdate_button")
         self.editowned_button = QtWidgets.QPushButton(self.account_tab)
         self.editowned_button.setGeometry(QtCore.QRect(445, 590, 200, 40))
