@@ -102,13 +102,13 @@ match option:
     case 'upload':
         from modules.uploader import upload
         upload()
-    case 'install', 'i':
+    case 'install' | 'i':
         from modules.manager import install
         install(app)
-    case 'uninstall', 'un':
+    case 'uninstall' | 'un':
         from modules.manager import uninstall
         uninstall(app)
-    case 'source', 's':
+    case 'source' | 's':
         from modules.source import get_source
         get_source(app)
     case 'search':
@@ -117,7 +117,7 @@ match option:
     case 'info':
         from modules.search import info
         info(app)
-    case 'list', 'l':
+    case 'list' | 'l':
         from modules.manager import apps_list
         apps_list()
     case 'like':
