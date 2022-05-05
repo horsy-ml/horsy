@@ -34,6 +34,9 @@ if not os.path.isfile(horsy_vars.horsypath + 'config.cfg'):
 if not os.path.isfile(horsy_vars.horsypath + 'apps/versions.json'):
     with open(horsy_vars.horsypath + 'apps/versions.json', 'w+') as f:
         f.write('{}')
+if os.path.isfile(horsy_vars.horsypath + 'horsy.old'):
+    os.remove(horsy_vars.horsypath + 'horsy.old')
+    print('Removed old horsy')
 
 # Checking version
 try:
@@ -44,15 +47,22 @@ except:
           'If you installed it just now, please restart PC.')
 
 if int(request.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
+    from modules.download import dl
+    import urllib.request
     print('New version available!')
-    print('If you see this message again, or horsy doesn\'t launch itself for long time, please type '
-          'horsy_updater in your terminal to update it manually.')
     input('Press enter to update...')
     print('Updating...')
-    print('Please wait, if process seems closed, its OK, just wait a bit.')
-    with open(os.path.join(horsy_vars.horsypath) + '/horsy_updater.exe', 'wb') as f:
-        f.write(request.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe').content)
-    subprocess.Popen('horsy_updater.exe horsy', shell=True, close_fds=True)
+    print('Please wait...')
+    os.rename(horsy_vars.horsypath + "horsy.exe", horsy_vars.horsypath + "horsy.old")
+    print('Renamed horsy.exe to horsy.old')
+    dl(['https://github.com/horsy-ml/horsy/raw/master/bin/horsy.exe',
+        'https://github.com/horsy-ml/horsy/raw/master/bin/horsygui.exe']
+       if os.path.isfile(horsy_vars.horsypath + 'horsygui.exe') else
+       ['https://github.com/horsy-ml/horsy/raw/master/bin/horsy.exe'],
+       horsy_vars.horsypath)
+    urllib.request.urlretrieve("https://github.com/horsy-ml/horsy/raw/master/web_vars/version",
+                               horsy_vars.horsypath + '/apps/version')
+    subprocess.Popen(str(horsy_vars.horsypath + 'horsy.exe'), shell=True, close_fds=True)
     sys.exit(0)
 
 

@@ -250,6 +250,9 @@ if __name__ == "__main__":
     if not os.path.isfile(horsy_vars.horsypath + 'apps/versions.json'):
         with open(horsy_vars.horsypath + 'apps/versions.json', 'w+') as f:
             f.write('{}')
+    if os.path.isfile(horsy_vars.horsypath + 'horsygui.old'):
+        os.remove(horsy_vars.horsypath + 'horsygui.old')
+        gui.popup('Success', 'Removed old horsygui')
 
     # Checking version
     try:
@@ -261,20 +264,29 @@ if __name__ == "__main__":
     if int(request.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
         gui.popup('Update', 'New version available! \nWe appreciate your safety, so you need to update horsy.'
                             '\nPress OK and updater will download the latest version.\n'
-                            'If you see this message again, or horsy doesn\'t launch \n'
-                            'itself for long time, please type horsy_updater in your terminal.')
+                            'If you see this message again, or horsy doesn\'t launch, \n'
+                            'download updater manually from GitHub.\n\n'
+                            'Window will hide while updating.')
         try:
-            with open(os.path.join(horsy_vars.horsypath) + '/horsy_updater.exe', 'wb') as f:
-                f.write(request.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe').content)
+            import urllib.request
+            UiMainWindow.close()
+            os.rename(horsy_vars.horsypath + "horsygui.exe", horsy_vars.horsypath + "horsygui.old")
+            with open(os.path.join(horsy_vars.horsypath) + 'horsygui.exe', 'wb') as f:
+                f.write(request.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsygui.exe').content)
+            with open(os.path.join(horsy_vars.horsypath) + 'horsy.exe', 'wb') as f:
+                f.write(request.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsy.exe').content)
+            urllib.request.urlretrieve("https://github.com/horsy-ml/horsy/raw/master/web_vars/version",
+                                       horsy_vars.horsypath + '/apps/version')
         except:
-            gui.popup('Error', 'Could not download updater. \nMaybe installation folder is not writable '
+            gui.popup('Error', 'Could not download horsy. \nMaybe installation folder is not writable '
                                '(only for admins).\n Please reinstall horsy or update it manually. \n'
-                               'Click OK, download file that will open browser and launch it.\n'
+                               'Click OK, download file that will be opened in browser copy it to horsy \n'
+                               'folder and launch it.\n'
                                'Afterwards, delete updater file and launch horsy again.')
             webbrowser.open('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe')
-        UiMainWindow.close()
-        subprocess.Popen('horsy_updater.exe horsygui', shell=True, close_fds=True)
-        sys.exit()
+
+        subprocess.Popen(str(horsy_vars.horsypath + 'horsygui.exe'), shell=True, close_fds=True)
+        sys.exit(0)
 
     get_users_apps()
     installed_apps()
