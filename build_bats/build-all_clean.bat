@@ -1,5 +1,0 @@
-build_clean
-build-gui_clean
-build-installer_clean
-build-installer-silent_clean
-build-updater_clean
