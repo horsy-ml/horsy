@@ -8,4 +8,5 @@
 config.cfg
 /.idea/
 /dist/
-config.cfg
+/build-env/
+activate.bat

@@ -5,3 +5,4 @@ pyinstaller --noconfirm --icon "img/icon.ico" --onefile --console "horsy_updater
 rmdir /s /q __pycache__
 del horsy_updater.spec
 rmdir /s /q build
+cd build_bats
