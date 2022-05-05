@@ -2,13 +2,12 @@ import os
 import sys
 import math
 import threading
-import time
 import webbrowser
 import modules.vars as horsy_vars
+from modules.request import request
 from PyQt5 import QtWidgets
 import ctypes
 import modules.gui as gui
-import requests
 import subprocess
 
 
@@ -46,14 +45,17 @@ def refresh_gui():
     installed_apps()
 
 
-def installed_apps():
-    from modules.manager import apps_list
+def fill_installed(apps: list):
     ui.installed_table.clear()
-    apps = apps_list(True)
     ui.installed_table.setColumnCount(4)
     ui.installed_table.setRowCount(math.ceil(len(apps) / 4))
     for i in range(len(apps)):
         ui.installed_table.setItem(i // 4, i % 4, QtWidgets.QTableWidgetItem(str(apps[i])))
+
+
+def installed_apps():
+    from modules.manager import apps_list
+    fill_installed(apps_list(True))
 
 
 def update_app():
@@ -63,6 +65,7 @@ def update_app():
             return
         else:
             from modules.gui_manager import install
+            ui.installed_table.currentItem().setText(app_name)
             install(app_name)
     except:
         return
@@ -109,10 +112,9 @@ def install_app():
 
 def check_updates():
     from modules.updates import check
-    needupdate = check()
+    needupdate = check(True)
     try:
-        for module in needupdate:
-            print(module)
+        fill_installed(needupdate)
     except:
         gui.cpopup("Error", str(needupdate))
 
@@ -195,27 +197,20 @@ def login_logout_gui():
 
 def get_users_apps():
     def get_threaded():
-        apps = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/users/public"
-                            f"/{ui.username_box.text()}").json()
         try:
-            if apps['message'] == 'Too many requests':
-                while apps['message'] == 'Too many requests':
-                    time.sleep(0.5)
-                    apps = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/users/public"
-                                        f"/{ui.username_box.text()}").json()
+            apps = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/users/public"
+                               f"/{ui.username_box.text()}").json()
         except:
-            pass
+            print("Error getting user apps")
         try:
             apps = apps['packages']
             ui.manage_packages_table.clear()
             ui.manage_packages_table.setColumnCount(4)
             ui.manage_packages_table.setRowCount(math.ceil(len(apps) / 4))
-            print(math.ceil(len(apps) / 4))
-            print(apps)
             for i in range(len(apps)):
                 ui.manage_packages_table.setItem(i // 4, i % 4, QtWidgets.QTableWidgetItem(str(apps[i])))
         except:
-            pass
+            print("Error getting user apps")
     threading.Thread(target=get_threaded).start()
 
 
@@ -252,6 +247,9 @@ if __name__ == "__main__":
     if not os.path.isfile(horsy_vars.horsypath + 'config.cfg'):
         with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
             f.write('{}')
+    if not os.path.isfile(horsy_vars.horsypath + 'apps/versions.json'):
+        with open(horsy_vars.horsypath + 'apps/versions.json', 'w+') as f:
+            f.write('{}')
 
     # Checking version
     try:
@@ -260,14 +258,14 @@ if __name__ == "__main__":
         gui.popup('Error', 'Horsy may be not installed correctly. Please reinstall it or stop another instances if '
                            'running. If you installed it just now, please restart PC.')
     version = int(f.read())
-    if int(requests.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
+    if int(request.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
         gui.popup('Update', 'New version available! \nWe appreciate your safety, so you need to update horsy.'
                             '\nPress OK and updater will download the latest version.\n'
                             'If you see this message again, or horsy doesn\'t launch \n'
                             'itself for long time, please type horsy_updater in your terminal.')
         try:
             with open(os.path.join(horsy_vars.horsypath) + '/horsy_updater.exe', 'wb') as f:
-                f.write(requests.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe').content)
+                f.write(request.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe').content)
         except:
             gui.popup('Error', 'Could not download updater. \nMaybe installation folder is not writable '
                                '(only for admins).\n Please reinstall horsy or update it manually. \n'

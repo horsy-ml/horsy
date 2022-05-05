@@ -1,4 +1,4 @@
-import requests
+from modules.request import request
 import json
 import webbrowser
 import modules.vars as horsy_vars
@@ -7,7 +7,7 @@ from modules.http_status import handle
 
 
 def get_source(package):
-    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
+    r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
     r_code = handle(r.status_code)
     if r_code[1] not in [200, 201]:
         return r_code[0]

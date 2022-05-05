@@ -1,6 +1,6 @@
 import json
 import time
-import requests
+from modules.request import request
 from rich import print
 from modules.auth import get_auth, del_auth, get_auth_without_login
 import re
@@ -83,7 +83,7 @@ def upload(is_gui=False, ui=None):
                 print('[red]Please, specify runtime[/red]')
                 run = None
 
-        request = {
+        request_body = {
             'auth': auth,
             'name': project_name,
             'description': description,
@@ -127,7 +127,7 @@ def upload(is_gui=False, ui=None):
         if run == '':
             return 'Please, specify runtime'
 
-        request = {
+        request_body = {
             'auth': auth,
             'name': project_name,
             'description': description,
@@ -141,7 +141,7 @@ def upload(is_gui=False, ui=None):
     r = None
     while r is None:
         try:
-            r = requests.post(horsy_vars.protocol + horsy_vars.server_url + '/packages/new', json=request)
+            r = request.post(horsy_vars.protocol + horsy_vars.server_url + '/packages/new', json=request_body)
             r_code = handle(r.status_code)
             r = r.text
             r = json.loads(r)
@@ -150,15 +150,15 @@ def upload(is_gui=False, ui=None):
                 print('[red]Invalid credentials[/red]')
                 print('Deleting auth from config')
                 del_auth()
-                request['auth'] = get_auth()
+                request_body['auth'] = get_auth()
                 print(r)
                 r = None
 
             elif r_code[1] in [200, 201]:
                 print('[green]Success, your project is created. You can install it by running[/] '
-                      '[i]horsy i {0}[/]'.format(request['name']))
+                      '[i]horsy i {0}[/]'.format(request_body['name']))
                 return 'Success, your project is created. You can install it by running horsy i {0}'.format(
-                    request['name'])
+                    request_body['name'])
 
             return r_code[0]
         except:

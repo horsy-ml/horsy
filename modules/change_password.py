@@ -1,4 +1,4 @@
-import requests
+from modules.request import request
 import modules.gui as gui
 from modules.auth import get_auth
 import modules.vars as horsy_vars
@@ -27,8 +27,8 @@ def change(oldpass, newpass):
 
     try:
         gui.cpopup("Changing password",
-                   handle(requests.put(horsy_vars.protocol + horsy_vars.server_url + '/users',
-                                       json={'auth': get_auth(True, login_ui, QtWidgets.QMainWindow()),
-                                             'password': newpass}).status_code)[0])
+                   handle(request.put(horsy_vars.protocol + horsy_vars.server_url + '/users',
+                                      json={'auth': get_auth(True, login_ui, QtWidgets.QMainWindow()),
+                                            'password': newpass}).status_code)[0])
     except:
         gui.popup('Error', 'Unexpected error.')

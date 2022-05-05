@@ -1,6 +1,7 @@
 import textwrap
 from algoliasearch.search_client import SearchClient
 import os
+from modules.request import request
 import requests
 import modules.vars as horsy_vars
 import json
@@ -27,7 +28,7 @@ def search(query, is_gui=False):
 
 
 def info(package, download_ui=None, UiDownloadWindow=None):
-    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
+    r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
     r_code = handle(r.status_code)
     r = r.text
     r = json.loads(r)

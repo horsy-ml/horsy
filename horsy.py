@@ -2,7 +2,7 @@ import argparse
 import os
 import subprocess
 import sys
-import requests
+from modules.request import request
 import modules.tui as tui
 from modules.console import cls
 from modules.virustotal import add_to_cfg
@@ -10,9 +10,9 @@ import modules.vars as horsy_vars
 
 # Getting the arguments
 parser = argparse.ArgumentParser(description='horsy - the best package manager')
-parser.add_argument('option', help='options for horsy (install/i | uninstall/un | source/s | list/l | '
+parser.add_argument('option', help='options for horsy (install/i | uninstall/un | updates/u | source/s | list/l | '
                                    'upload | search | info | like | dislike)',
-                    choices=['install', 'i', 'uninstall', 'un', 'source', 's', 'list', 'l', 'upload',
+                    choices=['install', 'i', 'uninstall', 'un', 'updates', 'u', 'source', 's', 'list', 'l', 'upload',
                              'search', 'info', 'like', 'dislike'],
                     nargs='?')
 parser.add_argument('app', help='app to do function with', nargs='?')
@@ -43,7 +43,7 @@ except:
     print('Horsy may be not installed correctly. Please reinstall it or stop other horsy instances. '
           'If you installed it just now, please restart PC.')
 
-if int(requests.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
+if int(request.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
     print('New version available!')
     print('If you see this message again, or horsy doesn\'t launch itself for long time, please type '
           'horsy_updater in your terminal to update it manually.')
@@ -51,7 +51,7 @@ if int(requests.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/versi
     print('Updating...')
     print('Please wait, if process seems closed, its OK, just wait a bit.')
     with open(os.path.join(horsy_vars.horsypath) + '/horsy_updater.exe', 'wb') as f:
-        f.write(requests.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe').content)
+        f.write(request.get('https://github.com/horsy-ml/horsy/raw/master/bin/horsy_updater.exe').content)
     subprocess.Popen('horsy_updater.exe horsy', shell=True, close_fds=True)
     sys.exit(0)
 
@@ -87,12 +87,13 @@ if args.vt_key:
 # Checking if arguments are empty to use in-app CLI
 if not args.option:
     log_logo()
-    option = ['install', 'uninstall', 'source', 'list', 'upload', 'search', 'info'][
-        tui.menu(['install app', 'uninstall app', 'get source', 'list of installed apps',
-                  'upload your app', 'search for app', 'get information about app'])]
+    option = ['install', 'uninstall', 'updates', 'source', 'list', 'upload', 'search', 'info'][
+        tui.menu(['install app', 'uninstall app', 'see updates', 'get source',
+                  'list of installed apps', 'upload your app', 'search for app',
+                  'get information about app'])]
     isNoArgs = True
 
-if not args.app and option not in ['list', 'upload', 'update']:
+if not args.app and option not in ['list', 'l', 'upload', 'updates', 'u']:
     log_logo()
     print('\n')
     app = tui.get(f'Select app to {option}')
@@ -108,6 +109,15 @@ match option:
     case 'uninstall' | 'un':
         from modules.manager import uninstall
         uninstall(app)
+    case 'updates' | 'u':
+        from modules.updates import check
+        update_list = check()
+        if update_list:
+            print('Use following commands to update apps: \n')
+            for needs_update in update_list:
+                print(f'horsy i {needs_update}')
+        else:
+            print('No updates available')
     case 'source' | 's':
         from modules.source import get_source
         get_source(app)

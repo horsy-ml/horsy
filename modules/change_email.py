@@ -1,4 +1,4 @@
-import requests
+from modules.request import request
 import modules.gui as gui
 from modules.auth import get_auth
 import modules.vars as horsy_vars
@@ -21,11 +21,12 @@ def change(email):
     try:
         def change_in_new_thread():
             try:
-                r_code = handle(requests.put(horsy_vars.protocol + horsy_vars.server_url + '/users',
-                                             json={'auth': auth, 'email': email}).status_code)
+                r_code = handle(request.put(horsy_vars.protocol + horsy_vars.server_url + '/users',
+                                            json={'auth': auth, 'email': email}).status_code)
                 gui.cpopup("Changing email", r_code[0])
             except:
                 gui.cpopup('Error', 'Unexpected error.')
+
         threading.Thread(target=change_in_new_thread).start()
         gui.popup('Started', 'Check your email for confirmation')
     except:

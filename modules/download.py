@@ -7,6 +7,7 @@ import signal
 from functools import partial
 from threading import Event
 from urllib.request import urlopen
+from urllib.parse import unquote
 
 from rich.progress import (
     BarColumn,
@@ -59,7 +60,7 @@ def dl(urls, dest_dir: str):
     with progress:
         with ThreadPoolExecutor(max_workers=len(urls)) as pool:
             for url in urls:
-                filename = url.split("/")[-1]
+                filename = unquote(url.split("/")[-1])
                 dest_path = os.path.join(dest_dir, filename)
                 task_id = progress.add_task("download", filename=filename, start=False)
                 pool.submit(copy_url, task_id, url, dest_path)

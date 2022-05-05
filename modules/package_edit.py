@@ -1,7 +1,7 @@
 from modules.auth import get_auth
 from horsygui import login_ui, UiLoginWindow as Ui_LoginWindow
 import modules.gui as gui
-import requests
+from modules.request import request
 import modules.vars as horsy_vars
 from modules.http_status import handle
 import json
@@ -11,7 +11,7 @@ def edit(package, UiPackageWindow):
     package_ui = gui.Ui_PackageWindow()
     package_ui.setupUi(UiPackageWindow)
 
-    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
+    r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
     try:
         r_code = handle(r.status_code)
         if r_code[1] not in [200, 201]:
@@ -44,15 +44,15 @@ def edit(package, UiPackageWindow):
         }
 
         gui.cpopup("Updating",
-                   handle(requests.put(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages",
-                                       json=body).status_code)[0])
+                   handle(request.put(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages",
+                                      json=body).status_code)[0])
 
     package_ui.update_button.clicked.connect(send)
 
 
 def push_version(package):
     gui.cpopup("Pushing version",
-               handle(requests.post(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/push-version", json={
+               handle(request.post(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/push-version", json={
                    'auth': get_auth(True, login_ui, Ui_LoginWindow),
                    'name': package
                }).status_code)[0])

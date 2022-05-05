@@ -1,4 +1,4 @@
-import requests
+from modules.request import request
 from PyQt5 import QtWidgets
 import modules.gui as gui
 from modules.auth import get_auth, del_auth
@@ -14,9 +14,9 @@ def loginload():
         with open(horsy_vars.horsypath + 'config.cfg') as f:
             config = json.load(f)
         if config['auth'] is not None:
-            return (lambda x: (x if x != "Forbidden" else "Invalid login"))\
-                (requests.get(horsy_vars.protocol + horsy_vars.server_url + '/users/login',
-                              json={'auth': config['auth']}).json()['message'])
+            return (lambda x: (x if x != "Forbidden" else "Invalid login")) \
+                (request.get(horsy_vars.protocol + horsy_vars.server_url + '/users/login',
+                             json={'auth': config['auth']}).json()['message'])
     except:
         pass
 

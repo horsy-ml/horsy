@@ -1,7 +1,7 @@
 import json
 import threading
 from rich import print
-import requests
+from modules.request import request
 import modules.vars as horsy_vars
 import os
 import zipfile
@@ -11,7 +11,7 @@ from modules.download import dl
 
 
 def install(package):
-    r = requests.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
+    r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
     r_code = handle(r.status_code)
     r = r.text
     r = json.loads(r)
@@ -78,7 +78,15 @@ def install(package):
 
         with open('{1}apps\{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w+') as f:
             f.write(f"@ECHO off\n")
-            f.write(f"""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')} %*\n""")
+            f.write(f""""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')}" %*\n""")
+
+        # Update versions file
+        with open(horsy_vars.horsypath + 'apps/versions.json', 'r') as f:
+            versions = json.load(f)
+        with open(horsy_vars.horsypath + 'apps/versions.json', 'w') as f:
+            versions[r['name']] = r['version']
+            f.write(json.dumps(versions))
+            print(f"Versions file updated")
 
         # Done message
         print(f"[green][OK] All done![/]")
@@ -114,4 +122,4 @@ def apps_list(is_gui=False):
             elif file.endswith(".bat"):
                 apps.append(file.split('.')[0])
     if is_gui:
-        return apps
+        return sorted(apps)
