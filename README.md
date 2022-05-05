@@ -14,7 +14,7 @@ horsy in Python-powered multi launcher and app installer
 
 ## Video showcase
 
-https://youtu.be/dLH18KSbryE
+![promo](https://media.horsy.ml/promo.webm)
 
 ## Installation
 
