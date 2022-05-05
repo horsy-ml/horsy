@@ -14,7 +14,7 @@ horsy in Python-powered multi launcher and app installer
 
 ## Video showcase
 
-![promo](https://media.horsy.ml/promo.webm)
+[promo](https://media.horsy.ml/promo.webm)
 
 ## Installation
 
