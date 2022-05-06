@@ -145,7 +145,7 @@ def install(package):
             download_ui.logs_box.append("Generating launch script")
             with open('{1}apps/{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
                 f.write(f"@ECHO off\n")
-                f.write(f""""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')}" %*\n""")
+                f.write(f"""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')} %*\n""")
             download_ui.logs_box.append("")
             download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
 
