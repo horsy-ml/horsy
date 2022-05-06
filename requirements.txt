@@ -7,3 +7,4 @@ algoliasearch
 PyQt5
 easygui
 winshell
+ezzdl

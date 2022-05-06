@@ -7,7 +7,7 @@ import os
 import zipfile
 from modules.virustotal import scan_to_cli
 from modules.http_status import handle
-from modules.download import dl
+from ezzdl import dl
 
 
 def install(package):
