@@ -47,7 +47,7 @@ except:
           'If you installed it just now, please restart PC.')
 
 if int(request.get('https://github.com/horsy-ml/horsy/raw/master/web_vars/version').text) > version:
-    from modules.download import dl
+    from ezzdl.download import dl
     import urllib.request
     print('New version available!')
     input('Press enter to update...')
