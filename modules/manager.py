@@ -11,6 +11,11 @@ from ezzdl import dl
 
 
 def install(package):
+    """
+    Install an app
+    :param package:
+    :return:
+    """
     r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
     r_code = handle(r.status_code)
     r = r.text
@@ -99,6 +104,11 @@ def install(package):
 
 
 def uninstall(package):
+    """
+    Uninstall package
+    :param package:
+    :return:
+    """
     if os.path.exists('{1}apps/{0}'.format(package, horsy_vars.horsypath)):
         os.system('rmdir /s /q "{1}apps/{0}"'.format(package, horsy_vars.horsypath))
         print(f"[green][OK] Files deleted[/]")
@@ -112,6 +122,11 @@ def uninstall(package):
 
 
 def apps_list(is_gui=False):
+    """
+    List all installed apps
+    :param is_gui:
+    :return:
+    """
     apps = list()
     if os.path.exists('{0}apps'.format(horsy_vars.horsypath)):
         if not is_gui:

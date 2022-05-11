@@ -13,6 +13,11 @@ from PyQt5 import QtGui
 from urllib.parse import unquote
 
 
+def log(message):
+    download_ui.logs_box.append(message)
+    download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+
+
 def install(package):
     r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
     r_code = handle(r.status_code)
@@ -25,7 +30,7 @@ def install(package):
     try:
         UiDownloadWindow.show()
         download_ui.logs_box.clear()
-        download_ui.logs_box.append(f"Downloading {unquote(r['url'].split('/')[-1])}")
+        log(f"Downloading {unquote(r['url'].split('/')[-1])}")
 
         def install_this():
             if not os.path.exists('{1}apps/{0}'.format(r['name'], horsy_vars.horsypath)):
@@ -43,15 +48,13 @@ def install(package):
                         if chunk:
                             percent += 1
                             f.write(chunk)
-                download_ui.logs_box.append("")
-                download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                log("")
 
             threads = list()
             threads.append(threading.Thread(target=dl_main_file))
 
             if r['download']:
-                download_ui.logs_box.append(f"Downloading {unquote(r['download'].split('/')[-1])}")
-                download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                log(f"Downloading {unquote(r['download'].split('/')[-1])}")
 
                 def dl_dep_file():
                     global success
@@ -62,9 +65,8 @@ def install(package):
                         for chunk in file_r.iter_content(chunk_size=chunk_size):
                             if chunk:
                                 f.write(chunk)
-                    download_ui.logs_box.append("")
-                    download_ui.logs_box.append(f"Starting virustotal scan for dependency")
-                    download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                    log("")
+                    log(f"Starting virustotal scan for dependency")
 
                 threads.append(threading.Thread(target=dl_dep_file))
 
@@ -77,82 +79,79 @@ def install(package):
             def unzip(file, where):
                 with zipfile.ZipFile(file, 'r') as zip_ref:
                     zip_ref.extractall(where)
-                    download_ui.logs_box.append(f"Extracted")
-                    download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                    log(f"Extracted")
 
             if r['url'].split('.')[-1] == 'zip':
-                download_ui.logs_box.append(f"Extracting {unquote(r['url'].split('/')[-1])}")
-                download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                log(f"Extracting {unquote(r['url'].split('/')[-1])}")
+
                 unzip('{2}apps/{0}/{1}'.format(r['name'], unquote(r['url'].split('/')[-1]), horsy_vars.horsypath),
                       '{1}apps/{0}'.format(r['name'], horsy_vars.horsypath))
 
-            download_ui.logs_box.append("")
-            download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+            log("")
 
             if not get_key():
-                download_ui.logs_box.append("Virustotal api key not found \n"
-                                            "You can add it by entering horsy --vt [key] in terminal")
-                download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                log("Virustotal api key not found \n"
+                    "You can add it by entering horsy --vt [key] in terminal")
+
             else:
                 try:
-                    download_ui.logs_box.append("If you want to disable scan, type horsy --vt disable in terminal")
-                    download_ui.logs_box.append("Starting virustotal scan for program")
-                    download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                    log("If you want to disable scan, type horsy --vt disable in terminal")
+                    log("Starting virustotal scan for program")
+
                     scan_file('{2}apps/{0}/{1}'.format(r['name'], unquote(r['url'].split('/')[-1]),
                                                        horsy_vars.horsypath))
                     analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], unquote(r['url'].split('/')[-1]),
                                                                    horsy_vars.horsypath))
-                    download_ui.logs_box.append(f"Scan finished for program \nYou can see report for program by "
-                                                f"opening: "
-                                                f"{analysis['link']} \n"
-                                                f"{analysis['detect']['malicious']} antivirus flagged this file as "
-                                                f"malicious")
-                    download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                    log(f"Scan finished for program \nYou can see report for program by "
+                        f"opening: "
+                        f"{analysis['link']} \n"
+                        f"{analysis['detect']['malicious']} antivirus flagged this file as "
+                        f"malicious")
+
                 except:
                     pass
 
                 if r['download']:
                     try:
-                        download_ui.logs_box.append("")
-                        download_ui.logs_box.append("Starting virustotal scan for dependency")
-                        download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                        log("")
+                        log("Starting virustotal scan for dependency")
+
                         scan_file('{2}apps/{0}/{1}'.format(r['name'], unquote(r['download'].split('/')[-1]),
                                                            horsy_vars.horsypath))
-                        download_ui.logs_box.append(f"Scan finished for dependency")
-                        download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                        log(f"Scan finished for dependency")
+
                         analysis = get_report('{2}apps/{0}/{1}'.format(r['name'], unquote(r['download'].split('/')[-1]),
                                                                        horsy_vars.horsypath))
-                        download_ui.logs_box.append(f"You can see report for dependency by opening: {analysis['link']}")
-                        download_ui.logs_box.append(f"{analysis['detect']['malicious']} "
-                                                    f"antivirus flagged this file as malicious")
-                        download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                        log(f"You can see report for dependency by opening: {analysis['link']}")
+                        log(f"{analysis['detect']['malicious']} "
+                            f"antivirus flagged this file as malicious")
+
                         if analysis['detect']['malicious'] > 0:
-                            download_ui.logs_box.append("")
-                            download_ui.logs_box.append(f"SECURITY WARNING, APP INSTALLATION STOPPED")
-                            download_ui.logs_box.append(f"Dependency can be malicious. "
-                                                        f"It may run now, if this added to installation config")
-                            download_ui.logs_box.append(f"You can disable VT check with horsy --vt disable \n"
-                                                        f"or use horsy CLI to force install")
-                            download_ui.logs_box.append("")
-                            download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                            log("")
+                            log(f"SECURITY WARNING, APP INSTALLATION STOPPED")
+                            log(f"Dependency can be malicious. "
+                                f"It may run now, if this added to installation config")
+                            log(f"You can disable VT check with horsy --vt disable \n"
+                                f"or use horsy CLI to force install")
+                            log("")
+
                     except:
                         pass
 
             if r['url'].split('.')[-1] == 'zip':
                 os.remove('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
 
-            download_ui.logs_box.append("")
-            download_ui.logs_box.append("Generating launch script")
+            log("")
+            log("Generating launch script")
             with open('{1}apps/{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w') as f:
                 f.write(f"@ECHO off\n")
                 f.write(f"""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')} %*\n""")
-            download_ui.logs_box.append("")
-            download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+            log("")
 
             if r['install']:
-                download_ui.logs_box.append(f"Found install option, launching {r['install']}")
-                download_ui.logs_box.append("")
-                download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+                log(f"Found install option, launching {r['install']}")
+                log("")
+
                 threading.Thread(target=os.system, args=('{2}apps/{0}/{1}'.format(r['name'], r['install'],
                                                                                   horsy_vars.horsypath),)).start()
 
@@ -163,8 +162,7 @@ def install(package):
                 versions[r['name']] = r['version']
                 f.write(json.dumps(versions))
 
-            download_ui.logs_box.append(f"All done!\nYou can run your app by entering {r['name']} in terminal")
-            download_ui.logs_box.moveCursor(QtGui.QTextCursor.End)
+            log(f"All done!\nYou can run your app by entering {r['name']} in terminal")
 
         threading.Thread(target=install_this).start()
 

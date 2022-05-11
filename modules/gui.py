@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import modules.images  # import images from binaries
+import modules.styles as styles
 import ctypes
 
 
@@ -14,84 +15,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowIcon(icon)
         MainWindow.setWindowOpacity(0.99)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setStyleSheet("""QWidget{\n"
-    background-color: rgb(30, 30, 30);
-}
-QScrollBar:horizontal {
-    border: none;
-    background: rgb(52, 59, 72);
-    height: 8px;
-    margin: 0px 21px 0 21px;
-    border-radius: 0px;
-}
-QScrollBar::handle:horizontal {
-    background: rgb(47, 48, 50);
-    min-width: 25px;
-    border-radius: 4px
-}
-QScrollBar::add-line:horizontal {
-    border: none;
-    background: rgb(55, 63, 77);
-    width: 20px;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    subcontrol-position: right;
-    subcontrol-origin: margin;
-}
-QScrollBar::sub-line:horizontal {
-    border: none;
-    background: rgb(55, 63, 77);
-    width: 20px;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    subcontrol-position: left;
-    subcontrol-origin: margin;
-}
-QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal
-{
-     background: none;
-}
-QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
-{
-     background: none;
-}
-QScrollBar:vertical {
-    border: none;
-    background: rgb(52, 59, 72);
-    width: 8px;
-    margin: 21px 0 21px 0;
-    border-radius: 0px;
-}
- QScrollBar::handle:vertical {	
-    background: rgb(47, 48, 50);
-    min-height: 25px;
-    border-radius: 4px
- }
- QScrollBar::add-line:vertical {
-    border: none;
-    background: transparent;
-    height: 10px;
-    border-radius: 4px;
-    subcontrol-position: bottom;
-    subcontrol-origin: margin;
- }
- QScrollBar::sub-line:vertical {
-    border: none;
-    background: transparent;
-    height: 10px;
-    border-radius: 4px;
-    subcontrol-position: top;
-    subcontrol-origin: margin;
- }
- QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
-     background: none;
- }
-
- QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
-     background: none;
- }
-
-""")
+        self.centralwidget.setStyleSheet(styles.centralwidget)
         self.centralwidget.setObjectName("centralwidget")
         self.horsy_logo_lefttop = QtWidgets.QLabel(self.centralwidget)
         self.horsy_logo_lefttop.setGeometry(QtCore.QRect(10, 10, 32, 32))
@@ -104,33 +28,7 @@ QScrollBar:vertical {
         self.tabWidget.setToolTip("")
         self.tabWidget.setLayoutDirection(QtCore.Qt.RightToLeft)
         self.tabWidget.setAutoFillBackground(False)
-        self.tabWidget.setStyleSheet("QTabBar::tab\n"
-                                     "{\n"
-                                     "    background: rgb(22, 22, 22);\n"
-                                     "    color: white;  \n"
-                                     "    font: 12pt \"MS Shell Dlg 2\";\n"
-                                     "    width: 150px;\n"
-                                     "    height: 21px;\n"
-                                     "    padding: 13px;\n"
-                                     "}\n"
-                                     "\n"
-                                     "QTabBar::tab:selected\n"
-                                     "{\n"
-                                     "    color: rgb(166, 184, 200);\n"
-                                     "    background: rgb(45, 45, 45);\n"
-                                     "}\n"
-                                     "\n"
-                                     "QTabBar::tab:hover \n"
-                                     "{\n"
-                                     "    color: rgb(166, 184, 200);\n"
-                                     "    background: rgb(29, 29, 29);\n"
-                                     "}\n"
-                                     "\n"
-                                     "QTabBar\n"
-                                     "{\n"
-                                     "margin-top: 5px;\n"
-                                     "}\n"
-                                     "")
+        self.tabWidget.setStyleSheet(styles.tabwidget)
         self.tabWidget.setDocumentMode(True)
         self.tabWidget.setTabsClosable(False)
         self.tabWidget.setMovable(True)
@@ -142,24 +40,7 @@ QScrollBar:vertical {
         self.loginlogout_button.setEnabled(True)
         self.loginlogout_button.setGeometry(QtCore.QRect(720, 10, 151, 50))
         self.loginlogout_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.loginlogout_button.setStyleSheet("QPushButton {\n"
-                                              "    color: rgb(204, 204, 204);\n"
-                                              "    border-width: 1px;\n"
-                                              "    border-radius:6px;\n"
-                                              "    border-style: solid;\n"
-                                              "    background-color: rgb(28, 30, 33);\n"
-                                              "    border-color: rgb(66, 143, 225);\n"
-                                              "}\n"
-                                              "QPushButton:hover{\n"
-                                              "    border-width: 2px;\n"
-                                              "}\n"
-                                              "QPushButton:pressed{\n"
-                                              "    background-color: rgb(50, 60, 63);\n"
-                                              "}\n"
-                                              "QPushButton:disabled{\n"
-                                              "    border-width: 0px;\n"
-                                              "    background-color: rgb(92, 99, 109);\n"
-                                              "}")
+        self.loginlogout_button.setStyleSheet(styles.button)
         self.loginlogout_button.setObjectName("loginlogout_button")
         self.username_box = QtWidgets.QLineEdit(self.account_tab)
         self.username_box.setGeometry(QtCore.QRect(720, 70, 151, 31))
@@ -187,70 +68,19 @@ QScrollBar:vertical {
         self.regmessage_button.setObjectName("regmessage_button")
         self.requestupdate_button = QtWidgets.QPushButton(self.account_tab)
         self.requestupdate_button.setGeometry(QtCore.QRect(225, 590, 200, 40))
-        self.requestupdate_button.setStyleSheet("QPushButton {\n"
-                                                "    color: rgb(204, 204, 204);\n"
-                                                "    border-width: 1px;\n"
-                                                "    border-radius:6px;\n"
-                                                "    border-style: solid;\n"
-                                                "    background-color: rgb(28, 30, 33);\n"
-                                                "    border-color: rgb(66, 143, 225);\n"
-                                                "}\n"
-                                                "QPushButton:hover{\n"
-                                                "    border-width: 2px;\n"
-                                                "}\n"
-                                                "QPushButton:pressed{\n"
-                                                "    background-color: rgb(50, 60, 63);\n"
-                                                "}\n"
-                                                "QPushButton:disabled{\n"
-                                                "    border-width: 0px;\n"
-                                                "    background-color: rgb(92, 99, 109);\n"
-                                                "}")
+        self.requestupdate_button.setStyleSheet(styles.button)
         self.requestupdate_button.setText("Request selected package \nupdate on user side")
         self.requestupdate_button.setObjectName("requestupdate_button")
         self.editowned_button = QtWidgets.QPushButton(self.account_tab)
         self.editowned_button.setGeometry(QtCore.QRect(445, 590, 200, 40))
-        self.editowned_button.setStyleSheet("QPushButton {\n"
-                                            "    color: rgb(204, 204, 204);\n"
-                                            "    border-width: 1px;\n"
-                                            "    border-radius:6px;\n"
-                                            "    border-style: solid;\n"
-                                            "    background-color: rgb(28, 30, 33);\n"
-                                            "    border-color: rgb(66, 143, 225);\n"
-                                            "}\n"
-                                            "QPushButton:hover{\n"
-                                            "    border-width: 2px;\n"
-                                            "}\n"
-                                            "QPushButton:pressed{\n"
-                                            "    background-color: rgb(50, 60, 63);\n"
-                                            "}\n"
-                                            "QPushButton:disabled{\n"
-                                            "    border-width: 0px;\n"
-                                            "    background-color: rgb(92, 99, 109);\n"
-                                            "}")
+        self.editowned_button.setStyleSheet(styles.button)
         self.editowned_button.setText("Edit selected package")
         self.editowned_button.setObjectName("requestupdate_button")
         self.changeemail_button = QtWidgets.QPushButton(self.account_tab)
         self.changeemail_button.setEnabled(True)
         self.changeemail_button.setGeometry(QtCore.QRect(360, 20, 151, 50))
         self.changeemail_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.changeemail_button.setStyleSheet("QPushButton {\n"
-                                              "    color: rgb(204, 204, 204);\n"
-                                              "    border-width: 1px;\n"
-                                              "    border-radius:6px;\n"
-                                              "    border-style: solid;\n"
-                                              "    background-color: rgb(28, 30, 33);\n"
-                                              "    border-color: rgb(66, 143, 225);\n"
-                                              "}\n"
-                                              "QPushButton:hover{\n"
-                                              "    border-width: 2px;\n"
-                                              "}\n"
-                                              "QPushButton:pressed{\n"
-                                              "    background-color: rgb(50, 60, 63);\n"
-                                              "}\n"
-                                              "QPushButton:disabled{\n"
-                                              "    border-width: 0px;\n"
-                                              "    background-color: rgb(92, 99, 109);\n"
-                                              "}")
+        self.changeemail_button.setStyleSheet(styles.button)
         self.changeemail_button.setObjectName("changeemail_button")
         self.email_box = QtWidgets.QTextEdit(self.account_tab)
         self.email_box.setEnabled(True)
@@ -298,24 +128,7 @@ QScrollBar:vertical {
         self.changepass_button.setEnabled(True)
         self.changepass_button.setGeometry(QtCore.QRect(360, 140, 151, 50))
         self.changepass_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.changepass_button.setStyleSheet("QPushButton {\n"
-                                             "    color: rgb(204, 204, 204);\n"
-                                             "    border-width: 1px;\n"
-                                             "    border-radius:6px;\n"
-                                             "    border-style: solid;\n"
-                                             "    background-color: rgb(28, 30, 33);\n"
-                                             "    border-color: rgb(66, 143, 225);\n"
-                                             "}\n"
-                                             "QPushButton:hover{\n"
-                                             "    border-width: 2px;\n"
-                                             "}\n"
-                                             "QPushButton:pressed{\n"
-                                             "    background-color: rgb(50, 60, 63);\n"
-                                             "}\n"
-                                             "QPushButton:disabled{\n"
-                                             "    border-width: 0px;\n"
-                                             "    background-color: rgb(92, 99, 109);\n"
-                                             "}")
+        self.changepass_button.setStyleSheet(styles.button)
         self.changepass_button.setObjectName("changepass_button")
         self.manage_packages_table = QtWidgets.QTableWidget(self.account_tab)
         self.manage_packages_table.setGeometry(QtCore.QRect(10, 240, 871, 351))
@@ -422,24 +235,7 @@ QScrollBar:vertical {
         self.upload_button.setEnabled(True)
         self.upload_button.setGeometry(QtCore.QRect(10, 380, 291, 50))
         self.upload_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.upload_button.setStyleSheet("QPushButton {\n"
-                                         "    color: rgb(204, 204, 204);\n"
-                                         "    border-width: 1px;\n"
-                                         "    border-radius:6px;\n"
-                                         "    border-style: solid;\n"
-                                         "    background-color: rgb(28, 30, 33);\n"
-                                         "    border-color: rgb(66, 143, 225);\n"
-                                         "}\n"
-                                         "QPushButton:hover{\n"
-                                         "    border-width: 2px;\n"
-                                         "}\n"
-                                         "QPushButton:pressed{\n"
-                                         "    background-color: rgb(50, 60, 63);\n"
-                                         "}\n"
-                                         "QPushButton:disabled{\n"
-                                         "    border-width: 0px;\n"
-                                         "    background-color: rgb(92, 99, 109);\n"
-                                         "}")
+        self.upload_button.setStyleSheet(styles.button)
         self.upload_button.setObjectName("upload_button")
         self.safetywarning_message = QtWidgets.QTextBrowser(self.upload_tab)
         self.safetywarning_message.setGeometry(QtCore.QRect(10, 450, 281, 161))
@@ -502,139 +298,37 @@ QScrollBar:vertical {
         self.search_button.setEnabled(True)
         self.search_button.setGeometry(QtCore.QRect(750, 30, 91, 50))
         self.search_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.search_button.setStyleSheet("QPushButton {\n"
-                                         "    color: rgb(204, 204, 204);\n"
-                                         "    border-width: 1px;\n"
-                                         "    border-radius:6px;\n"
-                                         "    border-style: solid;\n"
-                                         "    background-color: rgb(28, 30, 33);\n"
-                                         "    border-color: rgb(66, 143, 225);\n"
-                                         "}\n"
-                                         "QPushButton:hover{\n"
-                                         "    border-width: 2px;\n"
-                                         "}\n"
-                                         "QPushButton:pressed{\n"
-                                         "    background-color: rgb(50, 60, 63);\n"
-                                         "}\n"
-                                         "QPushButton:disabled{\n"
-                                         "    border-width: 0px;\n"
-                                         "    background-color: rgb(92, 99, 109);\n"
-                                         "}")
+        self.search_button.setStyleSheet(styles.button)
         self.search_button.setObjectName("search_button")
         self.install_button = QtWidgets.QPushButton(self.browse_tab)
         self.install_button.setEnabled(True)
         self.install_button.setGeometry(QtCore.QRect(20, 575, 146, 50))
         self.install_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.install_button.setStyleSheet("QPushButton {\n"
-                                          "    color: rgb(204, 204, 204);\n"
-                                          "    border-width: 1px;\n"
-                                          "    border-radius:6px;\n"
-                                          "    border-style: solid;\n"
-                                          "    background-color: rgb(28, 30, 33);\n"
-                                          "    border-color: rgb(66, 143, 225);\n"
-                                          "}\n"
-                                          "QPushButton:hover{\n"
-                                          "    border-width: 2px;\n"
-                                          "}\n"
-                                          "QPushButton:pressed{\n"
-                                          "    background-color: rgb(50, 60, 63);\n"
-                                          "}\n"
-                                          "QPushButton:disabled{\n"
-                                          "    border-width: 0px;\n"
-                                          "    background-color: rgb(92, 99, 109);\n"
-                                          "}")
+        self.install_button.setStyleSheet(styles.button)
         self.install_button.setObjectName("install_button")
         self.source_button = QtWidgets.QPushButton(self.browse_tab)
         self.source_button.setEnabled(True)
         self.source_button.setGeometry(QtCore.QRect(190, 575, 146, 50))
         self.source_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.source_button.setStyleSheet("QPushButton {\n"
-                                         "    color: rgb(204, 204, 204);\n"
-                                         "    border-width: 1px;\n"
-                                         "    border-radius:6px;\n"
-                                         "    border-style: solid;\n"
-                                         "    background-color: rgb(28, 30, 33);\n"
-                                         "    border-color: rgb(66, 143, 225);\n"
-                                         "}\n"
-                                         "QPushButton:hover{\n"
-                                         "    border-width: 2px;\n"
-                                         "}\n"
-                                         "QPushButton:pressed{\n"
-                                         "    background-color: rgb(50, 60, 63);\n"
-                                         "}\n"
-                                         "QPushButton:disabled{\n"
-                                         "    border-width: 0px;\n"
-                                         "    background-color: rgb(92, 99, 109);\n"
-                                         "}")
+        self.source_button.setStyleSheet(styles.button)
         self.source_button.setObjectName("source_button")
         self.info_button = QtWidgets.QPushButton(self.browse_tab)
         self.info_button.setEnabled(True)
         self.info_button.setGeometry(QtCore.QRect(360, 575, 146, 50))
         self.info_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.info_button.setStyleSheet("QPushButton {\n"
-                                       "    color: rgb(204, 204, 204);\n"
-                                       "    border-width: 1px;\n"
-                                       "    border-radius:6px;\n"
-                                       "    border-style: solid;\n"
-                                       "    background-color: rgb(28, 30, 33);\n"
-                                       "    border-color: rgb(66, 143, 225);\n"
-                                       "}\n"
-                                       "QPushButton:hover{\n"
-                                       "    border-width: 2px;\n"
-                                       "}\n"
-                                       "QPushButton:pressed{\n"
-                                       "    background-color: rgb(50, 60, 63);\n"
-                                       "}\n"
-                                       "QPushButton:disabled{\n"
-                                       "    border-width: 0px;\n"
-                                       "    background-color: rgb(92, 99, 109);\n"
-                                       "}")
+        self.info_button.setStyleSheet(styles.button)
         self.info_button.setObjectName("info_button")
         self.like_button = QtWidgets.QPushButton(self.browse_tab)
         self.like_button.setEnabled(True)
         self.like_button.setGeometry(QtCore.QRect(540, 575, 146, 50))
         self.like_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.like_button.setStyleSheet("QPushButton {\n"
-                                       "    color: rgb(204, 204, 204);\n"
-                                       "    border-width: 1px;\n"
-                                       "    border-radius:6px;\n"
-                                       "    border-style: solid;\n"
-                                       "    background-color: rgb(28, 30, 33);\n"
-                                       "    border-color: rgb(66, 143, 225);\n"
-                                       "}\n"
-                                       "QPushButton:hover{\n"
-                                       "    border-width: 2px;\n"
-                                       "}\n"
-                                       "QPushButton:pressed{\n"
-                                       "    background-color: rgb(50, 60, 63);\n"
-                                       "}\n"
-                                       "QPushButton:disabled{\n"
-                                       "    border-width: 0px;\n"
-                                       "    background-color: rgb(92, 99, 109);\n"
-                                       "}")
+        self.like_button.setStyleSheet(styles.button)
         self.like_button.setObjectName("like_button")
         self.dislike_button = QtWidgets.QPushButton(self.browse_tab)
         self.dislike_button.setEnabled(True)
         self.dislike_button.setGeometry(QtCore.QRect(710, 575, 146, 50))
         self.dislike_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.dislike_button.setStyleSheet("QPushButton {\n"
-                                          "    color: rgb(204, 204, 204);\n"
-                                          "    border-width: 1px;\n"
-                                          "    border-radius:6px;\n"
-                                          "    border-style: solid;\n"
-                                          "    background-color: rgb(28, 30, 33);\n"
-                                          "    border-color: rgb(66, 143, 225);\n"
-                                          "}\n"
-                                          "QPushButton:hover{\n"
-                                          "    border-width: 2px;\n"
-                                          "}\n"
-                                          "QPushButton:pressed{\n"
-                                          "    background-color: rgb(50, 60, 63);\n"
-                                          "}\n"
-                                          "QPushButton:disabled{\n"
-                                          "    border-width: 0px;\n"
-                                          "    background-color: rgb(92, 99, 109);\n"
-                                          "}")
+        self.dislike_button.setStyleSheet(styles.button)
         self.dislike_button.setObjectName("dislike_button")
         self.algolia_logo = QtWidgets.QLabel(self.browse_tab)
         self.algolia_logo.setGeometry(QtCore.QRect(820, 530, 31, 31))
@@ -650,70 +344,19 @@ QScrollBar:vertical {
         self.delete_button.setEnabled(True)
         self.delete_button.setGeometry(QtCore.QRect(300, 575, 275, 50))
         self.delete_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.delete_button.setStyleSheet("QPushButton {\n"
-                                         "    color: rgb(204, 204, 204);\n"
-                                         "    border-width: 1px;\n"
-                                         "    border-radius:6px;\n"
-                                         "    border-style: solid;\n"
-                                         "    background-color: rgb(28, 30, 33);\n"
-                                         "    border-color: rgb(66, 143, 225);\n"
-                                         "}\n"
-                                         "QPushButton:hover{\n"
-                                         "    border-width: 2px;\n"
-                                         "}\n"
-                                         "QPushButton:pressed{\n"
-                                         "    background-color: rgb(50, 60, 63);\n"
-                                         "}\n"
-                                         "QPushButton:disabled{\n"
-                                         "    border-width: 0px;\n"
-                                         "    background-color: rgb(92, 99, 109);\n"
-                                         "}")
+        self.delete_button.setStyleSheet(styles.button)
         self.delete_button.setObjectName("delete_button")
         self.update_button = QtWidgets.QPushButton(self.installed_tab)
         self.update_button.setEnabled(True)
         self.update_button.setGeometry(QtCore.QRect(5, 575, 275, 50))
         self.update_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.update_button.setStyleSheet("QPushButton {\n"
-                                         "    color: rgb(204, 204, 204);\n"
-                                         "    border-width: 1px;\n"
-                                         "    border-radius:6px;\n"
-                                         "    border-style: solid;\n"
-                                         "    background-color: rgb(28, 30, 33);\n"
-                                         "    border-color: rgb(66, 143, 225);\n"
-                                         "}\n"
-                                         "QPushButton:hover{\n"
-                                         "    border-width: 2px;\n"
-                                         "}\n"
-                                         "QPushButton:pressed{\n"
-                                         "    background-color: rgb(50, 60, 63);\n"
-                                         "}\n"
-                                         "QPushButton:disabled{\n"
-                                         "    border-width: 0px;\n"
-                                         "    background-color: rgb(92, 99, 109);\n"
-                                         "}")
+        self.update_button.setStyleSheet(styles.button)
         self.update_button.setObjectName("update_button")
         self.check_updates_button = QtWidgets.QPushButton(self.installed_tab)
         self.check_updates_button.setEnabled(True)
         self.check_updates_button.setGeometry(QtCore.QRect(595, 575, 275, 50))
         self.check_updates_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.check_updates_button.setStyleSheet("QPushButton {\n"
-                                                "    color: rgb(204, 204, 204);\n"
-                                                "    border-width: 1px;\n"
-                                                "    border-radius:6px;\n"
-                                                "    border-style: solid;\n"
-                                                "    background-color: rgb(28, 30, 33);\n"
-                                                "    border-color: rgb(66, 143, 225);\n"
-                                                "}\n"
-                                                "QPushButton:hover{\n"
-                                                "    border-width: 2px;\n"
-                                                "}\n"
-                                                "QPushButton:pressed{\n"
-                                                "    background-color: rgb(50, 60, 63);\n"
-                                                "}\n"
-                                                "QPushButton:disabled{\n"
-                                                "    border-width: 0px;\n"
-                                                "    background-color: rgb(92, 99, 109);\n"
-                                                "}")
+        self.check_updates_button.setStyleSheet(styles.button)
         self.check_updates_button.setObjectName("check_updates_button")
         self.installed_table = QtWidgets.QTableWidget(self.installed_tab)
         self.installed_table.setGeometry(QtCore.QRect(0, 10, 871, 571))
@@ -867,24 +510,7 @@ class Ui_LoginWindow(object):
         self.login_button.setEnabled(True)
         self.login_button.setGeometry(QtCore.QRect(70, 140, 151, 50))
         self.login_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.login_button.setStyleSheet("QPushButton {\n"
-                                        "    color: rgb(204, 204, 204);\n"
-                                        "    border-width: 1px;\n"
-                                        "    border-radius:6px;\n"
-                                        "    border-style: solid;\n"
-                                        "    background-color: rgb(28, 30, 33);\n"
-                                        "    border-color: rgb(66, 143, 225);\n"
-                                        "}\n"
-                                        "QPushButton:hover{\n"
-                                        "    border-width: 2px;\n"
-                                        "}\n"
-                                        "QPushButton:pressed{\n"
-                                        "    background-color: rgb(50, 60, 63);\n"
-                                        "}\n"
-                                        "QPushButton:disabled{\n"
-                                        "    border-width: 0px;\n"
-                                        "    background-color: rgb(92, 99, 109);\n"
-                                        "}")
+        self.login_button.setStyleSheet(styles.button)
         self.login_button.setObjectName("login_button")
         self.email_box = QtWidgets.QLineEdit(self.centralwidget)
         self.email_box.setGeometry(QtCore.QRect(20, 20, 251, 51))
@@ -1022,24 +648,7 @@ class Ui_PackageWindow(object):
         self.update_button.setEnabled(True)
         self.update_button.setGeometry(QtCore.QRect(20, 360, 291, 50))
         self.update_button.setMinimumSize(QtCore.QSize(0, 50))
-        self.update_button.setStyleSheet("QPushButton {\n"
-                                         "    color: rgb(204, 204, 204);\n"
-                                         "    border-width: 1px;\n"
-                                         "    border-radius:6px;\n"
-                                         "    border-style: solid;\n"
-                                         "    background-color: rgb(28, 30, 33);\n"
-                                         "    border-color: rgb(66, 143, 225);\n"
-                                         "}\n"
-                                         "QPushButton:hover{\n"
-                                         "    border-width: 2px;\n"
-                                         "}\n"
-                                         "QPushButton:pressed{\n"
-                                         "    background-color: rgb(50, 60, 63);\n"
-                                         "}\n"
-                                         "QPushButton:disabled{\n"
-                                         "    border-width: 0px;\n"
-                                         "    background-color: rgb(92, 99, 109);\n"
-                                         "}")
+        self.update_button.setStyleSheet(styles.button)
         self.update_button.setObjectName("update_button")
         MainWindow.setCentralWidget(self.centralwidget)
 

@@ -1,3 +1,4 @@
+# Legacy, only if normal update method is not working
 import argparse
 import urllib.request
 import threading

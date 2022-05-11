@@ -42,10 +42,19 @@ if __name__ == "__main__":
 
 # Connected functions
 def refresh_gui():
+    """
+    Updates the GUI with the latest data
+    :return:
+    """
     installed_apps()
 
 
 def fill_installed(apps: list):
+    """
+    Fills the installed apps table with the given list of apps.
+    :param apps:
+    :return:
+    """
     ui.installed_table.clear()
     ui.installed_table.setColumnCount(4)
     ui.installed_table.setRowCount(math.ceil(len(apps) / 4))
@@ -54,11 +63,19 @@ def fill_installed(apps: list):
 
 
 def installed_apps():
+    """
+    Gets the list of installed apps and fills the table.
+    :return:
+    """
     from modules.manager import apps_list
     fill_installed(apps_list(True))
 
 
 def update_app():
+    """
+    Updates the selected app.
+    :return:
+    """
     try:
         app_name = ui.installed_table.currentItem().text().replace('!', '')
         if app_name == "":
@@ -72,6 +89,10 @@ def update_app():
 
 
 def uninstall_app():
+    """
+    Uninstalls the selected app.
+    :return:
+    """
     try:
         app_name = ui.installed_table.currentItem().text().replace('!', '')
         if app_name == "":
@@ -85,6 +106,10 @@ def uninstall_app():
 
 
 def search_gui():
+    """
+    Searches for apps and fills the table.
+    :return:
+    """
     from modules.search import search
     search_query = ui.search_box.toPlainText()
     if search_query == "":
@@ -99,6 +124,10 @@ def search_gui():
 
 
 def install_app():
+    """
+    Installs the selected app.
+    :return:
+    """
     from modules.gui_manager import install
     try:
         app_name = ui.search_table.currentItem().text()
@@ -111,6 +140,10 @@ def install_app():
 
 
 def check_updates():
+    """
+    Checks for updates.
+    :return:
+    """
     from modules.updates import check
     needupdate = check(True)
     try:
@@ -120,6 +153,10 @@ def check_updates():
 
 
 def get_source_gui():
+    """
+    Gets the source code of the selected app.
+    :return:
+    """
     from modules.source import get_source
     try:
         app_name = ui.search_table.currentItem().text()
@@ -134,6 +171,10 @@ def get_source_gui():
 
 
 def info_gui():
+    """
+    Gets the info of the selected app.
+    :return:
+    """
     from modules.search import info
     try:
         app_name = ui.search_table.currentItem().text()
@@ -148,6 +189,10 @@ def info_gui():
 
 
 def like_gui():
+    """
+    Likes the selected app.
+    :return:
+    """
     from modules.liker import like
     try:
         app_name = ui.search_table.currentItem().text()
@@ -162,6 +207,10 @@ def like_gui():
 
 
 def dislike_gui():
+    """
+    Dislikes the selected app.
+    :return:
+    """
     from modules.liker import dislike
     try:
         app_name = ui.search_table.currentItem().text()
@@ -176,26 +225,46 @@ def dislike_gui():
 
 
 def upload_gui():
+    """
+    Uploads app to the server.
+    :return:
+    """
     from modules.uploader import upload
     gui.popup('Upload', str(upload(True, ui)))
 
 
 def change_password_gui():
+    """
+    Changes the password.
+    :return:
+    """
     from modules.change_password import change
     change(ui.oldpass_box.toPlainText(), ui.newpass_box.toPlainText())
 
 
 def change_email_gui():
+    """
+    Changes the email.
+    :return:
+    """
     from modules.change_email import change
     change(ui.email_box.toPlainText())
 
 
 def login_logout_gui():
+    """
+    Logs in or logs out.
+    :return:
+    """
     from modules.login import login
     ui.username_box.setText(login())
 
 
 def get_users_apps():
+    """
+    Gets the uploaded apps of the user.
+    :return:
+    """
     def get_threaded():
         try:
             apps = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/users/public"
@@ -215,6 +284,10 @@ def get_users_apps():
 
 
 def gui_package_edit():
+    """
+    Edits the selected package.
+    :return:
+    """
     from modules.package_edit import edit
     try:
         app_name = ui.manage_packages_table.currentItem().text()
@@ -228,6 +301,10 @@ def gui_package_edit():
 
 
 def gui_push_version():
+    """
+    Updates the selected package version.
+    :return:
+    """
     from modules.package_edit import push_version
     try:
         app_name = ui.manage_packages_table.currentItem().text()
