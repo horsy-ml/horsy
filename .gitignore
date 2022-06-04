@@ -1,12 +1,2 @@
-# Client
-**/__pycache__/
-/apps/
-/build/
-/sources/
-*.spec
-*.bak
-config.cfg
 /.idea/
-/dist/
-/build-env/
-activate.bat
+/venv/
