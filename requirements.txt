@@ -1,3 +1,5 @@
 requests
 rich
 ezzdl
+PyQt5
+algoliasearch

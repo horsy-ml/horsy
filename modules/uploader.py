@@ -6,7 +6,7 @@ from modules.auth import get_auth, del_auth, get_auth_without_login
 import re
 import modules.core.vars as horsy_vars
 import os
-from modules.http_status import handle
+from modules.core.http_status import handle
 
 
 def matches(s):

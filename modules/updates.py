@@ -1,7 +1,7 @@
 import json
 from modules.core.request import request
 import modules.core.vars as horsy_vars
-from modules.http_status import handle
+from modules.core.http_status import handle
 from modules.cli.manager import apps_list
 from rich import print
 
