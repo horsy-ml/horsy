@@ -11,10 +11,10 @@ def dislike(package, is_gui=False, login_ui=None, Ui_LoginWindow=None):
     return send(package, 0, is_gui, login_ui, Ui_LoginWindow)
 
 
-def send(package, type, is_gui=False, login_ui=None, Ui_LoginWindow=None):
+def send(package, type_, is_gui=False, login_ui=None, Ui_LoginWindow=None):
     body = {
         "auth": get_auth(is_gui, login_ui, Ui_LoginWindow),
-        "rate": type,
+        "rate": type_,
         "packageName": package
     }
     r = request.post(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/rate", json=body).json()

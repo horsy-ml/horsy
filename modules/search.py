@@ -29,7 +29,7 @@ def search(query, is_gui=False):
 
 def info(package, download_ui=None, UiDownloadWindow=None):
     r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
-    r_code = handle(r.status_code)
+    handle(r.status_code)
     r = r.text
     r = json.loads(r)
 

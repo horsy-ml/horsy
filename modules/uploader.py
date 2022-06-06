@@ -74,7 +74,7 @@ def fill_cli():
 
     print('Please specify main executable command. It can be executable file name ($appdir$\\some-file.exe) or '
           'command, that launches your script (python $appdir$\\some-file.py, cd $appdir$ & some-file.py etc). '
-          '$appdir$ will be replaced with application directory. It is nessesary to add!')
+          '$appdir$ will be replaced with application directory. It is necessary to add!')
     run = None
     while run is None:
         run = input('> ')

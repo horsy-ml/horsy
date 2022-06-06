@@ -51,7 +51,7 @@ def install(package):
 
     # Unzip the main file if needed
     def unzip(file, where):
-        with zipfile.ZipFile(file, 'r') as zip_ref:
+        with zipfile.ZipFile(file) as zip_ref:
             zip_ref.extractall(where)
             print(f"[green]Extracted[/]")
 
