@@ -89,6 +89,7 @@ QPushButton:disabled {
 
 
 QLineEdit, QTextBrowser, QPlainTextEdit, QTextEdit {
+    min-height: 30px;
     border-width: 1px;
     border-radius: 5px;
     border-style: solid;
@@ -622,6 +623,18 @@ QListWidget:item:selected {
         <item>
          <widget class="QWidget" name="search_bar_lay" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>9</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QLineEdit" name="search_box">
              <property name="minimumSize">
@@ -631,7 +644,10 @@ QListWidget:item:selected {
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">min-height: 30px;</string>
+              <string notr="true"/>
+             </property>
+             <property name="placeholderText">
+              <string>Search packages...</string>
              </property>
             </widget>
            </item>
@@ -652,8 +668,41 @@ QListWidget:item:selected {
          </widget>
         </item>
         <item>
+         <widget class="QProgressBar" name="installation_progress">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="textVisible">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="downloading_main_file_progress">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="textVisible">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="downloading_dependency_progress">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="textVisible">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QWidget" name="search_content" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,4">
+           <property name="spacing">
+            <number>6</number>
+           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
@@ -704,7 +753,7 @@ QListWidget:item:selected {
                <number>6</number>
               </property>
               <property name="leftMargin">
-               <number>5</number>
+               <number>0</number>
               </property>
               <property name="topMargin">
                <number>0</number>
@@ -814,9 +863,405 @@ QListWidget:item:selected {
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="upload_package_page"/>
-      <widget class="QWidget" name="edit_package_page"/>
-      <widget class="QWidget" name="account_settings_page"/>
+      <widget class="QWidget" name="upload_package_page">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QLabel" name="before_uploading_message">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Before starting, please make sure you have done your project and &lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;uploaded&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; it to any hosting service or file sharing service&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_name_box">
+          <property name="placeholderText">
+           <string>*Package name (lowercase letters, underscores, dashes)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="new_package_desc_box">
+          <property name="placeholderText">
+           <string>*Package description. It should be a short text under 256 characters</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_exe_url_box">
+          <property name="placeholderText">
+           <string>*Url of executable (ends on .zip, .exe, .py, .msi, .js, .bat, .cmd, .ps1</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_command_box">
+          <property name="placeholderText">
+           <string>*Main executable command ($appdir$\\file.exe, python $appdir$\\main.py, cd $appdir$ &amp; node index.js, etc.)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_source_box">
+          <property name="placeholderText">
+           <string>Url of source (project on GitHub, source archive)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_dep_url_box">
+          <property name="placeholderText">
+           <string>Dependency URL (installer of interpreter, etc.)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_dep_run_box">
+          <property name="placeholderText">
+           <string>Dependency command (run this during installation, it can be filename of downloaded installer, etc)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="upload_safety_warning_message">
+          <property name="text">
+           <string>We don't moderate any apps and we won't delete your app, if it is not doesn't match some rules. But, if your app uses server vulnerabilities or hinders server work, we will delete your app. Keep in mind, that we don't responsible for your apps, but we advise you to share only working and safe apps on horsy</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="new_package_upload_button">
+          <property name="text">
+           <string>Upload</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="upload_result_label">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="edit_package_page">
+       <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,4">
+        <item>
+         <widget class="QListWidget" name="editable_packages_list">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="edit_package_form_lay" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QLineEdit" name="edit_package_name_box">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>*Package name (lowercase letters, underscores, dashes)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="edit_package_desc_box">
+             <property name="placeholderText">
+              <string>*Package description. It should be a short text under 256 characters</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="edit_package_exe_url_box">
+             <property name="placeholderText">
+              <string>*Url of executable (ends on .zip, .exe, .py, .msi, .js, .bat, .cmd, .ps1</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="edit_package_command_box">
+             <property name="placeholderText">
+              <string>*Main executable command ($appdir$\\file.exe, python $appdir$\\main.py, cd $appdir$ &amp; node index.js, etc.)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="edit_package_source_box">
+             <property name="placeholderText">
+              <string>Url of source (project on GitHub, source archive)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="edit_package_dep_url_box">
+             <property name="placeholderText">
+              <string>Dependency URL (installer of interpreter, etc.)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="edit_package_dep_run_box">
+             <property name="placeholderText">
+              <string>Dependency command (run this during installation, it can be filename of downloaded installer, etc)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QWidget" name="edit_packages_buttons_lay" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="edit_package_button">
+                <property name="text">
+                 <string>Edit</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="force_upgrade_button">
+                <property name="text">
+                 <string>Force users to upgrade this package</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="edit_result_label">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="account_settings_page">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QWidget" name="new_login_lay" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <property name="leftMargin">
+            <number>200</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>200</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="login_mail_box">
+             <property name="placeholderText">
+              <string>email</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="login_password_box">
+             <property name="echoMode">
+              <enum>QLineEdit::PasswordEchoOnEdit</enum>
+             </property>
+             <property name="placeholderText">
+              <string>Password</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="login_button">
+             <property name="text">
+              <string>Log in</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="login_lay" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="logged_in_name_box">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Logged in as: </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="logout_button">
+             <property name="minimumSize">
+              <size>
+               <width>130</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Log out</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="change_email_lay" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="change_email_box">
+             <property name="placeholderText">
+              <string>email</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="change_email_button">
+             <property name="minimumSize">
+              <size>
+               <width>130</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Change e-mail</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="change_password_lay" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="old_password_box">
+             <property name="placeholderText">
+              <string>Old password</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QWidget" name="change_pass_lay_new" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_11">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="new_password_box">
+                <property name="echoMode">
+                 <enum>QLineEdit::PasswordEchoOnEdit</enum>
+                </property>
+                <property name="placeholderText">
+                 <string>New password</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="change_password_button">
+                <property name="minimumSize">
+                 <size>
+                  <width>130</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Change password</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="account_settings_vert_spacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="gui_settings_page"/>
      </widget>
     </item>

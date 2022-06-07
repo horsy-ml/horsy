@@ -63,6 +63,7 @@ QPushButton:disabled {
 
 
 QLineEdit, QTextBrowser, QPlainTextEdit, QTextEdit {
+    min-height: 30px;
     border-width: 1px;
     border-radius: 5px;
     border-style: solid;
@@ -336,6 +337,7 @@ QPushButton:disabled {
 
 
 QLineEdit, QTextBrowser, QPlainTextEdit, QTextEdit {
+    min-height: 30px;
     border-width: 1px;
     border-radius: 5px;
     border-style: solid;
