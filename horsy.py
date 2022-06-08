@@ -101,10 +101,10 @@ if args.vt_key:
 # Checking if arguments are empty to use in-app CLI
 if not args.option:
     log_logo()
-    option = ['install', 'uninstall', 'updates', 'source', 'list', 'upload', 'search', 'info'][
+    option = ['install', 'uninstall', 'updates', 'source', 'list', 'upload', 'search', 'info', 'request-update'][
         tui.menu(['install app', 'uninstall app', 'see updates', 'get source',
                   'list of installed apps', 'upload your app', 'search for app',
-                  'get information about app'])]
+                  'get information about app', 'request update on user side'])]
     isNoArgs = True
 
 if not args.app and option not in ['list', 'l', 'upload', 'updates', 'u']:
