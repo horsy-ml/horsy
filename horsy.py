@@ -15,9 +15,9 @@ threading.excepthook = hook
 # Getting the arguments
 parser = argparse.ArgumentParser(description='horsy - the best package manager')
 parser.add_argument('option', help='options for horsy (install/i | uninstall/un | updates/u | source/s | list/l | '
-                                   'upload | search | info | like | dislike)',
+                                   'upload | search | info | like | dislike | request-update)',
                     choices=['install', 'i', 'uninstall', 'un', 'updates', 'u', 'source', 's', 'list', 'l', 'upload',
-                             'search', 'info', 'like', 'dislike'],
+                             'search', 'info', 'like', 'dislike', 'request-update'],
                     nargs='?')
 parser.add_argument('app', help='app to do function with', nargs='?')
 parser.add_argument('--vt', help='your virustotal api key (account -> api key in VT)', dest='vt_key')
@@ -150,6 +150,9 @@ match option:
     case 'dislike':
         from modules.liker import dislike
         dislike(app)
+    case 'request-update':
+        from modules.push_version import push_version
+        push_version(app)
 
 if isNoArgs:
     input('[EXIT] Press enter to exit horsy...')
