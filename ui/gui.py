@@ -848,7 +848,7 @@ class Ui_MainWindow(object):
         self.choose_theme_box.setItemText(1, _translate("MainWindow", "Black"))
         self.choose_theme_box.setItemText(2, _translate("MainWindow", "Black acrylic"))
         self.save_settings_button.setText(_translate("MainWindow", "Save settings"))
-import img.images_rc
+import ui.img.images_rc
 
 
 if __name__ == "__main__":
