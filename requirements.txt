@@ -1,5 +1,7 @@
+wheel
 requests
 rich
 ezzdl
 PyQt5
+qt-thread-updater
 algoliasearch
