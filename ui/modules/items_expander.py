@@ -1,14 +1,11 @@
-import threading
+from ezzthread import threaded
 from ui.gui import Ui_MainWindow
 from modules.search import info
-from qt_thread_updater import get_updater
+from modules.core.qt_updater import call
 
 
-def on_installed_click_(ui: Ui_MainWindow) -> None:
-    ui.installed_packages_from_list_lay.show()
-    get_updater().call_latest(ui.installed_package_desc.setText, 'Loading...')
-    get_updater().call_latest(ui.installed_package_desc.setText, info(ui.installed_packages_list.currentItem().text()))
-
-
+@threaded
 def on_installed_click(ui: Ui_MainWindow) -> None:
-    threading.Thread(target=on_installed_click_, args=(ui,)).start()
+    ui.installed_packages_from_list_lay.show()
+    call(ui.installed_package_desc.setText, 'Loading...')
+    call(ui.installed_package_desc.setText, info(ui.installed_packages_list.currentItem().text()))

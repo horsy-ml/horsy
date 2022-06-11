@@ -5,3 +5,4 @@ ezzdl
 PyQt5
 qt-thread-updater
 algoliasearch
+ezzthread

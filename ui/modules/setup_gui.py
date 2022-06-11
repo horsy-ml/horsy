@@ -1,5 +1,7 @@
 from ui.gui import Ui_MainWindow
 from modules.cli.manager import apps_list
+from ezzthread import threaded
+from modules.core.qt_updater import call
 
 
 def hide_parts(ui: Ui_MainWindow) -> None:
@@ -17,6 +19,7 @@ def hide_parts(ui: Ui_MainWindow) -> None:
     ui.change_email_lay.hide()
 
 
+@threaded
 def fill_existing_data(ui: Ui_MainWindow) -> None:
-    ui.installed_packages_list.clear()
-    ui.installed_packages_list.addItems(apps_list(is_gui=True))
+    call(ui.installed_packages_list.clear)
+    call(ui.installed_packages_list.addItems, apps_list(is_gui=True))
