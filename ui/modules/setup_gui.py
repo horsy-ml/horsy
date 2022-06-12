@@ -20,6 +20,6 @@ def hide_parts(ui: Ui_MainWindow) -> None:
 
 
 @threaded
-def fill_existing_data(ui: Ui_MainWindow) -> None:
+def fill_apps_list(ui: Ui_MainWindow) -> None:
     call(ui.installed_packages_list.clear)
     call(ui.installed_packages_list.addItems, apps_list(is_gui=True))
