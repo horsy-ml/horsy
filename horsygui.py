@@ -5,12 +5,14 @@ import ui.modules.setup_gui as setup_gui
 import modules.gui.manager as manager
 from ui.modules.menu_handler import handle_menu_click
 from ui.modules.items_expander import (on_installed_click)
+from modules.gui.search import (
+    search_for_package,
+    display_info
+)
 from modules.data.settings import Settings
 from modules.core.exception import hook
-import threading
 
 sys.excepthook = hook
-threading.excepthook = hook
 
 settings = Settings.get_settings()
 
@@ -27,7 +29,10 @@ ui.installed_packages_list.itemClicked.connect(lambda: on_installed_click(ui))
 ui.installed_packages_list.itemDoubleClicked.connect(
     ui.installed_packages_from_list_lay.hide
 )
-ui.uninstall_package_button.clicked.connect(lambda: manager.uninstall(ui.installed_packages_list.currentItem().text(),
-                                                                      ui))
+ui.uninstall_package_button.clicked.connect(lambda: manager.uninstall(ui))
+ui.search_button.clicked.connect(lambda: search_for_package(ui))
+ui.search_box.returnPressed.connect(lambda: search_for_package(ui))
+ui.search_packages_list.itemClicked.connect(lambda: display_info(ui))
+ui.install_package_button.clicked.connect(lambda: manager.install(ui, MainWindow))
 
 sys.exit(app.exec_())

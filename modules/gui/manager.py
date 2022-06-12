@@ -3,17 +3,126 @@ from modules.core.qt_updater import call
 from ezzthread import threaded
 import modules.core.vars as horsy_vars
 from ui.modules.setup_gui import fill_apps_list
+from modules.core.request import request
+from modules.core.http_status import handle
+from modules.virustotal import scan_to_cli
+from modules.gui.downloader import dl
+from PyQt5 import QtWidgets
 import os
+import json
+import zipfile
+import threading
 
 
 @threaded
-def uninstall(package: str, ui: Ui_MainWindow) -> None:
+def install(ui: Ui_MainWindow, MainWindow: QtWidgets.QMainWindow) -> None:
+    call(ui.search_results.hide)
+    call(ui.search_bar_lay.hide)
+    call(ui.search_buttons_lay.hide)
+    call(ui.search_package_desc.clear)
+    call(ui.installation_progress.show)
+    call(ui.installation_progress.setValue, 0)
+    call(ui.installation_progress.setMaximum, 10)
+
+    package = ui.search_packages_list.currentItem().text()
+
+    r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
+    r_code = handle(r.status_code)
+    r = r.text
+    try:
+        r = json.loads(r)
+    except json.decoder.JSONDecodeError:
+        call(ui.search_package_desc.append, f"App {package} not found or server can't handle your request")
+        return
+
+    if r_code[1] not in [200, 201]:
+        return r_code[0]
+
+    # Inform the user
+    call(ui.search_package_desc.append, f"App {r['name']} found, information loaded")
+    call(ui.installation_progress.setValue, 1)
+
+    # Create the app directory
+    if not os.path.exists('{1}apps\{0}'.format(r['name'], horsy_vars.horsypath)):
+        os.makedirs('{1}apps\{0}'.format(r['name'], horsy_vars.horsypath))
+    call(ui.installation_progress.setValue, 2)
+
+    # Download all files
+    dl(ui, r['url'], '{0}apps\{1}'.format(horsy_vars.horsypath, r['name']), r['download'])
+    call(ui.installation_progress.setValue, 3)
+
+    # Scan main file
+    scan_to_cli('{2}apps\{0}\{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
+    call(ui.search_package_desc.append, "")
+    call(ui.installation_progress.setValue, 4)
+
+    # Unzip the main file if needed
+    def unzip(file, where):
+        with zipfile.ZipFile(file) as zip_ref:
+            zip_ref.extractall(where)
+            call(ui.search_package_desc.append, f"Extracted")
+
+    if r['url'].split('.')[-1] == 'zip':
+        call(ui.search_package_desc.append, f"Extracting {r['url'].split('/')[-1]}")
+        unzip('{2}apps\{0}\{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath),
+              '{1}apps\{0}'.format(r['name'], horsy_vars.horsypath))
+        os.remove('{2}apps/{0}/{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
+        call(ui.search_package_desc.append, "")
+    call(ui.installation_progress.setValue, 5)
+
+    # Scan dependencies
+    try:
+        if r['download'] and scan_to_cli('{2}apps\{0}\{1}'.format(r['name'],
+                                                                  r['download'].split('/')[-1],
+                                                                  horsy_vars.horsypath))['detect']['malicious'] > 0:
+            call(ui.search_package_desc.append, "Dependency can be malicious. It may run now, if this added to "
+                                                "installation config. Install it manually (with CLI)")
+            return
+    except TypeError:
+        pass
+    call(ui.installation_progress.setValue, 6)
+
+    # Execute install script
+    if r['install']:
+        call(ui.search_package_desc.append, f"Found install option")
+        threading.Thread(target=os.system, args=('{2}apps\{0}\{1}'.format(r['name'], r['install'],
+                                                                          horsy_vars.horsypath),)).start()
+        call(ui.search_package_desc.append, "")
+    call(ui.installation_progress.setValue, 7)
+
+    # Create launch script
+    call(ui.search_package_desc.append, f"Generating launch script")
+
+    with open('{1}apps\{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w+') as f:
+        f.write(f"@ECHO off\n")
+        f.write(f"""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')} %*\n""")
+    call(ui.installation_progress.setValue, 8)
+
+    # Update versions file
+    with open(horsy_vars.horsypath + 'apps/versions.json', 'r') as f:
+        versions = json.load(f)
+    with open(horsy_vars.horsypath + 'apps/versions.json', 'w') as f:
+        versions[r['name']] = r['version']
+        f.write(json.dumps(versions))
+        call(ui.search_package_desc.append, f"Versions file updated")
+    call(ui.installation_progress.setValue, 9)
+
+    # Done message
+    call(ui.search_package_desc.append, f"All done!")
+    call(ui.search_package_desc.append,
+         f"You can run your app by entering {r['name']} in terminal")
+    call(ui.installation_progress.setValue, 10)
+
+
+@threaded
+def uninstall(ui: Ui_MainWindow) -> None:
     """
     Uninstall package
     :param package:
     :param ui:
     :return:
     """
+    package = ui.installed_packages_list.currentItem().text()
     call(ui.installed_package_desc.clear)
     call(ui.installed_package_desc.setText, f'Uninstalling {package}...')
     if os.path.exists('{1}apps/{0}'.format(package, horsy_vars.horsypath)):
