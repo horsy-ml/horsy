@@ -24,6 +24,6 @@ def display_info(ui: Ui_MainWindow) -> None:
     :param ui:
     :return:
     """
-    ui.search_packages_from_list_lay.show()
+    call(ui.search_packages_from_list_lay.show)
     call(ui.search_package_desc.setText, 'Loading...')
     call(ui.search_package_desc.setText, info(ui.search_packages_list.currentItem().text()))

@@ -33,6 +33,7 @@ ui.uninstall_package_button.clicked.connect(lambda: manager.uninstall(ui))
 ui.search_button.clicked.connect(lambda: search_for_package(ui))
 ui.search_box.returnPressed.connect(lambda: search_for_package(ui))
 ui.search_packages_list.itemClicked.connect(lambda: display_info(ui))
-ui.install_package_button.clicked.connect(lambda: manager.install(ui, MainWindow))
+ui.install_package_button.clicked.connect(lambda: manager.install(ui))
+ui.update_package_button.clicked.connect(lambda: manager.install(ui, ui.installed_packages_list.currentItem().text()))
 
 sys.exit(app.exec_())

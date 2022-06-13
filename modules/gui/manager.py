@@ -5,9 +5,8 @@ import modules.core.vars as horsy_vars
 from ui.modules.setup_gui import fill_apps_list
 from modules.core.request import request
 from modules.core.http_status import handle
-from modules.virustotal import scan_to_cli
+from modules.gui.virustotal import scan_to_gui
 from modules.gui.downloader import dl
-from PyQt5 import QtWidgets
 import os
 import json
 import zipfile
@@ -15,7 +14,10 @@ import threading
 
 
 @threaded
-def install(ui: Ui_MainWindow, MainWindow: QtWidgets.QMainWindow) -> None:
+def install(ui: Ui_MainWindow, package: str = None) -> None:
+    package = ui.search_packages_list.currentItem().text() if not package else package
+    call(ui.search_packages_from_list_lay.show)
+    call(ui.update_package_button.setEnabled, False)
     call(ui.search_results.hide)
     call(ui.search_bar_lay.hide)
     call(ui.search_buttons_lay.hide)
@@ -23,8 +25,7 @@ def install(ui: Ui_MainWindow, MainWindow: QtWidgets.QMainWindow) -> None:
     call(ui.installation_progress.show)
     call(ui.installation_progress.setValue, 0)
     call(ui.installation_progress.setMaximum, 10)
-
-    package = ui.search_packages_list.currentItem().text()
+    call(ui.installed_package_desc.setText, f'App {package} is being installed, check progress on browse page.')
 
     r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
     r_code = handle(r.status_code)
@@ -52,7 +53,7 @@ def install(ui: Ui_MainWindow, MainWindow: QtWidgets.QMainWindow) -> None:
     call(ui.installation_progress.setValue, 3)
 
     # Scan main file
-    scan_to_cli('{2}apps\{0}\{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
+    scan_to_gui(ui, '{2}apps\{0}\{1}'.format(r['name'], r['url'].split('/')[-1], horsy_vars.horsypath))
     call(ui.search_package_desc.append, "")
     call(ui.installation_progress.setValue, 4)
 
@@ -72,9 +73,10 @@ def install(ui: Ui_MainWindow, MainWindow: QtWidgets.QMainWindow) -> None:
 
     # Scan dependencies
     try:
-        if r['download'] and scan_to_cli('{2}apps\{0}\{1}'.format(r['name'],
-                                                                  r['download'].split('/')[-1],
-                                                                  horsy_vars.horsypath))['detect']['malicious'] > 0:
+        if r['download'] and scan_to_gui(ui,
+                                         '{2}apps\{0}\{1}'.format(r['name'], r['download'].split('/')[-1],
+                                                                  horsy_vars.horsypath)
+                                         )['detect']['malicious'] > 0:
             call(ui.search_package_desc.append, "Dependency can be malicious. It may run now, if this added to "
                                                 "installation config. Install it manually (with CLI)")
             return
@@ -112,6 +114,15 @@ def install(ui: Ui_MainWindow, MainWindow: QtWidgets.QMainWindow) -> None:
     call(ui.search_package_desc.append,
          f"You can run your app by entering {r['name']} in terminal")
     call(ui.installation_progress.setValue, 10)
+
+    call(ui.update_package_button.setEnabled, True)
+    call(ui.search_results.show)
+    call(ui.search_bar_lay.show)
+    call(ui.search_buttons_lay.show)
+    call(ui.installation_progress.hide)
+    call(ui.downloading_main_file_progress.hide)
+    call(ui.downloading_dependency_progress.hide)
+    call(ui.installed_package_desc.append, f'Successfully installed {package}')
 
 
 @threaded

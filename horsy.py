@@ -96,7 +96,7 @@ if args.vt_key:
     else:
         print('VT disabled')
         add_to_cfg(None)
-    sys.exit()
+    sys.exit(0)
 
 # Checking if arguments are empty to use in-app CLI
 if not args.option:
