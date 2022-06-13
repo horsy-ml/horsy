@@ -1,6 +1,7 @@
 from modules.core.request import request
 import modules.core.vars as horsy_vars
 from modules.auth import get_auth
+from ui.modules.popup import popup
 
 
 def like(package, is_gui=False, login_ui=None, Ui_LoginWindow=None):
@@ -19,4 +20,6 @@ def send(package, type_, is_gui=False, login_ui=None, Ui_LoginWindow=None):
     }
     r = request.post(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/rate", json=body).json()
     print(r["message"])
+    if is_gui:
+        popup("Rate", r["message"])
     return r["message"]

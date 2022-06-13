@@ -9,6 +9,8 @@ from modules.gui.search import (
     search_for_package,
     display_info
 )
+from modules.source import get_source
+from modules.liker import like, dislike
 from modules.data.settings import Settings
 from modules.core.exception import hook
 
@@ -35,5 +37,8 @@ ui.search_box.returnPressed.connect(lambda: search_for_package(ui))
 ui.search_packages_list.itemClicked.connect(lambda: display_info(ui))
 ui.install_package_button.clicked.connect(lambda: manager.install(ui))
 ui.update_package_button.clicked.connect(lambda: manager.install(ui, ui.installed_packages_list.currentItem().text()))
+ui.get_source_button.clicked.connect(lambda: get_source(ui.search_packages_list.currentItem().text(), True))
+ui.like_button.clicked.connect(lambda: like(ui.search_packages_list.currentItem().text(), True))
+ui.dislike_button.clicked.connect(lambda: dislike(ui.search_packages_list.currentItem().text(), True))
 
 sys.exit(app.exec_())
