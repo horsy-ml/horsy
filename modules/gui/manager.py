@@ -16,6 +16,8 @@ import threading
 
 @threaded
 def install(ui: Ui_MainWindow, package: str = None) -> None:
+    if package == '':
+        return
     package = ui.search_packages_list.currentItem().text() if not package else package
     call(ui.search_packages_from_list_lay.show)
     call(ui.update_package_button.setEnabled, False)
