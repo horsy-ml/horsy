@@ -1378,6 +1378,16 @@ QListWidget:item:selected {
             </widget>
            </item>
            <item>
+            <widget class="QLabel" name="add_vt_key_label">
+             <property name="text">
+              <string>Add virustotal api key</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="add_vt_key_box"/>
+           </item>
+           <item>
             <spacer name="settings_vertical_spacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>

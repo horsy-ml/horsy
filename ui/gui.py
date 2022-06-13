@@ -765,6 +765,12 @@ class Ui_MainWindow(object):
         self.choose_theme_box.addItem("")
         self.choose_theme_box.addItem("")
         self.verticalLayout_10.addWidget(self.choose_theme_box)
+        self.add_vt_key_label = QtWidgets.QLabel(self.settings_lay)
+        self.add_vt_key_label.setObjectName("add_vt_key_label")
+        self.verticalLayout_10.addWidget(self.add_vt_key_label)
+        self.add_vt_key_box = QtWidgets.QLineEdit(self.settings_lay)
+        self.add_vt_key_box.setObjectName("add_vt_key_box")
+        self.verticalLayout_10.addWidget(self.add_vt_key_box)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_10.addItem(spacerItem1)
         self.verticalLayout_11.addWidget(self.settings_lay)
@@ -847,6 +853,7 @@ class Ui_MainWindow(object):
         self.choose_theme_box.setItemText(0, _translate("MainWindow", "Dark gray"))
         self.choose_theme_box.setItemText(1, _translate("MainWindow", "Black"))
         self.choose_theme_box.setItemText(2, _translate("MainWindow", "Black acrylic"))
+        self.add_vt_key_label.setText(_translate("MainWindow", "Add virustotal api key"))
         self.save_settings_button.setText(_translate("MainWindow", "Save settings"))
 import ui.img.images_rc
 
