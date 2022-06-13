@@ -16,7 +16,7 @@ from modules.uploader import upload
 from modules.data.settings import Settings
 from modules.core.exception import hook
 
-# sys.excepthook = hook
+sys.excepthook = hook
 
 settings = Settings.get_settings()
 
