@@ -7,6 +7,7 @@ from modules.core.request import request
 from modules.core.http_status import handle
 from modules.gui.virustotal import scan_to_gui
 from modules.gui.downloader import dl
+from modules.gui.updates import check_updates
 import os
 import json
 import zipfile
@@ -25,7 +26,7 @@ def install(ui: Ui_MainWindow, package: str = None) -> None:
     call(ui.installation_progress.show)
     call(ui.installation_progress.setValue, 0)
     call(ui.installation_progress.setMaximum, 10)
-    call(ui.installed_package_desc.setText, f'App {package} is being installed, check progress on browse page.')
+    call(ui.installed_package_desc.setText, f'App {package} is being installed, check progress on explore page.')
 
     r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
     r_code = handle(r.status_code)
@@ -123,7 +124,7 @@ def install(ui: Ui_MainWindow, package: str = None) -> None:
     call(ui.downloading_main_file_progress.hide)
     call(ui.downloading_dependency_progress.hide)
     call(ui.installed_package_desc.append, f'Successfully installed {package}')
-
+    check_updates(ui)
 
 @threaded
 def uninstall(ui: Ui_MainWindow) -> None:
@@ -133,7 +134,7 @@ def uninstall(ui: Ui_MainWindow) -> None:
     :param ui:
     :return:
     """
-    package = ui.installed_packages_list.currentItem().text()
+    package = ui.installed_packages_list.currentItem().text().replace('!', '')
     call(ui.installed_package_desc.clear)
     call(ui.installed_package_desc.setText, f'Uninstalling {package}...')
     if os.path.exists('{1}apps/{0}'.format(package, horsy_vars.horsypath)):
