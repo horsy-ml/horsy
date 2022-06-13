@@ -7,6 +7,8 @@ import re
 import modules.core.vars as horsy_vars
 import os
 from modules.core.http_status import handle
+from ui.gui import Ui_MainWindow
+from modules.core.qt_updater import call
 
 
 def matches(s):
@@ -94,56 +96,60 @@ def fill_cli():
         }
 
 
-def fill_gui(ui):
+def fill_gui(ui: Ui_MainWindow):
     auth = get_auth_without_login()
 
-    project_name = ui.packagename_box.text()
+    project_name = ui.new_package_name_box.text()
     if not matches(project_name) or len(project_name) > 64 or len(project_name) < 3:
-        print('[red]Invalid project name[/red]')
-        return 'Invalid project name'
+        call(ui.upload_result_label.show)
+        call(ui.upload_result_label.setText, 'Invalid project name')
+        return
 
-    description = ui.package_desc_box.toPlainText()
+    description = ui.new_package_desc_box.toPlainText()
     if len(description) > 256:
-        print('[red]Description is too long[/red]')
-        return 'Description is too long'
+        call(ui.upload_result_label.show)
+        call(ui.upload_result_label.setText, 'Description is too long')
+        return
 
-    url = ui.url_of_exe_box.text()
+    url = ui.new_package_exe_url_box.text()
     if not urlmatch(url):
-        return 'Invalid file url, also it should end on .exe or .zip'
+        call(ui.upload_result_label.show)
+        call(ui.upload_result_label.setText, 'Invalid file url')
+        return
 
-    source_url = (lambda x: None if x == '' else x())(ui.source_url_box.text())
-
-    download = ui.dependency_url_box.text()
+    download = ui.new_package_dep_url_box.text()
     if download == '':
         download = None
     elif not urlmatch(download):
-        return 'Invalid download url'
+        call(ui.upload_result_label.show)
+        call(ui.upload_result_label.setText, 'Invalid download url')
+        return
 
-    install = (lambda x: None if install == '' else install)(ui.dependency_run_box.text())
-
-    run = ui.main_exe_box.text()
+    run = ui.new_package_command_box.text()
     if run == '':
-        return 'Please, specify runtime'
+        call(ui.upload_result_label.show)
+        call(ui.upload_result_label.setText, 'Please, specify runtime')
+        return
 
-    return {
+    return dict({
             'auth': auth,
             'name': project_name,
             'description': description,
             'url': url,
-            'sourceUrl': source_url,
+            'sourceUrl': (lambda x: None if x == '' else x())(ui.new_package_source_box.text()),
             'download': download,
-            'install': install,
+            'install': (lambda x: None if x == '' else x)(ui.new_package_dep_run_box.text()),
             'run': run
-        }
+        })
 
 
-def upload(is_gui=False, ui=None):
-    if not is_gui:
+def upload(ui: Ui_MainWindow = None):
+    if not ui:
         request_body = fill_cli()
     else:
         request_body = fill_gui(ui)
-        if request_body is not dict:
-            return request_body
+        if request_body is None:
+            return
 
     r = None
     while r is None:
@@ -164,10 +170,15 @@ def upload(is_gui=False, ui=None):
             elif r_code[1] in [200, 201]:
                 print('[green]Success, your project is created. You can install it by running[/] '
                       '[i]horsy i {0}[/]'.format(request_body['name']))
-                return 'Success, your project is created. You can install it by running horsy i {0}'.format(
-                    request_body['name'])
+                call(ui.upload_result_label.show)
+                call(ui.upload_result_label.setText,
+                     'Success, your project is created. You can install it by running horsy i {0}'
+                     .format(request_body['name']))
+                return
 
-            return r_code[0]
+            call(ui.upload_result_label.show)
+            call(ui.upload_result_label.setText, f'{r_code[0]}: {r.get("message")}')
+            return
         except:
             with open(f'error_{time.time()}.txt', 'w') as f:
                 f.write(str(r.text))

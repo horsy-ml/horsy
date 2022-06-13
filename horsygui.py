@@ -12,10 +12,11 @@ from modules.gui.search import (
 from modules.source import get_source
 from modules.liker import like, dislike
 from modules.gui.updates import check_updates
+from modules.uploader import upload
 from modules.data.settings import Settings
 from modules.core.exception import hook
 
-sys.excepthook = hook
+# sys.excepthook = hook
 
 settings = Settings.get_settings()
 
@@ -43,5 +44,6 @@ ui.get_source_button.clicked.connect(lambda: get_source(ui.search_packages_list.
 ui.like_button.clicked.connect(lambda: like(ui.search_packages_list.currentItem().text(), True))
 ui.dislike_button.clicked.connect(lambda: dislike(ui.search_packages_list.currentItem().text(), True))
 ui.check_updates_button.clicked.connect(lambda: check_updates(ui))
+ui.new_package_upload_button.clicked.connect(lambda: upload(ui))
 
 sys.exit(app.exec_())
