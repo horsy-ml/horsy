@@ -1,11 +1,9 @@
 import json
-import time
 from modules.core.request import request
 from rich import print
 from modules.auth import get_auth, del_auth, get_auth_without_login
 import re
 import modules.core.vars as horsy_vars
-import os
 from modules.core.http_status import handle
 from ui.gui import Ui_MainWindow
 from modules.core.qt_updater import call

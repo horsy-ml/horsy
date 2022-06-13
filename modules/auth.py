@@ -1,65 +1,51 @@
 import json
-import sys
 import modules.core.vars as horsy_vars
-import ctypes
+from modules.core.qt_updater import call
+from ui.modules.popup import popup
+from ui.gui import Ui_MainWindow
 
 
-def get_auth(is_gui=False, login_ui=None, Ui_LoginWindow=None):
+def get_auth(ui: Ui_MainWindow = None):
     with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)
 
-    try:
-        if config['auth']:
-            return config['auth']
-        else:
-            raise Exception('No auth found')
-    except:
-        if not is_gui:
-            print('[!] No auth found, please login first')
-            print('email')
-            email = input('> ')
-            print('password')
-            password = input('> ')
-            config['auth'] = {'email': email, 'password': password}
-            with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
-                json.dump(config, f)
-            print('[OK] Auth created')
-            return config['auth']
-        else:
-            login_ui.setupUi(Ui_LoginWindow)
-            Ui_LoginWindow.show()
+    if config.get('auth') is not None:
+        return config['auth']
 
-            def load_login_now():
-                return get_gui_auth(login_ui, Ui_LoginWindow)
-            login_ui.login_button.clicked.connect(load_login_now)
-
-
-def get_auth_without_login():
-    with open(horsy_vars.horsypath + 'config.cfg') as f:
-        config = json.load(f)
-
-    try:
-        if config['auth']:
-            return config['auth']
-        else:
-            raise Exception('No auth found')
-    except:
-        ctypes.windll.user32.MessageBoxW(0, "Login not found. Please, use the login button on account tab. "
-                                            "horsy will close now, but you don't need to restart it later",
-                                         "No auth", 0)
-        sys.exit(0)
-
-
-def get_gui_auth(login_ui, Ui_LoginWindow):
-    with open(horsy_vars.horsypath + 'config.cfg') as f:
-        config = json.load(f)
-    if login_ui.email_box.text() != '' and login_ui.password_box.text() != '':
+    if not ui:
+        print('[!] No auth found, please login first')
+        print('email')
+        email = input('> ')
+        print('password')
+        password = input('> ')
+        config['auth'] = {'email': email, 'password': password}
         with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
-            config['auth'] = {'email': login_ui.email_box.text(), 'password': login_ui.password_box.text()}
             json.dump(config, f)
-        Ui_LoginWindow.close()
-        ctypes.windll.user32.MessageBoxW(0, "Login updated. To see it, restart horsygui",
-                                            "Reload to take effect", 0)
+        print('[OK] Auth created')
+        return config['auth']
+    else:
+        ui.content.setCurrentIndex(6)
+
+
+def get_auth_without_login(no_popup=False):
+    with open(horsy_vars.horsypath + 'config.cfg') as f:
+        config = json.load(f)
+
+    if config.get('auth') is not None:
+        return config['auth']
+
+    if not no_popup:
+        popup('No auth', "Login not found. Please, log in on account tab.")
+
+
+def get_gui_auth(ui: Ui_MainWindow):
+    with open(horsy_vars.horsypath + 'config.cfg') as f:
+        config = json.load(f)
+
+    if ui.login_mail_box.text() != '' and ui.login_password_box.text() != '':
+        with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
+            config['auth'] = {'email': ui.login_mail_box.text(), 'password': ui.login_password_box.text()}
+            json.dump(config, f)
 
 
 def del_auth():

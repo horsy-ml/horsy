@@ -13,11 +13,14 @@ from modules.source import get_source
 from modules.liker import like, dislike
 from modules.gui.updates import check_updates
 from modules.uploader import upload
+from modules.auth import get_gui_auth
 from modules.data.settings import Settings
+from modules.data.check_files import check_files
 from modules.core.exception import hook
 
 sys.excepthook = hook
 
+check_files()
 settings = Settings.get_settings()
 
 app = QtWidgets.QApplication(sys.argv)
@@ -27,6 +30,7 @@ ui.setupUi(MainWindow)
 setup_gui.hide_parts(ui)
 MainWindow.show()
 setup_gui.fill_apps_list(ui)
+setup_gui.fill_account_page(ui)
 
 ui.menu.itemClicked.connect(lambda: handle_menu_click(ui.menu.currentItem().text(), ui))
 ui.installed_packages_list.itemClicked.connect(lambda: on_installed_click(ui))
@@ -46,5 +50,6 @@ ui.like_button.clicked.connect(lambda: like(ui.search_packages_list.currentItem(
 ui.dislike_button.clicked.connect(lambda: dislike(ui.search_packages_list.currentItem().text(), True))
 ui.check_updates_button.clicked.connect(lambda: check_updates(ui))
 ui.new_package_upload_button.clicked.connect(lambda: upload(ui))
+ui.login_button.clicked.connect(lambda: get_gui_auth(ui))
 
 sys.exit(app.exec_())

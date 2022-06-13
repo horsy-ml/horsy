@@ -24,3 +24,16 @@ def fill_apps_list(ui: Ui_MainWindow) -> None:
     call(ui.installed_packages_list.clear)
     call(ui.installed_packages_list.addItems, (lambda x: x if x != [] else ['Install packages on explore page'])(
         apps_list(is_gui=True)))
+
+
+@threaded
+def fill_user_apps(ui: Ui_MainWindow) -> None:
+    call(ui.editable_packages_list.clear)
+
+
+@threaded
+def fill_account_page(ui: Ui_MainWindow) -> None:
+    from modules.auth import get_auth_without_login
+    if not get_auth_without_login(True):
+        call(ui.new_login_lay.show)
+        call(ui.account_settings_vert_spacer_widget.hide)
