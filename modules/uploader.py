@@ -151,37 +151,27 @@ def upload(ui: Ui_MainWindow = None):
         if request_body is None:
             return
 
-    r = None
-    while r is None:
-        try:
-            r = request.post(horsy_vars.protocol + horsy_vars.server_url + '/packages/new', json=request_body)
-            r_code = handle(r.status_code)
-            r = r.text
-            r = json.loads(r)
+    r = request.post(horsy_vars.protocol + horsy_vars.server_url + '/packages/new', json=request_body)
+    r_code = handle(r.status_code)
+    r = r.text
+    r = json.loads(r)
 
-            if r_code[1] in [403, 401]:
-                print('[red]Invalid credentials[/red]')
-                print('Deleting auth from config')
-                del_auth()
-                request_body['auth'] = get_auth()
-                print(r)
-                r = None
+    if r_code[1] in [403, 401]:
+        print('[red]Invalid credentials[/red]')
+        print('Deleting auth from config')
+        del_auth()
+        request_body['auth'] = get_auth()
+        print(r)
+        r = None
 
-            elif r_code[1] in [200, 201]:
-                print('[green]Success, your project is created. You can install it by running[/] '
-                      '[i]horsy i {0}[/]'.format(request_body['name']))
-                call(ui.upload_result_label.show)
-                call(ui.upload_result_label.setText,
-                     'Success, your project is created. You can install it by running horsy i {0}'
-                     .format(request_body['name']))
-                return
+    elif r_code[1] in [200, 201]:
+        print('[green]Success, your project is created. You can install it by running[/] '
+              '[i]horsy i {0}[/]'.format(request_body['name']))
+        call(ui.upload_result_label.show)
+        call(ui.upload_result_label.setText,
+             'Success, your project is created. You can install it by running horsy i {0}'
+             .format(request_body['name']))
+        return
 
-            call(ui.upload_result_label.show)
-            call(ui.upload_result_label.setText, f'{r_code[0]}: {r.get("message")}')
-            return
-        except:
-            with open(f'error_{time.time()}.txt', 'w') as f:
-                f.write(str(r.text))
-                print(f'[red]Something went wrong with unsupported error. You can check servers response in '
-                      f'{os.getcwd()}/{f.name}[/red]')
-            break
+    call(ui.upload_result_label.show)
+    call(ui.upload_result_label.setText, f'{r_code[0]}: {r.get("message")}')
