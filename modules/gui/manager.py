@@ -30,7 +30,7 @@ def install(ui: Ui_MainWindow, package: str = None) -> None:
     call(ui.installation_progress.setMaximum, 10)
     call(ui.installed_package_desc.setText, f'App {package} is being installed, check progress on explore page.')
 
-    r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
+    r = request.get(f"{horsy_vars.url}/packages/json/{package}")
     r_code = handle(r.status_code)
     r = r.text
     try:

@@ -38,7 +38,7 @@ def get_auth_without_login(no_popup=False):
         popup('No auth', "Login not found. Please, log in on account tab.")
 
 
-def get_gui_auth(ui: Ui_MainWindow):
+def save_gui_auth(ui: Ui_MainWindow):
     with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)
 

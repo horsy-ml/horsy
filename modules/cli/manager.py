@@ -16,7 +16,7 @@ def install(package):
     :param package:
     :return:
     """
-    r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
+    r = request.get(f"{horsy_vars.url}/packages/json/{package}")
     r_code = handle(r.status_code)
     r = r.text
     try:

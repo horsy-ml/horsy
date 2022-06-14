@@ -7,7 +7,7 @@ from rich import print
 
 
 def check(gui=False):
-    r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/"
+    r = request.get(f"{horsy_vars.url}/packages/json/"
                     f"{','.join(apps_list(True))}")
     r_code = handle(r.status_code)
 

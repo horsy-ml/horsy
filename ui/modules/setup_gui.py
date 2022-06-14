@@ -34,6 +34,12 @@ def fill_user_apps(ui: Ui_MainWindow) -> None:
 @threaded
 def fill_account_page(ui: Ui_MainWindow) -> None:
     from modules.auth import get_auth_without_login
+    from modules.gui.account import set_name
     if not get_auth_without_login(True):
         call(ui.new_login_lay.show)
         call(ui.account_settings_vert_spacer_widget.hide)
+        call(ui.login_lay.hide)
+        call(ui.change_email_lay.hide)
+        call(ui.change_password_lay.hide)
+    else:
+        set_name(ui)

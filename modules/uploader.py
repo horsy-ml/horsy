@@ -149,7 +149,7 @@ def upload(ui: Ui_MainWindow = None):
         if request_body is None:
             return
 
-    r = request.post(horsy_vars.protocol + horsy_vars.server_url + '/packages/new', json=request_body)
+    r = request.post(horsy_vars.url + '/packages/new', json=request_body)
     r_code = handle(r.status_code)
     r = r.text
     r = json.loads(r)

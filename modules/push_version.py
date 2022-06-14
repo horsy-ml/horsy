@@ -8,7 +8,7 @@ def push_version(package):
     print(
         (lambda code: f"Success, users will receive message to update {package}" if code in [200, 201]
          else "Error happened")(handle(
-            request.post(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/push-version",
+            request.post(f"{horsy_vars.url}/packages/push-version",
                          json={
                              'auth': get_auth(),
                              'name': package
