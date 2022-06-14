@@ -30,12 +30,14 @@ def log_out(ui: Ui_MainWindow):
 
 def set_name(ui: Ui_MainWindow):
     if get_auth_without_login(True):
+        call(ui.new_login_lay.hide)
+        call(ui.logged_in_name_box.setText, "Loading...")
+        call(ui.login_lay.show)
         r = request.get(f"{horsy_vars.url}/users/login",
                         json={'auth': get_auth_without_login(True)})
         r_code = handle(r.status_code)
         if r_code[1] not in [200, 201]:
-            call(ui.new_login_lay.show)
-            call(ui.account_settings_vert_spacer_widget.hide)
+            log_out(ui)
             return r_code[0]
         r = r.text
         r = json.loads(r)
