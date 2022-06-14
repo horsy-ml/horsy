@@ -12,6 +12,7 @@ from modules.core.http_status import handle
 import modules.core.vars as horsy_vars
 from ui.modules.popup import popup
 from ui.modules.setup_gui import fill_account_page
+from modules.gui.edit_packages import fill_users_packages
 
 
 @threaded
@@ -47,3 +48,4 @@ def set_name(ui: Ui_MainWindow):
         call(ui.account_settings_vert_spacer_widget.show)
         call(ui.change_email_lay.show)
         call(ui.change_password_lay.show)
+        fill_users_packages(ui)

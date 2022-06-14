@@ -1,5 +1,5 @@
 import sys
-from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5 import QtWidgets
 from ui.gui import Ui_MainWindow
 import ui.modules.setup_gui as setup_gui
 import modules.gui.manager as manager
