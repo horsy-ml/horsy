@@ -865,7 +865,7 @@ class Ui_MainWindow(object):
         self.choose_theme_box.setItemText(2, _translate("MainWindow", "Black acrylic"))
         self.add_vt_key_label.setText(_translate("MainWindow", "Add virustotal api key"))
         self.save_settings_button.setText(_translate("MainWindow", "Save settings"))
-import images_rc
+import ui.img.images_rc
 
 
 if __name__ == "__main__":
