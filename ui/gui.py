@@ -613,6 +613,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.editable_packages_list = QtWidgets.QListWidget(self.edit_package_page)
         self.editable_packages_list.setMinimumSize(QtCore.QSize(50, 0))
+        self.editable_packages_list.setStyleSheet("font: 14pt \"Segoe UI\";")
         self.editable_packages_list.setObjectName("editable_packages_list")
         self.horizontalLayout_7.addWidget(self.editable_packages_list)
         self.edit_package_form_lay = QtWidgets.QWidget(self.edit_package_page)
@@ -864,7 +865,7 @@ class Ui_MainWindow(object):
         self.choose_theme_box.setItemText(2, _translate("MainWindow", "Black acrylic"))
         self.add_vt_key_label.setText(_translate("MainWindow", "Add virustotal api key"))
         self.save_settings_button.setText(_translate("MainWindow", "Save settings"))
-import ui.img.images_rc
+import images_rc
 
 
 if __name__ == "__main__":
