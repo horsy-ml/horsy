@@ -610,6 +610,7 @@ class Ui_MainWindow(object):
         self.edit_package_page = QtWidgets.QWidget()
         self.edit_package_page.setObjectName("edit_package_page")
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.edit_package_page)
+        self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.editable_packages_list = QtWidgets.QListWidget(self.edit_package_page)
         self.editable_packages_list.setMinimumSize(QtCore.QSize(50, 0))

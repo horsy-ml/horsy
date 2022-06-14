@@ -973,6 +973,18 @@ QListWidget:item:selected {
       </widget>
       <widget class="QWidget" name="edit_package_page">
        <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,4">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QListWidget" name="editable_packages_list">
           <property name="minimumSize">
