@@ -27,6 +27,7 @@ def log_in(ui: Ui_MainWindow):
 def log_out(ui: Ui_MainWindow):
     del_auth()
     fill_account_page(ui)
+    fill_users_packages(ui)
 
 
 def set_name(ui: Ui_MainWindow):

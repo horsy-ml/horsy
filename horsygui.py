@@ -16,6 +16,10 @@ from modules.uploader import upload
 from modules.gui.account import log_in, log_out
 from modules.data.settings import Settings
 from modules.data.check_files import check_files
+from modules.gui.edit_packages import (
+    fill_users_packages,
+    fill_package_info
+)
 from modules.core.exception import hook
 
 sys.excepthook = hook
@@ -31,6 +35,7 @@ setup_gui.hide_parts(ui)
 MainWindow.show()
 setup_gui.fill_apps_list(ui)
 setup_gui.fill_account_page(ui)
+fill_users_packages(ui)
 
 ui.menu.itemClicked.connect(lambda: handle_menu_click(ui.menu.currentItem().text(), ui))
 ui.installed_packages_list.itemClicked.connect(lambda: on_installed_click(ui))
@@ -52,5 +57,6 @@ ui.check_updates_button.clicked.connect(lambda: check_updates(ui))
 ui.new_package_upload_button.clicked.connect(lambda: upload(ui))
 ui.login_button.clicked.connect(lambda: log_in(ui))
 ui.logout_button.clicked.connect(lambda: log_out(ui))
+ui.editable_packages_list.itemClicked.connect(lambda: fill_package_info(ui))
 
 sys.exit(app.exec_())
