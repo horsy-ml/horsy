@@ -19,6 +19,8 @@ if choice == 1:
 0 - Build all
 1 - Build horsy
 2 - Build horsy-gui
+3 - Build installer
+4 - Build silent installer
 
 > \
 ''')
@@ -32,10 +34,20 @@ if choice == 1:
         os.system(
             v + 'pyinstaller --onefile --icon ui\img\icon.ico --noconfirm --console "horsygui.py"'
         )
+    if '3' in build_this:
+        os.system(
+            v + 'pyinstaller --onefile --icon ui\img\icon.ico --noconfirm --windowed "installer-horsy-win.py"'
+        )
+    if '4' in build_this:
+        os.system(
+            v + 'pyinstaller --onefile --icon ui\img\icon.ico --noconfirm --windowed "installer-horsy-win-silent.py"'
+        )
 
 elif choice == 2:
     os.system("xcopy /s /Y dist\horsy.exe bin\horsy.exe*")
     os.system("xcopy /s /Y dist\horsygui.exe bin\horsygui.exe*")
+    os.system("xcopy /s /Y dist\installer-horsy-win.exe bin\installer-horsy-win.exe*")
+    os.system("xcopy /s /Y dist\installer-horsy-win-silent.exe bin\installer-horsy-win-silent.exe*")
 
     with open("web_vars/version", "r") as f_r:
         version = f_r.readline()
