@@ -1,12 +1,12 @@
 import textwrap
 from algoliasearch.search_client import SearchClient
 import os
-from modules.request import request
+from modules.core.request import request
 import requests
-import modules.vars as horsy_vars
+import modules.core.vars as horsy_vars
 import json
 from rich import print
-from modules.http_status import handle
+from modules.core.http_status import handle
 
 client = SearchClient.create(
     requests.get('https://raw.githubusercontent.com/horsy-ml/horsy/master/web_vars/search_app').json()['APP_ID'],
@@ -27,9 +27,9 @@ def search(query, is_gui=False):
     return ret_res
 
 
-def info(package, download_ui=None, UiDownloadWindow=None):
-    r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/{package}")
-    r_code = handle(r.status_code)
+def info(package):
+    r = request.get(f"{horsy_vars.url}/packages/json/{package}")
+    handle(r.status_code)
     r = r.text
     r = json.loads(r)
 
@@ -45,20 +45,17 @@ def info(package, download_ui=None, UiDownloadWindow=None):
               "Keep in mind, developers can change the code after verification \n"
               "We [red]don't call you to trust this app[/], use it at your own risk \n"
               "but we recommend you more to install verified packages")
-    if download_ui is not None:
-        download_ui.logs_box.clear()
-        UiDownloadWindow.show()
-        download_ui.logs_box.append(f"{r['name']}{'✅' if r['verified'] else ''} by {r['authorName']}")
-        download_ui.logs_box.append(f"{r['description']}")
-        download_ui.logs_box.append(f"👍{r['likes']} | 👎{r['dislikes']}")
-        download_ui.logs_box.append("")
-        if not r['verified']:
-            download_ui.logs_box.append("This package is not verified by the horsy team. This means that it \n"
-                                        "can be unstable or it can be malware. Most packages have unverified\n"
-                                        "state, but use it at your own risk.")
-        else:
-            download_ui.logs_box.append("This package is verified by the horsy team! \n"
-                                        "Keep in mind, developers can change the code after verification \n"
-                                        "We don't call you to trust this app, use it at your own risk \n"
-                                        "but we recommend you more to install verified packages")
-        return None
+    return f"""{r['name']}{'✅' if r['verified'] else ''} by {r['authorName']}
+{r['description']}
+👍{r['likes']} | 👎{r['dislikes']}
+
+{'''This package is not verified by the horsy team. This means that it
+can be unstable or it can be malware. Most packages have unverified
+state, but use it at your own risk.''' if not r['verified'] else
+'''
+This package is verified by the horsy team!
+Keep in mind, developers can change the code after verification
+We don't call you to trust this app, use it at your own risk
+but we recommend you more to install verified packages
+'''}
+"""

@@ -1,13 +1,13 @@
 import json
-from modules.request import request
-import modules.vars as horsy_vars
-from modules.http_status import handle
-from modules.manager import apps_list
+from modules.core.request import request
+import modules.core.vars as horsy_vars
+from modules.core.http_status import handle
+from modules.cli.manager import apps_list
 from rich import print
 
 
 def check(gui=False):
-    r = request.get(f"{horsy_vars.protocol}{horsy_vars.server_url}/packages/json/"
+    r = request.get(f"{horsy_vars.url}/packages/json/"
                     f"{','.join(apps_list(True))}")
     r_code = handle(r.status_code)
 

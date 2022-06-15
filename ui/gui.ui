@@ -1,0 +1,1471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>425</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>120</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>horsy</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="img/images.qrc">
+    <normaloff>:/img/horsy_white.png</normaloff>:/img/horsy_white.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+QWidget {
+    background-color: rgb(30, 30, 30);
+    color: rgb(255, 255, 255);
+    font: 10pt &quot;Segoe UI&quot;;
+}
+
+
+QScrollBar:vertical,
+QScrollBar:horizontal {
+    border: none;
+    background: rgb(30, 30, 30);
+    width: 10px;
+    margin: 15px 0 15px 0;
+    border-radius: 0px;
+}
+QScrollBar::handle:vertical,
+QScrollBar::handle:horizontal {	
+    background-color: rgb(139, 139, 139);
+    min-height: 30px;
+    border-radius: 5px;
+}
+QScrollBar::handle:vertical:hover,
+QScrollBar::handle:vertical:pressed,
+QScrollBar::handle:horizontal:hover,
+QScrollBar::handle:horizontal:pressed {	
+    background-color: rgb(149, 149, 149);
+}
+QScrollBar::sub-line:vertical,
+QScrollBar::add-line:vertical,
+QScrollBar::up-arrow:vertical,
+QScrollBar::down-arrow:vertical {
+    height: 0px;
+}
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical,
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical, 
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal,
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+
+QPushButton {
+    color: white;
+    border-width: 1px;
+    border-radius:6px;
+    border-style: solid;
+    border-color: #303030;
+    background-color: #2c2d2e;
+    min-height: 30px;
+}
+QPushButton:hover {
+    border-width: 2px;
+    background-color: #323232;
+}
+QPushButton:pressed {
+    background-color: #262728;
+}
+QPushButton:disabled {
+    background-color: #434343;
+    border-color: #0000;
+}
+
+
+QLineEdit, QTextBrowser, QPlainTextEdit, QTextEdit {
+    min-height: 30px;
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #303030;
+    background-color: #242424;
+    font: 10pt &quot;Segoe UI&quot;;
+}
+
+
+QListWidget {
+    border-width: 1px;
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #303030;
+    padding: 10px;
+    background-color: #242424;
+    font: 10pt &quot;Segoe UI&quot;;
+}
+QListWidget:item {
+    background-color: #242424;
+    selection-color: white;
+}
+QListWidget:item:hover {
+    background-color: #323232;
+}
+QListWidget:item:selected {
+    background-color: #777777;
+}
+
+
+QTableWidget {
+    border-width: 1px;
+    border-radius: 15px;
+    border-style: solid;
+    border-color: #303030;
+    padding: 10px;
+    background-color: #242424;
+    font: 10pt &quot;Segoe UI&quot;;
+}
+QTableWidget:item {
+    background-color: #242424;
+    selection-color: white;
+}
+QTableWidget:item:hover {
+    background-color: #323232;
+}
+QTableWidget:item:selected {
+    background-color: #777777;
+}
+
+
+QComboBox
+{
+    border-width: 1px;
+    border-radius:6px;
+    border-style: solid;
+    border-color: #303030;
+    background-color: #2c2d2e;
+    color: #ffffff;
+}
+QComboBox::disabled
+{
+    background-color: #434343;
+    color: #656565;
+    border-color: #434343;
+}
+QComboBox:hover
+{
+    background-color: #323232;
+}
+QComboBox:on
+{
+    background-color: #434343;
+}
+QComboBox QAbstractItemView
+{
+    background-color: #434343;
+    color: #ffffff;
+    selection-background-color: #777777;
+    selection-color: white;
+    outline: 0;
+}
+QComboBox::drop-down
+{
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    border-radius: 6px; 
+}
+
+
+QTabBar::tab
+{
+    background-color: #2c2d2e;
+    color: #ffffff;
+    border-style: solid;
+    border-width: 1px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-color: #303030;
+    padding: 5px;
+}
+QTabBar::tab:disabled
+{
+    background-color: #656565;
+    color: #656565;
+}
+QTabWidget::pane 
+{
+    background-color: #a0a0a0;
+    color: #ffffff;
+    border: 3px solid;
+    border-radius: 15px;
+    border-color: #1c1c1c;
+}
+QTabBar::tab:selected
+{
+    background-color: #262728;
+    color: #ffffff;
+    border-style: solid;
+    border-width: 1px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-color: #303030;
+    padding: 5px;
+}
+QTabBar::tab:selected:disabled
+{
+    background-color: #404040;
+    color: #656565;
+}
+QTabBar::tab:!selected 
+{
+    background-color: #262626;
+}
+QTabBar::tab:!selected:hover 
+{
+    background-color: #323232;
+}
+QTabBar::tab:top:!selected 
+{
+    margin-top: 3px;
+}
+QTabBar::tab:bottom:!selected 
+{
+    margin-bottom: 3px;
+}
+QTabBar::tab:top, QTabBar::tab:bottom 
+{
+    min-width: 8ex;
+    margin-right: -1px;
+    padding: 5px 10px 5px 10px;
+}
+QTabBar::tab:top:selected 
+{
+    border-bottom-color: none;
+}
+QTabBar::tab:bottom:selected 
+{
+    border-top-color: none;
+}
+QTabBar::tab:top:last, QTabBar::tab:bottom:last,
+QTabBar::tab:top:only-one, QTabBar::tab:bottom:only-one 
+{
+    margin-right: 0;
+}
+QTabBar::tab:left:!selected 
+{
+    margin-right: 3px;
+}
+QTabBar::tab:right:!selected
+{
+    margin-left: 3px;
+}
+QTabBar::tab:left, QTabBar::tab:right 
+{
+    min-height: 8ex;
+    margin-bottom: -1px;
+    padding: 10px 5px 10px 5px;
+}
+QTabBar::tab:left:selected 
+{
+    border-left-color: none;
+}
+QTabBar::tab:right:selected 
+{
+    border-right-color: none;
+}
+QTabBar::tab:left:last, QTabBar::tab:right:last,
+QTabBar::tab:left:only-one, QTabBar::tab:right:only-one 
+{
+    margin-bottom: 0;
+}
+
+
+QProgressBar {
+    text-align: center;
+    color: rgb(240, 240, 240);
+    border-width: 1px; 
+    border-radius: 10px;
+    border-color: rgb(58, 58, 58);
+    border-style: inset;
+    background-color:#1e1d23;
+}
+QProgressBar::chunk {
+    background-color: #848484;
+    border-radius: 5px;
+}
+</string>
+  </property>
+  <property name="locale">
+   <locale language="Russian" country="Ukraine"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>5</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>5</number>
+    </property>
+    <property name="bottomMargin">
+     <number>5</number>
+    </property>
+    <item>
+     <widget class="QListWidget" name="menu">
+      <property name="minimumSize">
+       <size>
+        <width>64</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>64</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+QListWidget {
+    border-width: 0px;
+    border-radius: 0px;
+    border: none;
+    padding: 0px;
+    background-color: #191919;
+    font: 10pt &quot;Segoe UI&quot;;
+}
+QListWidget:item {
+    padding-left: 12px;
+    height: 60px;
+    background-color: #191919;
+    selection-color: rgba(255, 255, 255);
+}
+QListWidget:item:hover {
+    background-color: #323232;
+}
+QListWidget:item:selected {
+    background-color: #262728;
+}
+</string>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="autoScroll">
+       <bool>false</bool>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="textElideMode">
+       <enum>Qt::ElideRight</enum>
+      </property>
+      <property name="resizeMode">
+       <enum>QListView::Fixed</enum>
+      </property>
+      <property name="currentRow">
+       <number>-1</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>Close menu</string>
+       </property>
+       <property name="icon">
+        <iconset resource="img/images.qrc">
+         <normaloff>:/img/menu.png</normaloff>:/img/menu.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Installed packages</string>
+       </property>
+       <property name="icon">
+        <iconset resource="img/images.qrc">
+         <normaloff>:/img/installed.png</normaloff>:/img/installed.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Explore packages</string>
+       </property>
+       <property name="icon">
+        <iconset resource="img/images.qrc">
+         <normaloff>:/img/explore.png</normaloff>:/img/explore.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Upload package</string>
+       </property>
+       <property name="icon">
+        <iconset resource="img/images.qrc">
+         <normaloff>:/img/upload.png</normaloff>:/img/upload.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Edit packages</string>
+       </property>
+       <property name="icon">
+        <iconset resource="img/images.qrc">
+         <normaloff>:/img/edit.png</normaloff>:/img/edit.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Account settings</string>
+       </property>
+       <property name="icon">
+        <iconset resource="img/images.qrc">
+         <normaloff>:/img/account.png</normaloff>:/img/account.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Settings of GUI</string>
+       </property>
+       <property name="icon">
+        <iconset resource="img/images.qrc">
+         <normaloff>:/img/settings.png</normaloff>:/img/settings.png</iconset>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QStackedWidget" name="content">
+      <widget class="QWidget" name="installed_packages_page">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,4">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QListWidget" name="installed_packages_list">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 14pt &quot;Segoe UI&quot;;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="installed_packages_from_list_lay" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <property name="leftMargin">
+            <number>5</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QTextBrowser" name="installed_package_desc"/>
+           </item>
+           <item>
+            <widget class="QWidget" name="installed_buttons_lay" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777214</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <widget class="QPushButton" name="update_package_button">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Update</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="uninstall_package_button">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Uninstall</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="check_updates_button">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Check all updates</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="browse_packages_page">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QWidget" name="search_bar_lay" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>9</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="search_box">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="placeholderText">
+              <string>Search packages (powered by Algolia)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="search_button">
+             <property name="minimumSize">
+              <size>
+               <width>70</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Search</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="installation_progress">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="textVisible">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="downloading_main_file_progress">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="textVisible">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="downloading_dependency_progress">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="textVisible">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="search_content" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,4">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QWidget" name="search_results" native="true">
+             <property name="minimumSize">
+              <size>
+               <width>50</width>
+               <height>0</height>
+              </size>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_9" stretch="10">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QListWidget" name="search_packages_list">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: 14pt &quot;Segoe UI&quot;;</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QWidget" name="search_packages_from_list_lay" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <property name="spacing">
+               <number>6</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QTextBrowser" name="search_package_desc"/>
+              </item>
+              <item>
+               <widget class="QWidget" name="search_buttons_lay" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777214</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_4">
+                 <property name="leftMargin">
+                  <number>9</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>9</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>9</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>9</number>
+                 </property>
+                 <item>
+                  <widget class="QPushButton" name="install_package_button">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>32</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Install</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="get_source_button">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>32</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Get source</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="like_button">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="text">
+                    <string>👍</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="dislike_button">
+                   <property name="text">
+                    <string>👎</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="upload_package_page">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QLabel" name="before_uploading_message">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Before starting, please make sure you have done your project and &lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;uploaded&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; it to any hosting service or file sharing service&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_name_box">
+          <property name="placeholderText">
+           <string>*Package name (lowercase letters, underscores, dashes)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="new_package_desc_box">
+          <property name="placeholderText">
+           <string>*Package description. It should be a short text under 256 characters</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_exe_url_box">
+          <property name="placeholderText">
+           <string>*Url of executable (ends on .zip, .exe, .py, .msi, .js, .bat, .cmd, .ps1</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_command_box">
+          <property name="placeholderText">
+           <string>*Main executable command ($appdir$\\file.exe, python $appdir$\\main.py, cd $appdir$ &amp; node index.js, etc.)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_source_box">
+          <property name="placeholderText">
+           <string>Url of source (project on GitHub, source archive)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_dep_url_box">
+          <property name="placeholderText">
+           <string>Dependency URL (installer of interpreter, etc.)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_package_dep_run_box">
+          <property name="placeholderText">
+           <string>Dependency command (run this during installation, it can be filename of downloaded installer, etc)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="upload_safety_warning_message">
+          <property name="text">
+           <string>We don't moderate any apps and we won't delete your app, if it is not doesn't match some rules. But, if your app uses server vulnerabilities or hinders server work, we will delete your app. Keep in mind, that we don't responsible for your apps, but we advise you to share only working and safe apps on horsy</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="new_package_upload_button">
+          <property name="text">
+           <string>Upload</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="upload_result_label">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="edit_package_page">
+       <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,4">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QListWidget" name="editable_packages_list">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 14pt &quot;Segoe UI&quot;;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="edit_package_form_lay" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QLineEdit" name="edit_package_name_box">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>*Package name (lowercase letters, underscores, dashes)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="edit_package_desc_box">
+             <property name="placeholderText">
+              <string>*Package description. It should be a short text under 256 characters</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="edit_package_exe_url_box">
+             <property name="placeholderText">
+              <string>*Url of executable (ends on .zip, .exe, .py, .msi, .js, .bat, .cmd, .ps1</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="edit_package_command_box">
+             <property name="placeholderText">
+              <string>*Main executable command ($appdir$\\file.exe, python $appdir$\\main.py, cd $appdir$ &amp; node index.js, etc.)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="edit_package_source_box">
+             <property name="placeholderText">
+              <string>Url of source (project on GitHub, source archive)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="edit_package_dep_url_box">
+             <property name="placeholderText">
+              <string>Dependency URL (installer of interpreter, etc.)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="edit_package_dep_run_box">
+             <property name="placeholderText">
+              <string>Dependency command (run this during installation, it can be filename of downloaded installer, etc)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QWidget" name="edit_packages_buttons_lay" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="edit_package_button">
+                <property name="text">
+                 <string>Edit</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="force_upgrade_button">
+                <property name="text">
+                 <string>Force users to upgrade this package</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="edit_result_label">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="account_settings_page">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QWidget" name="new_login_lay" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <property name="leftMargin">
+            <number>200</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>200</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="login_mail_box">
+             <property name="placeholderText">
+              <string>email</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="login_password_box">
+             <property name="echoMode">
+              <enum>QLineEdit::PasswordEchoOnEdit</enum>
+             </property>
+             <property name="placeholderText">
+              <string>Password</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="login_button">
+             <property name="text">
+              <string>Log in</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="login_lay" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="logged_in_name_box">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Logged in as: </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="logout_button">
+             <property name="minimumSize">
+              <size>
+               <width>130</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Log out</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="change_email_lay" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="change_email_box">
+             <property name="placeholderText">
+              <string>email</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="change_email_button">
+             <property name="minimumSize">
+              <size>
+               <width>130</width>
+               <height>32</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Change e-mail</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="change_password_lay" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="old_password_box">
+             <property name="placeholderText">
+              <string>Old password</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QWidget" name="change_pass_lay_new" native="true">
+             <layout class="QHBoxLayout" name="horizontalLayout_11">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLineEdit" name="new_password_box">
+                <property name="echoMode">
+                 <enum>QLineEdit::PasswordEchoOnEdit</enum>
+                </property>
+                <property name="placeholderText">
+                 <string>New password</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="change_password_button">
+                <property name="minimumSize">
+                 <size>
+                  <width>130</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Change password</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="account_settings_vert_spacer_widget" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_12">
+           <item>
+            <spacer name="account_settings_vert_spacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>32</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="gui_settings_page">
+       <layout class="QVBoxLayout" name="verticalLayout_11">
+        <item>
+         <widget class="QWidget" name="settings_lay" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="choose_animation_label">
+             <property name="text">
+              <string>Choose menu animation</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="choose_animation_box">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <item>
+              <property name="text">
+               <string>InOutQuart</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>InOutBack</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>InOutBounce</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>OutBack</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>OutElastic</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="choose_theme_label">
+             <property name="text">
+              <string>Theme (requires app restart)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="choose_theme_box">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <item>
+              <property name="text">
+               <string>Dark gray</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Black</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Black acrylic</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="add_vt_key_label">
+             <property name="text">
+              <string>Add virustotal api key</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="add_vt_key_box"/>
+           </item>
+           <item>
+            <spacer name="settings_vertical_spacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="save_settings_button">
+          <property name="text">
+           <string>Save settings</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="img/images.qrc"/>
+ </resources>
+ <connections/>
+</ui>

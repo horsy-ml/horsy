@@ -2,18 +2,22 @@ import argparse
 import os
 import subprocess
 import sys
-from modules.request import request
-import modules.tui as tui
-from modules.console import cls
+from modules.core.request import request
+import modules.cli.tui as tui
 from modules.virustotal import add_to_cfg
-import modules.vars as horsy_vars
+from modules.core.exception import hook
+import modules.core.vars as horsy_vars
+import threading
+
+sys.excepthook = hook
+threading.excepthook = hook
 
 # Getting the arguments
 parser = argparse.ArgumentParser(description='horsy - the best package manager')
 parser.add_argument('option', help='options for horsy (install/i | uninstall/un | updates/u | source/s | list/l | '
-                                   'upload | search | info | like | dislike)',
+                                   'upload | search | info | like | dislike | request-update)',
                     choices=['install', 'i', 'uninstall', 'un', 'updates', 'u', 'source', 's', 'list', 'l', 'upload',
-                             'search', 'info', 'like', 'dislike'],
+                             'search', 'info', 'like', 'dislike', 'request-update'],
                     nargs='?')
 parser.add_argument('app', help='app to do function with', nargs='?')
 parser.add_argument('--vt', help='your virustotal api key (account -> api key in VT)', dest='vt_key')
@@ -71,7 +75,7 @@ isNoArgs = False
 
 # Function to display logo
 def log_logo():
-    cls()
+    os.system('cls' if os.name == 'nt' else 'clear')
     print('''
  __   __  _______  ______    _______  __   __ 
 |  | |  ||       ||    _ |  |       ||  | |  |
@@ -92,15 +96,15 @@ if args.vt_key:
     else:
         print('VT disabled')
         add_to_cfg(None)
-    sys.exit()
+    sys.exit(0)
 
 # Checking if arguments are empty to use in-app CLI
 if not args.option:
     log_logo()
-    option = ['install', 'uninstall', 'updates', 'source', 'list', 'upload', 'search', 'info'][
+    option = ['install', 'uninstall', 'updates', 'source', 'list', 'upload', 'search', 'info', 'request-update'][
         tui.menu(['install app', 'uninstall app', 'see updates', 'get source',
                   'list of installed apps', 'upload your app', 'search for app',
-                  'get information about app'])]
+                  'get information about app', 'request update on user side'])]
     isNoArgs = True
 
 if not args.app and option not in ['list', 'l', 'upload', 'updates', 'u']:
@@ -114,10 +118,10 @@ match option:
         from modules.uploader import upload
         upload()
     case 'install' | 'i':
-        from modules.manager import install
+        from modules.cli.manager import install
         install(app)
     case 'uninstall' | 'un':
-        from modules.manager import uninstall
+        from modules.cli.manager import uninstall
         uninstall(app)
     case 'updates' | 'u':
         from modules.updates import check
@@ -138,7 +142,7 @@ match option:
         from modules.search import info
         info(app)
     case 'list' | 'l':
-        from modules.manager import apps_list
+        from modules.cli.manager import apps_list
         apps_list()
     case 'like':
         from modules.liker import like
@@ -146,6 +150,9 @@ match option:
     case 'dislike':
         from modules.liker import dislike
         dislike(app)
+    case 'request-update':
+        from modules.push_version import push_version
+        push_version(app)
 
 if isNoArgs:
     input('[EXIT] Press enter to exit horsy...')

@@ -28,7 +28,7 @@ Choose where to install
 
 Press `Install` button.
 
-Thats all!
+That's all!
 
 ## Installing app
 

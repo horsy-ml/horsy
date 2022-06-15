@@ -1,10 +1,9 @@
-rich
+wheel
 requests
-Cryptography
-Pyinstaller
-tqdm
-algoliasearch
-PyQt5
-easygui
-winshell
+rich
 ezzdl
+PyQt5
+qt-thread-updater
+algoliasearch
+ezzthread
+vt-py
