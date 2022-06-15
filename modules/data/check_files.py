@@ -1,6 +1,5 @@
 import os
 import modules.core.vars as horsy_vars
-from ui.modules.popup import popup
 
 
 def check_files():
@@ -17,4 +16,3 @@ def check_files():
 
     if os.path.isfile(horsy_vars.horsypath + 'horsygui.old'):
         os.remove(horsy_vars.horsypath + 'horsygui.old')
-        popup('Success', 'Removed old horsygui')

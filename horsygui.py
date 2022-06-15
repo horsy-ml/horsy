@@ -1,5 +1,5 @@
 import sys
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from ui.gui import Ui_MainWindow
 import ui.modules.setup_gui as setup_gui
 import modules.gui.manager as manager
@@ -22,12 +22,33 @@ from modules.gui.edit_packages import (
     send_edited_package,
     push_version
 )
+from modules.gui.updater import (
+    needs_update,
+    update,
+    launch_new_horsy
+)
 from modules.core.exception import hook
 
 sys.excepthook = hook
 
 check_files()
 settings = Settings.get_settings()
+
+
+if needs_update():
+    from ui.updater import Ui_MainWindow
+
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+    MainWindow.show()
+    update(ui)
+    ui.launch_button.clicked.connect(lambda: launch_new_horsy())
+    ui.exit_button.clicked.connect(lambda: sys.exit(0))
+    sys.exit(app.exec_())
+
 
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = QtWidgets.QMainWindow()
