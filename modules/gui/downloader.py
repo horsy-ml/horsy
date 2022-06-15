@@ -9,7 +9,11 @@ import threading
 
 
 def download_url(bar: QProgressBar, ui: Ui_MainWindow, url: str, path: str) -> None:
-    call(ui.search_package_desc.append, f"Requesting {url}")
+    try:
+        call(ui.search_package_desc.append, f"Requesting {url}")
+    except Exception as e:
+        print(e)
+
     response = urlopen(url)
     call(bar.setMaximum, 100)
     call(bar.setValue, 0)
@@ -20,7 +24,11 @@ def download_url(bar: QProgressBar, ui: Ui_MainWindow, url: str, path: str) -> N
             downloaded += len(data)
             dest_file.write(data)
             call(bar.setValue, int(downloaded / size * 100))
-    call(ui.search_package_desc.append, f"Downloaded {os.path.abspath(path)}")
+
+    try:
+        call(ui.search_package_desc.append, f"Downloaded {os.path.abspath(path)}")
+    except Exception as e:
+        print(e)
 
 
 def dl(ui: Ui_MainWindow, url: str, dest_dir: str, dep_url: str = None) -> None:
