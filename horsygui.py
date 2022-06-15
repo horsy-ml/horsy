@@ -1,4 +1,5 @@
 import sys
+import threading
 from PyQt5 import QtWidgets, QtCore
 from ui.gui import Ui_MainWindow
 import ui.modules.setup_gui as setup_gui
@@ -16,6 +17,7 @@ from modules.uploader import upload
 from modules.gui.account import log_in, log_out
 from modules.data.settings import Settings
 from modules.data.check_files import check_files
+from modules.gui.settings import save_settings, fill_settings
 from modules.gui.edit_packages import (
     fill_users_packages,
     fill_package_info,
@@ -30,6 +32,7 @@ from modules.gui.updater import (
 from modules.core.exception import hook
 
 sys.excepthook = hook
+threading.excepthook = hook
 
 check_files()
 settings = Settings.get_settings()
@@ -60,6 +63,12 @@ setup_gui.fill_apps_list(ui)
 setup_gui.fill_account_page(ui)
 fill_users_packages(ui)
 
+try:
+    fill_settings(ui)
+except Exception as e:
+    print(e)
+    Settings.fix()
+
 ui.menu.itemClicked.connect(lambda: handle_menu_click(ui.menu.currentItem().text(), ui))
 ui.installed_packages_list.itemClicked.connect(lambda: on_installed_click(ui))
 ui.installed_packages_list.itemDoubleClicked.connect(
@@ -83,5 +92,6 @@ ui.logout_button.clicked.connect(lambda: log_out(ui))
 ui.editable_packages_list.itemClicked.connect(lambda: fill_package_info(ui))
 ui.edit_package_button.clicked.connect(lambda: send_edited_package(ui))
 ui.force_upgrade_button.clicked.connect(lambda: push_version(ui))
+ui.save_settings_button.clicked.connect(lambda: save_settings(ui))
 
 sys.exit(app.exec_())
