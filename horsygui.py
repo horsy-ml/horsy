@@ -18,7 +18,9 @@ from modules.data.settings import Settings
 from modules.data.check_files import check_files
 from modules.gui.edit_packages import (
     fill_users_packages,
-    fill_package_info
+    fill_package_info,
+    send_edited_package,
+    push_version
 )
 from modules.core.exception import hook
 
@@ -51,12 +53,14 @@ ui.update_package_button.clicked.connect(lambda: manager.install(ui, ui.installe
                                                                  .replace('!', '')
                                                                  .replace('Install packages on explore page', '')))
 ui.get_source_button.clicked.connect(lambda: get_source(ui.search_packages_list.currentItem().text(), True))
-ui.like_button.clicked.connect(lambda: like(ui.search_packages_list.currentItem().text(), True))
-ui.dislike_button.clicked.connect(lambda: dislike(ui.search_packages_list.currentItem().text(), True))
+ui.like_button.clicked.connect(lambda: like(ui.search_packages_list.currentItem().text(), ui))
+ui.dislike_button.clicked.connect(lambda: dislike(ui.search_packages_list.currentItem().text(), ui))
 ui.check_updates_button.clicked.connect(lambda: check_updates(ui))
 ui.new_package_upload_button.clicked.connect(lambda: upload(ui))
 ui.login_button.clicked.connect(lambda: log_in(ui))
 ui.logout_button.clicked.connect(lambda: log_out(ui))
 ui.editable_packages_list.itemClicked.connect(lambda: fill_package_info(ui))
+ui.edit_package_button.clicked.connect(lambda: send_edited_package(ui))
+ui.force_upgrade_button.clicked.connect(lambda: push_version(ui))
 
 sys.exit(app.exec_())

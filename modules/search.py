@@ -7,7 +7,6 @@ import modules.core.vars as horsy_vars
 import json
 from rich import print
 from modules.core.http_status import handle
-from ui.gui import Ui_MainWindow
 
 client = SearchClient.create(
     requests.get('https://raw.githubusercontent.com/horsy-ml/horsy/master/web_vars/search_app').json()['APP_ID'],

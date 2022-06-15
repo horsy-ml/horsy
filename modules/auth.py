@@ -24,7 +24,7 @@ def get_auth(ui: Ui_MainWindow = None):
         print('[OK] Auth created')
         return config['auth']
     else:
-        ui.content.setCurrentIndex(6)
+        call(ui.content.setCurrentIndex, 6)
 
 
 def get_auth_without_login(no_popup=False):

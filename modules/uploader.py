@@ -134,7 +134,7 @@ def fill_gui(ui: Ui_MainWindow):
             'name': project_name,
             'description': description,
             'url': url,
-            'sourceUrl': (lambda x: None if x == '' else x())(ui.new_package_source_box.text()),
+            'sourceUrl': (lambda x: None if x == '' else x)(ui.new_package_source_box.text()),
             'download': download,
             'install': (lambda x: None if x == '' else x)(ui.new_package_dep_run_box.text()),
             'run': run
@@ -158,9 +158,11 @@ def upload(ui: Ui_MainWindow = None):
         print('[red]Invalid credentials[/red]')
         print('Deleting auth from config')
         del_auth()
-        request_body['auth'] = get_auth()
+        request_body['auth'] = get_auth(ui)
         print(r)
         r = None
+        if ui:
+            return
 
     elif r_code[1] in [200, 201]:
         print('[green]Success, your project is created. You can install it by running[/] '

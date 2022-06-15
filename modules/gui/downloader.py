@@ -29,10 +29,9 @@ def dl(ui: Ui_MainWindow, url: str, dest_dir: str, dep_url: str = None) -> None:
 
     threads = list()
     threads.append(
-        threading.Thread(target=download_url, args=(ui.downloading_main_file_progress, ui, url, os.path.join(dest_dir,
-                                                                                                    unquote(
-                                                                                                        url.split('/')[
-                                                                                                            -1]))))
+        threading.Thread(target=download_url,
+                         args=(ui.downloading_main_file_progress, ui, url, os.path.join(dest_dir,
+                                                                                        unquote(url.split('/')[-1]))))
     )
     call(ui.downloading_main_file_progress.show)
     if dep_url:

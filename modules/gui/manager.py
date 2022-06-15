@@ -128,11 +128,11 @@ def install(ui: Ui_MainWindow, package: str = None) -> None:
     call(ui.installed_package_desc.append, f'Successfully installed {package}')
     check_updates(ui)
 
+
 @threaded
 def uninstall(ui: Ui_MainWindow) -> None:
     """
     Uninstall package
-    :param package:
     :param ui:
     :return:
     """
