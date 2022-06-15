@@ -1,7 +1,6 @@
 import modules.core.vars as horsy_vars
 from ui.updater import Ui_MainWindow
 from modules.core.request import request
-from modules.core.qt_updater import call
 from ezzthread import threaded
 import threading
 import sys

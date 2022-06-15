@@ -48,6 +48,18 @@ def save_gui_auth(ui: Ui_MainWindow):
             json.dump(config, f)
 
 
+def save_auth(email: str = None, password: str = None):
+    with open(horsy_vars.horsypath + 'config.cfg') as f:
+        config = json.load(f)
+
+    with open(horsy_vars.horsypath + 'config.cfg', 'w') as f:
+        if email:
+            config['auth']['email'] = email
+        if password:
+            config['auth']['password'] = password
+        json.dump(config, f)
+
+
 def del_auth():
     with open(horsy_vars.horsypath + 'config.cfg') as f:
         config = json.load(f)

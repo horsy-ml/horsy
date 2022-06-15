@@ -18,6 +18,7 @@ from modules.gui.account import log_in, log_out
 from modules.data.settings import Settings
 from modules.data.check_files import check_files
 from modules.gui.settings import save_settings, fill_settings
+from modules.gui.edit_account import edit_email, edit_password
 from modules.gui.edit_packages import (
     fill_users_packages,
     fill_package_info,
@@ -29,10 +30,10 @@ from modules.gui.updater import (
     update,
     launch_new_horsy
 )
-from modules.core.exception import hook
+from modules.core.exception import hook, thread_hook
 
 sys.excepthook = hook
-threading.excepthook = hook
+threading.excepthook = thread_hook
 
 check_files()
 settings = Settings.get_settings()
@@ -93,5 +94,7 @@ ui.editable_packages_list.itemClicked.connect(lambda: fill_package_info(ui))
 ui.edit_package_button.clicked.connect(lambda: send_edited_package(ui))
 ui.force_upgrade_button.clicked.connect(lambda: push_version(ui))
 ui.save_settings_button.clicked.connect(lambda: save_settings(ui))
+ui.change_email_button.clicked.connect(lambda: edit_email(ui))
+ui.change_password_button.clicked.connect(lambda: edit_password(ui))
 
 sys.exit(app.exec_())
