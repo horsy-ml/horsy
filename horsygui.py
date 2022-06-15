@@ -30,6 +30,8 @@ from modules.gui.updater import (
     update,
     launch_new_horsy
 )
+from ui.modules.blur import GlobalBlur
+import ui.modules.styles as styles
 from modules.core.exception import hook, thread_hook
 
 sys.excepthook = hook
@@ -59,6 +61,12 @@ MainWindow = QtWidgets.QMainWindow()
 ui = Ui_MainWindow()
 ui.setupUi(MainWindow)
 setup_gui.hide_parts(ui)
+
+MainWindow.setStyleSheet(styles.centralwidget())
+ui.menu.setStyleSheet(styles.menupage())
+if 'acrylic' in Settings.get("theme"):
+    GlobalBlur(MainWindow.winId(), acrylic=True)
+
 MainWindow.show()
 setup_gui.fill_apps_list(ui)
 setup_gui.fill_account_page(ui)

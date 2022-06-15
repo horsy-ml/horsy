@@ -593,3 +593,13 @@ QListWidget:item:selected {
     background-color: #262728;
 }
 """
+
+
+def centralwidget():
+    from modules.data.settings import Settings
+    return centralwidget_g if Settings.get("theme") == "Dark gray" else centralwidget_b
+
+
+def menupage():
+    from modules.data.settings import Settings
+    return menupage_g if Settings.get("theme") == "Dark gray" else menupage_b
