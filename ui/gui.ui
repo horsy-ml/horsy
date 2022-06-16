@@ -899,7 +899,7 @@ QListWidget:item:selected {
         <item>
          <widget class="QLineEdit" name="new_package_name_box">
           <property name="placeholderText">
-           <string>*Package name (lowercase letters, underscores, dashes)</string>
+           <string>*Package name (lowercase letters, underscores, dashes, numbers)</string>
           </property>
          </widget>
         </item>
@@ -1007,7 +1007,7 @@ QListWidget:item:selected {
               <bool>true</bool>
              </property>
              <property name="placeholderText">
-              <string>*Package name (lowercase letters, underscores, dashes)</string>
+              <string>*Package name (lowercase letters, underscores, dashes, numbers)</string>
              </property>
             </widget>
            </item>

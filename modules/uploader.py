@@ -8,7 +8,7 @@ from modules.core.http_status import handle
 
 
 def matches(s):
-    return re.match("^[a-z_-]*$", s) is not None
+    return re.match("^[a-zа-я\d_-]*$", s) is not None
 
 
 def urlmatch(s):
