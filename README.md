@@ -1,4 +1,4 @@
-# [🎠horsy](https://horsy.ml/) [![logo](https://raw.githubusercontent.com/horsy-ml/horsy/master/img/horsy32x32.png)](https://horsy.ml/)
+# [🎠horsy](https://horsy.ml/) 
 
 ## _The Best Open Source Package Manager_
 
@@ -37,5 +37,16 @@ Use `horsy i <app>`
 [Read more about CLI](https://docs.horsy.ml/docs/users/first-launch)
 
 [Installation with GUI](https://docs.horsy.ml/docs/users/first-gui-launch)
+
+## Building from source
+```commandline
+git clone https://github.com/horsy-ml/horsy.git
+cd horsy
+python -m venv venv
+venv/Scripts/activate
+pip install -r requirements.txt
+python dist.py
+;follow instructions to build and release custom client
+```
 
 # You can find more on [docs.horsy.ml](https://docs.horsy.ml/)
