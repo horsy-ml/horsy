@@ -100,7 +100,7 @@ def install(ui: Ui_MainWindow, package: str = None) -> None:
 
     with open('{1}apps\{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w+') as f:
         f.write(f"@ECHO off\n")
-        f.write(f"""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')} %*\n""")
+        f.write(f"""{r['run'].replace('$appdir$', f'{horsy_vars.horsypath}apps/{r["name"]}')} %*\n""")
     call(ui.installation_progress.setValue, 8)
 
     # Update versions file

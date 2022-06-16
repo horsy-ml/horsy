@@ -36,10 +36,10 @@ print("Version specified")
 print("Creating launch script...")
 with open(path + "\\apps\\horsy.cmd", "w") as f:
     f.write(f'''@echo off
-{path}\horsy.exe''')
+{path}\horsy.exe %*''')
 with open(path + "\\apps\\horsygui.cmd", "w") as f:
     f.write(f'''@echo off
-{path}\horsygui.exe''')
+{path}\horsygui.exe %*''')
 print("Success, created launch script")
 
 print("Creating shortcut...")

@@ -2,18 +2,17 @@ from modules.core.request import request
 import modules.core.vars as horsy_vars
 from modules.auth import get_auth
 from ui.modules.popup import popup
-from ui.gui import Ui_MainWindow
 
 
-def like(package, ui: Ui_MainWindow):
+def like(package, ui=None):
     return send(package, 1, ui)
 
 
-def dislike(package, ui: Ui_MainWindow):
+def dislike(package, ui=None):
     return send(package, 0, ui)
 
 
-def send(package, type_, ui: Ui_MainWindow):
+def send(package, type_, ui=None):
     body = {
         "auth": get_auth(ui),
         "rate": type_,

@@ -12,7 +12,7 @@ def check(gui=False):
     r_code = handle(r.status_code)
 
     if r_code[1] not in [200, 201]:
-        return r_code[0]
+        return apps_list(True) if gui else []
     r = r.text
     r = json.loads(r)
 
@@ -20,17 +20,28 @@ def check(gui=False):
         versions = json.load(f)
 
     need_update = list()
-    for app in r:
+    if len(apps_list(True)) > 1:
+        for app in r:
+            try:
+                if versions[app] < r[app]['version']:
+                    need_update.append(app)
+            except (TypeError, KeyError):
+                if r[app]['version'] > 0:
+                    need_update.append(app)
+            except Exception as e:
+                print(f"[red]Unexpected error![/]")
+                print(e)
+        need_update.sort()
+    else:
         try:
-            if versions[app] < r[app]['version']:
-                need_update.append(app)
+            if versions[r['name']] < r['version']:
+                need_update.append(r['name'])
         except (TypeError, KeyError):
-            if r[app]['version'] > 0:
-                need_update.append(app)
+            if r['version'] > 0:
+                need_update.append(r['name'])
         except Exception as e:
             print(f"[red]Unexpected error![/]")
             print(e)
-    need_update.sort()
 
     if not gui:
         return need_update

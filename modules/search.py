@@ -29,9 +29,18 @@ def search(query, is_gui=False):
 
 def info(package):
     r = request.get(f"{horsy_vars.url}/packages/json/{package}")
-    handle(r.status_code)
+    r_code = handle(r.status_code)
+
+    if r_code[1] not in [200, 201]:
+        print(f"[red]{r_code[1]}, maybe this package doesn't exist or server ran into a problem[/]")
+        return f"{r_code[1]}, maybe this package doesn't exist or server ran into a problem"
+
     r = r.text
-    r = json.loads(r)
+    try:
+        r = json.loads(r)
+    except json.decoder.JSONDecodeError:
+        print(f"[red]Not found {package}[/]")
+        return f"Not found {package}"
 
     print(f"[bold]{r['name']}{'✅' if r['verified'] else ''} by {r['authorName']}[/]")
     print(f"{r['description']}")

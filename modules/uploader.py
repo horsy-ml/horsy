@@ -5,8 +5,6 @@ from modules.auth import get_auth, del_auth, get_auth_without_login
 import re
 import modules.core.vars as horsy_vars
 from modules.core.http_status import handle
-from ui.gui import Ui_MainWindow
-from modules.core.qt_updater import call
 
 
 def matches(s):
@@ -94,7 +92,8 @@ def fill_cli():
         }
 
 
-def fill_gui(ui: Ui_MainWindow):
+def fill_gui(ui):
+    from modules.core.qt_updater import call
     auth = get_auth_without_login()
 
     project_name = ui.new_package_name_box.text()
@@ -141,7 +140,11 @@ def fill_gui(ui: Ui_MainWindow):
         })
 
 
-def upload(ui: Ui_MainWindow = None):
+def upload(ui=None):
+    try:
+        from modules.core.qt_updater import call
+    except ImportError:
+        ui = None
     if not ui:
         request_body = fill_cli()
     else:
@@ -167,11 +170,18 @@ def upload(ui: Ui_MainWindow = None):
     elif r_code[1] in [200, 201]:
         print('[green]Success, your project is created. You can install it by running[/] '
               '[i]horsy i {0}[/]'.format(request_body['name']))
-        call(ui.upload_result_label.show)
-        call(ui.upload_result_label.setText,
-             'Success, your project is created. You can install it by running horsy i {0}'
-             .format(request_body['name']))
+        try:
+            call(ui.upload_result_label.show)
+            call(ui.upload_result_label.setText,
+                 'Success, your project is created. You can install it by running horsy i {0}'
+                 .format(request_body['name']))
+        except Exception as e:
+            pass
         return
 
-    call(ui.upload_result_label.show)
-    call(ui.upload_result_label.setText, f'{r_code[0]}: {r.get("message")}')
+    try:
+        print(f'{r_code[0]}: {r.get("message")}')
+        call(ui.upload_result_label.show)
+        call(ui.upload_result_label.setText, f'{r_code[0]}: {r.get("message")}')
+    except Exception as e:
+        pass

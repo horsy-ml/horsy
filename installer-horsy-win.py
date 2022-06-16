@@ -74,7 +74,7 @@ def install_horsy(*args):
     call(ui.logsBrowser.append, "Creating launch script...")
     with open(ui.path_box.text() + "\\apps\\horsy.cmd", "w") as f:
         f.write(f'''@echo off
-{ui.path_box.text()}\horsy.exe''')
+{ui.path_box.text()}\horsy.exe %*''')
     call(ui.logsBrowser.append, "Success, created launch script")
 
     call(ui.logsBrowser.append, "")
@@ -117,7 +117,7 @@ def install_horsygui(*args):
     call(ui.logsBrowser.append, "Creating launch script...")
     with open(ui.path_box.text() + "\\apps\\horsygui.cmd", "w") as f:
         f.write(f'''@echo off
-{ui.path_box.text()}\horsygui.exe''')
+{ui.path_box.text()}\horsygui.exe %*''')
     call(ui.logsBrowser.append, "Success, created launch script")
 
     call(ui.logsBrowser.append, "Creating shortcut...")

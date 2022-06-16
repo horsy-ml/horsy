@@ -1,8 +1,8 @@
 import ctypes
-from PyQt5 import QtWidgets
 
 
 def qtpopup(title, text):
+    from PyQt5 import QtWidgets
     QtWidgets.QMessageBox.information(None, title, text)
 
 

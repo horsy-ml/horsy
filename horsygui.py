@@ -34,8 +34,8 @@ from ui.modules.blur import GlobalBlur
 import ui.modules.styles as styles
 from modules.core.exception import hook, thread_hook
 
-sys.excepthook = hook
-threading.excepthook = thread_hook
+# sys.excepthook = hook
+# threading.excepthook = thread_hook
 
 check_files()
 settings = Settings.get_settings()

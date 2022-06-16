@@ -63,12 +63,15 @@ def install(package):
         print()
 
     # Scan dependencies
-    if r['download'] and scan_to_cli('{2}apps\{0}\{1}'.format(r['name'],
-                                                              r['download'].split('/')[-1],
-                                                              horsy_vars.horsypath))['detect']['malicious'] > 0:
-        print(f"[red]Dependency can be malicious. It may run now, if this added to installation config[/]")
-        input("Press enter if you want continue, or ctrl+c to exit")
-        print()
+    try:
+        if r['download'] and scan_to_cli('{2}apps\{0}\{1}'.format(r['name'],
+                                                                  r['download'].split('/')[-1],
+                                                                  horsy_vars.horsypath))['detect']['malicious'] > 0:
+            print(f"[red]Dependency can be malicious. It may run now, if this added to installation config[/]")
+            input("Press enter if you want continue, or ctrl+c to exit")
+            print()
+    except TypeError:
+        pass
 
     # Execute install script
     if r['install']:
@@ -82,7 +85,7 @@ def install(package):
 
     with open('{1}apps\{0}.bat'.format(r['name'], horsy_vars.horsypath), 'w+') as f:
         f.write(f"@ECHO off\n")
-        f.write(f"""{r['run'].replace('$appdir$', f'%horsypath%/apps/{r["name"]}')} %*\n""")
+        f.write(f"""{r['run'].replace('$appdir$', f'{horsy_vars.horsypath}apps/{r["name"]}')} %*\n""")
 
     # Update versions file
     with open(horsy_vars.horsypath + 'apps/versions.json', 'r') as f:
